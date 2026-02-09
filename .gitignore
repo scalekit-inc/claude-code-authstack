@@ -1,0 +1,40 @@
+# Environment and secrets
+.env
+.env.local
+*.env
+
+# MCP server tokens and local config
+.mcp.json
+
+# Dependencies (if your plugin includes scripts)
+node_modules/
+__pycache__/
+*.pyc
+venv/
+.venv/
+*.egg-info/
+
+# Build and distribution artifacts
+dist/
+build/
+*.zip
+
+# Logs and debugging
+*.log
+debug.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test outputs and temporary files
+tmp/
+temp/
+*.tmp

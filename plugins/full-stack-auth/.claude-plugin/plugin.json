@@ -1,0 +1,13 @@
+{
+  "name": "full-stack-auth",
+  "description": "Production-ready authentication flows (sign-up, login, logout, sessions) using Scalekit full-stack auth across common stacks.",
+  "version": "1.0.2",
+  "author": {
+    "name": "Scalekit",
+    "email": "hi@scalekit.com"
+  },
+  "homepage": "https://docs.scalekit.com",
+  "repository": "https://github.com/saif-at-scalekit/claude-code-authstack",
+  "license": "MIT",
+  "keywords": ["authentication", "oauth", "full-stack", "sessions"]
+}

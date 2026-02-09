@@ -15,7 +15,7 @@
   "plugins": [
     {
       "name": "dryrun",
-      "source": "./skills/dryrun",
+      "source": "./plugins/dryrun",
       "description": "Quickly test Scalekit authentication setup end-to-end before writing integration code using the dryrun tool.",
       "version": "1.0.2",
       "author": {
@@ -26,7 +26,7 @@
     },
     {
       "name": "agent-auth",
-      "source": "./skills/agent-auth",
+      "source": "./plugins/agent-auth",
       "description": "Implements Scalekit Agent Auth so AI agents can act in third-party apps (Gmail, Slack, Calendar, Notion) on behalf of users.",
       "version": "1.0.2",
       "author": {
@@ -37,7 +37,7 @@
     },
     {
       "name": "full-stack-auth",
-      "source": "./skills/full-stack-auth",
+      "source": "./plugins/full-stack-auth",
       "description": "Production-ready authentication flows (sign-up, login, logout, sessions) using Scalekit full-stack auth across common stacks.",
       "version": "1.0.2",
       "author": {
@@ -48,7 +48,7 @@
     },
     {
       "name": "mcp-auth",
-      "source": "./skills/mcp-auth",
+      "source": "./plugins/mcp-auth",
       "description": "OAuth 2.1 authorization for MCP servers using Scalekit to protect tools used by AI IDEs and agents.",
       "version": "1.0.2",
       "author": {
@@ -59,7 +59,7 @@
     },
     {
       "name": "modular-scim",
-      "source": "./skills/modular-scim",
+      "source": "./plugins/modular-scim",
       "description": "SCIM webhook provisioning with Scalekit for real-time user and group lifecycle management.",
       "version": "1.0.2",
       "author": {
@@ -70,7 +70,7 @@
     },
     {
       "name": "modular-sso",
-      "source": "./skills/modular-sso",
+      "source": "./plugins/modular-sso",
       "description": "Modular SSO flows using Scalekit for apps with existing user management, including IdP-initiated login and enterprise onboarding.",
       "version": "1.0.2",
       "author": {

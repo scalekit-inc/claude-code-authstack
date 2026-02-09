@@ -11,8 +11,8 @@
   },
   "plugins": [
     {
-      "name": "scalekit-dryrun",
-      "source": "scalekit-dryrun",
+      "name": "dryrun",
+      "source": "dryrun",
       "description": "Quickly test Scalekit authentication setup end-to-end before writing integration code using the dryrun tool.",
       "version": "1.0.0",
       "author": {

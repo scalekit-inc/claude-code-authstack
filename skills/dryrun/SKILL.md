@@ -1,5 +1,5 @@
 ---
-name: scalekit-dryrun
+name: dryrun
 description: Quickly test Scalekit authentication setup end-to-end before writing integration code using the dryrun tool. Use when you need to validate Scalekit configuration, test authentication flows, verify credentials, or troubleshoot auth setup. Works with Full Stack Auth (FSA) and Modular SSO modes.
 license: MIT
 metadata:
@@ -32,7 +32,7 @@ You can run dryrun interactively using the helper script, or manually with npx:
 
 **Using the helper script:**
 ```bash
-./skills/scalekit-dryrun/test-scalekit.sh
+./skills/dryrun/test-scalekit.sh
 ```
 
 **Manual execution:**
@@ -164,7 +164,7 @@ The included `test-scalekit.sh` script provides:
 
 Run it directly:
 ```bash
-./skills/scalekit-dryrun/test-scalekit.sh
+./skills/dryrun/test-scalekit.sh
 ```
 
 Or let Claude execute it when you invoke this skill.

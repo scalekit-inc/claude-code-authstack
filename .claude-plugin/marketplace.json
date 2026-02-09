@@ -70,7 +70,7 @@
     },
     {
       "name": "modular-sso",
-      "source": "../skills/modular-sso",
+      "source": "./skills/modular-sso",
       "description": "Modular SSO flows using Scalekit for apps with existing user management, including IdP-initiated login and enterprise onboarding.",
       "version": "1.0.2",
       "author": {

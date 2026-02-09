@@ -10,14 +10,14 @@
   },
   "metadata": {
     "description": "Scalekit authentication skills for building secure auth, SSO, MCP auth, SCIM provisioning, and agent auth flows.",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "plugins": [
     {
       "name": "dryrun",
-      "source": "./skills/dryrun",
+      "source": "${CLAUDE_PLUGIN_ROOT}/skills/dryrun",
       "description": "Quickly test Scalekit authentication setup end-to-end before writing integration code using the dryrun tool.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Scalekit"
       },
@@ -26,9 +26,9 @@
     },
     {
       "name": "agent-auth",
-      "source": "./skills/agent-auth",
+      "source": "${CLAUDE_PLUGIN_ROOT}/skills/agent-auth",
       "description": "Implements Scalekit Agent Auth so AI agents can act in third-party apps (Gmail, Slack, Calendar, Notion) on behalf of users.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Scalekit"
       },
@@ -37,9 +37,9 @@
     },
     {
       "name": "full-stack-auth",
-      "source": "./skills/full-stack-auth",
+      "source": "${CLAUDE_PLUGIN_ROOT}/skills/full-stack-auth",
       "description": "Production-ready authentication flows (sign-up, login, logout, sessions) using Scalekit full-stack auth across common stacks.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Scalekit"
       },
@@ -48,9 +48,9 @@
     },
     {
       "name": "mcp-auth",
-      "source": "./skills/mcp-auth",
+      "source": "${CLAUDE_PLUGIN_ROOT}/skills/mcp-auth",
       "description": "OAuth 2.1 authorization for MCP servers using Scalekit to protect tools used by AI IDEs and agents.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Scalekit"
       },
@@ -59,9 +59,9 @@
     },
     {
       "name": "modular-scim",
-      "source": "./skills/modular-scim",
+      "source": "${CLAUDE_PLUGIN_ROOT}/skills/modular-scim",
       "description": "SCIM webhook provisioning with Scalekit for real-time user and group lifecycle management.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Scalekit"
       },
@@ -70,9 +70,9 @@
     },
     {
       "name": "modular-sso",
-      "source": "./skills/modular-sso",
+      "source": "${CLAUDE_PLUGIN_ROOT}/skills/modular-sso",
       "description": "Modular SSO flows using Scalekit for apps with existing user management, including IdP-initiated login and enterprise onboarding.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Scalekit"
       },

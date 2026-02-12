@@ -1,20 +1,18 @@
 <!--
 Sync Impact Report
-- Version change: none → 1.0.0
-- Modified principles: (initial ratification)
+- Version change: 1.0.0 → 1.1.0
+- Modified principles:
+  - Claude Code Plugin Conventions (added explicit reference documentation section)
 - Added sections:
-  - Core Principles
-  - Claude Code Plugin Conventions
-  - Development Workflow & Quality Gates
-  - Governance
+  - Claude Code & MCP Reference Documentation
 - Removed sections: none
 - Templates requiring updates:
-  - ✅ .specify/templates/plan-template.md
-  - ✅ .specify/templates/spec-template.md
-  - ✅ .specify/templates/tasks-template.md
+  - ✅ .specify/templates/plan-template.md (no change required for this amendment)
+  - ✅ .specify/templates/spec-template.md (no change required for this amendment)
+  - ✅ .specify/templates/tasks-template.md (no change required for this amendment)
   - ⚠ .specify/templates/commands/*.md (directory missing; command templates to be added under Claude Code plugin layout)
 - Follow-up TODOs:
-  - None (ratification and amendment dates set to first adoption date)
+  - None (all placeholders resolved; external docs captured in reference section)
 -->
 
 # Claude Code Auth Plugin Constitution
@@ -137,6 +135,21 @@ The repository structure MUST, at minimum, include:
 
 Any deviations from this structure MUST be documented in the Governance section and, where relevant, in `README`.
 
+### Claude Code & MCP Reference Documentation
+
+The following official documentation is considered authoritative for plugin, skills, hooks, sub-agents, discovery, troubleshooting, and MCP behavior:
+
+- [Claude Code plugins reference](https://code.claude.com/docs/en/plugins-reference#plugins-reference)
+- [Create Claude Code plugins](https://code.claude.com/docs/en/plugins#create-plugins)
+- [Skills](https://code.claude.com/docs/en/skills)
+- [Hooks guide](https://code.claude.com/docs/en/hooks-guide)
+- [Sub-agents](https://code.claude.com/docs/en/sub-agents)
+- [Discover plugins](https://code.claude.com/docs/en/discover-plugins)
+- [Troubleshooting](https://code.claude.com/docs/en/troubleshooting)
+- [Model Context Protocol (MCP)](https://code.claude.com/docs/en/mcp)
+
+When this constitution is ambiguous, these documents MAY be used to clarify expected Claude Code and MCP behavior, but MUST NOT be used to weaken the non-negotiable principles defined above.
+
 ## Development Workflow & Quality Gates
 
 Development of this plugin MUST follow these workflow and quality gates:
@@ -186,5 +199,5 @@ This constitution defines binding rules for the Claude Code Auth Plugin and supe
   - Verify that repository layout, documentation, and MCP configurations remain aligned with this constitution.
   - Identify and schedule work to close any gaps between practice and constitutional rules.
 
-**Version**: 1.0.0 | **Ratified**: 2026-02-12 | **Last Amended**: 2026-02-12
+**Version**: 1.1.0 | **Ratified**: 2026-02-12 | **Last Amended**: 2026-02-12
 

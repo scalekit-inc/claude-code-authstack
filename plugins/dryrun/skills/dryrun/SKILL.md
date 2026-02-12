@@ -1,177 +1,172 @@
 ---
-name: dryrun
-description: Quickly test Scalekit authentication setup end-to-end before writing integration code using the dryrun tool. Use when you need to validate Scalekit configuration, test authentication flows, verify credentials, or troubleshoot auth setup. Works with Full Stack Auth (FSA) and Modular SSO modes.
-license: MIT
-metadata:
-  author: Scalekit
-  version: 1.0.0
-  category: testing
-  tags: [testing, dryrun, scalekit, authentication, validation]
-  documentation: https://docs.scalekit.com/dev-kit/tools/scalekit-dryrun/
+name: scalekit-dryrun
+description: Validate Scalekit authentication setup end-to-end before writing integration code using the dryrun CLI. Use when testing FSA/SSO flows locally, verifying credentials, or debugging auth configuration.
+argument-hint: "[mode] [env_url] [client_id] [organization_id?]"
+disable-model-invocation: true
+allowed-tools: Bash(node *), Bash(npx *)
 ---
 
 # Scalekit Dryrun Testing
 
-Quickly test your Scalekit authentication setup end-to-end before writing any integration code. The dryrun tool executes a complete authentication flow locally - spinning up a server, opening your browser, and displaying the authenticated user's profile and tokens, so you can catch configuration errors early.
+Quickly test your Scalekit authentication setup end-to-end before writing any integration code. The dryrun tool executes a complete authentication flow locally - spinning up a server, opening your browser, and displaying the authenticated user's profile and tokens.
 
-Works with **Full Stack Authentication** and **Modular SSO**.
+Whether you’re building full stack authentication (authorization, user management, sessions, hosted login pages, and more) or using SSO in a modular way (Modular SSO), dryrun lets you validate your entire auth setup end‑to‑end before writing any integration code.
+
+
+## When to use this skill
+
+Use when:
+
+- Testing a new Scalekit environment before integration
+- Verifying FSA or SSO configuration works correctly
+- Debugging redirect URI errors, invalid credentials, or org setup
+- Validating user profiles and token claims for a specific environment
+
+Do not use when:
+
+- Writing production integration code (use SDK quickstarts instead)
+- Only browsing documentation without running commands
+- Troubleshooting non-authentication features
+
+## Prerequisites
+
+Before running dryrun, ensure:
+
+- **Node.js 20 or higher** installed (`node --version`)
+- **Scalekit environment** with OAuth client configured
+- **Redirect URI** `http://localhost:12456/auth/callback` added in Dashboard under **Authentication > Redirect URIs**
+- Access to your `env_url`, `client_id`, and optional `organization_id`
 
 ## Quick Start
 
-### Prerequisites
+Run dryrun with either mode:
 
-Before running dryrun, ensure you have:
-
-- **Node.js 20 or higher** installed locally
-- **A Scalekit environment** with an OAuth client configured
-- **A redirect URI** (`http://localhost:12456/auth/callback`) added in the Scalekit Dashboard under **Authentication > Redirect URIs**
-
-### Run Dryrun
-
-You can run dryrun interactively using the helper script, or manually with npx:
-
-**Using the helper script:**
-```bash
-./skills/dryrun/test-scalekit.sh
-```
-
-**Manual execution:**
+**Full Stack Authentication:**
 ```bash
 npx @scalekit-sdk/dryrun \
-  --env_url=<your-environment-url> \
-  --client_id=<your-client-id> \
-  [--mode=<sso|fsa>] \
-  [--organization_id=<org-id>]
-```
-
-### Get Your Credentials
-
-Find your environment URL and client ID in **Dashboard > Developers > Settings > API Credentials**.
-
-## Usage Guide
-
-### Testing Full Stack Auth (FSA)
-
-Test your full-stack authentication configuration:
-
-```bash
-npx @scalekit-sdk/dryrun \
-  --env_url=https://env-abc123.scalekit.cloud \
+  --env_url=https://env-abc123.scalekit.com \
   --client_id=skc_xxxxxxxxxxxx \
   --mode=fsa
 ```
 
-### Testing Modular SSO
-
-Test your SSO configuration for a specific organization:
-
+**Modular SSO:**
 ```bash
 npx @scalekit-sdk/dryrun \
-  --env_url=https://env-abc123.scalekit.cloud \
+  --env_url=https://env-abc123.scalekit.com \
   --client_id=skc_xxxxxxxxxxxx \
   --mode=sso \
   --organization_id=org_xxxxxxxxxxxx
 ```
 
-### Interactive Mode
+Get credentials from **Dashboard > Developers > Settings > API Credentials**.
 
-When you invoke this skill, I'll help you:
+## How this skill works
 
-1. **Detect your mode**: Ask if you want to test FSA or SSO
-2. **Gather credentials**: Prompt for env_url and client_id (or read from environment variables if available)
-3. **Validate prerequisites**: Check Node.js version, verify redirect URI is configured
-4. **Execute dryrun**: Run the helper script which wraps `npx @scalekit-sdk/dryrun`
-5. **Interpret results**: Help you understand the output and troubleshoot if needed
+When you invoke `/scalekit-dryrun $ARGUMENTS`, I will:
+
+1. **Parse arguments or prompt for missing values**
+   - Extract mode, env_url, client_id, and optional organization_id from $ARGUMENTS
+   - If incomplete, ask for missing configuration
+
+2. **Validate prerequisites**
+   - Confirm Node.js 20+ is installed
+   - Verify redirect URI is configured in dashboard
+   - Check port 12456 availability
+
+3. **Execute dryrun**
+   - Use helper script if available: `./skills/dryrun/test-scalekit.sh`
+   - Otherwise construct npx command with provided credentials
+
+4. **Guide browser flow**
+   - Instruct you to complete authentication in opened browser
+   - Ask you to verify displayed user profile and claims
+
+5. **Interpret results**
+   - Confirm expected user, email, and token claims appear
+   - Map any errors to troubleshooting steps below
 
 ## What Dryrun Does
 
 The dryrun command:
 
-- Spins up a local server on `http://localhost:12456`
-- Opens your browser automatically
-- Executes a complete OAuth authentication flow
-- Displays the authenticated user's profile, ID token claims, and token details
-- Validates your Scalekit configuration end-to-end
+- Spins up local server on `http://localhost:12456`
+- Opens browser automatically
+- Executes complete OAuth flow
+- Displays user profile, ID token claims, and token details
+- Validates configuration end-to-end
 
-**Local testing only**: Dryrun runs entirely on `localhost` and does not expose any public endpoints. It does not persist tokens or credentials after the process exits.
+**Local only**: Runs entirely on localhost, no public endpoints, does not persist tokens.
 
-## Review Authentication Results
+## Common Issues
 
-After successful authentication, the browser shows a local dashboard with:
-
-- **User profile**: Name, email, avatar (when available)
-- **ID token claims**: All claims returned in the ID token
-- **Token details**: A view of the raw token response
-
-Use this view to confirm:
-
-- The correct user is returned for your test login
-- Claims such as `email`, `sub`, and any custom claims are present as expected
-- The flow works for both `fsa` and `sso` modes when configured
-
-## Common Issues and Solutions
-
-### Redirect URI Mismatch Error
+### Redirect URI mismatch
 
 **Symptoms**: `redirect_uri mismatch` error
 
-**Solutions**:
-- Verify that `http://localhost:12456/auth/callback` is added in the Scalekit Dashboard under **Authentication > Redirect URIs**
-- Confirm that you spelled the URI exactly, including the port and path
+**Fix**:
+- Add `http://localhost:12456/auth/callback` in **Authentication > Redirect URIs**
+- Verify exact spelling including port and path
 
-### Invalid Client ID Error
+### Invalid client ID
 
-**Symptoms**: CLI reports an invalid client ID
+**Symptoms**: Invalid client ID error
 
-**Solutions**:
-- Copy the client ID directly from the dashboard to avoid typos
-- Make sure you are using a client from the same environment as `--env_url`
+**Fix**:
+- Copy client ID from dashboard to avoid typos
+- Ensure client ID and env_url are from same environment
 
-### Port Conflicts
+### Port 12456 in use
 
-**Symptoms**: Port `12456` is already in use
+**Symptoms**: Port already in use error
 
-**Solutions**:
-- Stop any process that is already listening on port `12456`
-- Close other local tools or frameworks that use `http://localhost:12456` and try again
+**Fix**:
+- Stop processes using port 12456
+- Retry dryrun
 
-### Organization Issues in SSO Mode
+### Organization issues (SSO mode)
 
-**Symptoms**: Errors related to `--organization_id`
+**Symptoms**: Errors about organization_id
 
-**Solutions**:
-- Confirm that the organization exists in your Scalekit environment
-- Verify that SSO is configured for that organization in the dashboard
-- Ensure you are using the correct `org_...` identifier
+**Fix**:
+- Verify organization exists in environment
+- Confirm SSO is configured for that organization
+- Check you're using correct `org_...` identifier
+- Try `fsa` mode if not testing SSO
 
-### Missing Node.js or Wrong Version
+### Node.js version
 
 **Symptoms**: Command not found or version errors
 
-**Solutions**:
-- Install Node.js 20 or higher from [nodejs.org](https://nodejs.org/)
-- Verify installation: `node --version` should show v20.0.0 or higher
+**Fix**:
+- Install Node.js 20+ from nodejs.org
+- Verify with `node --version`
 
 ## Helper Script
 
-The included `test-scalekit.sh` script provides:
+If `./skills/dryrun/test-scalekit.sh` exists, it provides:
 
-- Automatic prerequisite checking (Node.js version, credentials)
-- Interactive prompts for missing credentials
-- Input validation before execution
-- Better error messages with troubleshooting tips
+- Automatic prerequisite checking
+- Interactive prompts for missing values
+- Input validation
+- Better error messages
 - Port conflict detection
 
-Run it directly:
-```bash
-./skills/dryrun/test-scalekit.sh
+## Example Invocations
+
+**Test FSA for new environment:**
+```
+/scalekit-dryrun fsa https://env-abc123.scalekit.cloud skc_xxxxxxxxxxxx
 ```
 
-Or let Claude execute it when you invoke this skill.
+**Debug SSO for customer org:**
+```
+/scalekit-dryrun sso https://env-xyz789.scalekit.cloud skc_yyyyyyyyyyyy org_acme123
+```
 
 ## Resources
 
 - [Scalekit Dryrun Documentation](https://docs.scalekit.com/dev-kit/tools/scalekit-dryrun/)
 - [Scalekit Dashboard](https://app.scalekit.com)
-- [Dryrun on GitHub](https://github.com/scalekit-inc/scalekit-sdk/tree/main/packages/dryrun)
 - [@scalekit-sdk/dryrun on npm](https://www.npmjs.com/package/@scalekit-sdk/dryrun)
+- [FSA Quickstart](https://docs.scalekit.com/authenticate/fsa/quickstart/)
+```

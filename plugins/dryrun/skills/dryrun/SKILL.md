@@ -1,6 +1,6 @@
 ---
 name: scalekit-dryrun
-description: Validate Scalekit authentication setup end-to-end before writing integration code using the dryrun CLI. Use when testing FSA/SSO flows locally, verifying credentials, or debugging auth configuration.
+description: Validates Scalekit authentication setup end-to-end using the dryrun CLI against the local project’s Scalekit development environment.
 argument-hint: "[mode] [env_url] [client_id] [organization_id?]"
 disable-model-invocation: true
 allowed-tools: Bash(node *), Bash(npx *)
@@ -28,14 +28,26 @@ Do not use when:
 - Only browsing documentation without running commands
 - Troubleshooting non-authentication features
 
-## Prerequisites
+## Prerequisites & limitations
 
 Before running dryrun, ensure:
 
-- **Node.js 20 or higher** installed (`node --version`)
-- **Scalekit environment** with OAuth client configured
-- **Redirect URI** `http://localhost:12456/auth/callback` added in Dashboard under **Authentication > Redirect URIs**
-- Access to your `env_url`, `client_id`, and optional `organization_id`
+- **Node.js 20 or higher** installed (`node --version`).
+- **Scalekit environment** with OAuth client configured for development.
+- **Redirect URI** `http://localhost:12456/auth/callback` added in Dashboard under **Authentication > Redirect URIs**.
+- Access to your `env_url`, `client_id`, and optional `organization_id` for the Scalekit development environment.
+- Required environment variables for your Scalekit setup are present (for example, values referenced in the Scalekit environment setup docs).
+
+Checklist for new setups:
+
+- [ ] Obtain client credentials (env_url, client_id, optional organization_id) from the Scalekit Dashboard.  
+- [ ] Decide on mode: **fsa** (full stack auth) or **sso** (modular SSO) for this project.  
+- [ ] Configure redirect URI and required environment variables as described in the Scalekit environment setup docs.  
+
+Limitations:
+
+- This Skill assumes the **local project using Scalekit development credentials** by default when the environment is not specified.
+- Dryrun validates auth configuration and flow; it does **not** validate non-auth features or production-only behaviors.
 
 ## Quick Start
 
@@ -62,7 +74,7 @@ Get credentials from **Dashboard > Developers > Settings > API Credentials**.
 
 ## How this skill works
 
-When you invoke `/scalekit-dryrun $ARGUMENTS`, I will:
+When you invoke the Scalekit dryrun Skill from Claude Code (for example, by asking “Run a Scalekit dryrun for my auth stack” or using `/scalekit-dryrun $ARGUMENTS`), the Skill will:
 
 1. **Parse arguments or prompt for missing values**
    - Extract mode, env_url, client_id, and optional organization_id from $ARGUMENTS
@@ -96,6 +108,21 @@ The dryrun command:
 - Validates configuration end-to-end
 
 **Local only**: Runs entirely on localhost, no public endpoints, does not persist tokens.
+
+## Interpreting results & next steps
+
+Use the dryrun output as a configuration health check:
+
+- **Success**: Configuration looks healthy for the chosen mode (FSA or SSO). Proceed with integration work or further testing.
+- **Warnings**: Non-blocking issues or recommendations (for example, optional hardening or cleanup). Address when convenient and re-run dryrun if changes are significant.
+- **Failures**: Blocking issues (for example, missing client credentials, misconfigured redirect URI, incorrect organization_id, or port conflicts). Fix these before relying on the configuration.
+
+Typical findings → recommended actions:
+
+- Missing or invalid client ID → Verify credentials in the Scalekit Dashboard and ensure they match the env_url.  
+- Redirect URI mismatch → Add or correct `http://localhost:12456/auth/callback` in the Scalekit Dashboard.  
+- Organization issues in SSO mode → Confirm organization exists, SSO is configured, and the correct `org_...` identifier is used.  
+- Port 12456 in use → Stop the conflicting process and re-run dryrun.  
 
 ## Common Issues
 

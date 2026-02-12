@@ -1,7 +1,7 @@
 {
   "name": "scalekit-dryrun",
   "description": "Quickly test Scalekit authentication setup end-to-end before writing integration code using the dryrun tool.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": {
     "name": "Scalekit",
     "email": "hi@scalekit.com"

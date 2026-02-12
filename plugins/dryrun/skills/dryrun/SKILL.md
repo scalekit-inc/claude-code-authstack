@@ -1,6 +1,6 @@
 ---
 name: scalekit-dryrun
-description: Validate Scalekit authentication setup end-to-end before writing integration code using the dryrun CLI. Use when testing FSA/SSO flows locally, verifying credentials, or debugging auth configuration.
+description: Validate Scalekit authentication setup end-to-end before writing integration code using the dryrun CLI.
 argument-hint: "[mode] [env_url] [client_id] [organization_id?]"
 disable-model-invocation: true
 allowed-tools: Bash(node *), Bash(npx *)

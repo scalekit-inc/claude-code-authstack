@@ -37,5 +37,5 @@ tmp/
 temp/
 *.tmp
 
-spec/
+specs/
 .cursor/

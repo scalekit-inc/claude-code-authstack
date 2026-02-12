@@ -1,18 +1,18 @@
 <!--
 Sync Impact Report
-- Version change: 1.0.0 → 1.1.0
+- Version change: 1.1.0 → 1.2.0
 - Modified principles:
-  - Claude Code Plugin Conventions (added explicit reference documentation section)
+  - Claude Code Plugin Conventions → Claude Code Plugin Conventions (expanded SKILL.md authoring best practices)
 - Added sections:
-  - Claude Code & MCP Reference Documentation
+  - None (existing SKILL.md section materially expanded)
 - Removed sections: none
 - Templates requiring updates:
-  - ✅ .specify/templates/plan-template.md (no change required for this amendment)
-  - ✅ .specify/templates/spec-template.md (no change required for this amendment)
-  - ✅ .specify/templates/tasks-template.md (no change required for this amendment)
+  - ✅ .specify/templates/plan-template.md (no change required for this amendment; already delegates to constitution)
+  - ✅ .specify/templates/spec-template.md (no change required for this amendment; already delegates to constitution)
+  - ✅ .specify/templates/tasks-template.md (no change required for this amendment; already delegates to constitution)
   - ⚠ .specify/templates/commands/*.md (directory missing; command templates to be added under Claude Code plugin layout)
 - Follow-up TODOs:
-  - None (all placeholders resolved; external docs captured in reference section)
+  - None (all placeholders resolved; external docs and SKILL.md practices captured in conventions)
 -->
 
 # Claude Code Auth Plugin Constitution
@@ -82,13 +82,30 @@ This section defines concrete conventions for authoring skills, agents, MCP serv
 ### SKILL.md Authoring Rules
 
 Each `SKILL.md` MUST:
-- Begin with frontmatter specifying at minimum: `name`, `description`, `inputs` (with types and required/optional flags), `outputs`, and any `dependencies` (e.g., MCP servers, external tools).
+- Begin with YAML frontmatter specifying at minimum: `name`, `description`, `inputs` (with types and required/optional flags), `outputs`, and any `dependencies` (e.g., MCP servers, external tools).
+- Ensure the `name` field:
+  - Uses only lowercase letters, numbers, and hyphens.
+  - Is at most 64 characters.
+  - Does not use reserved words such as `anthropic` or `claude`.
+- Ensure the `description` field:
+  - Is non-empty, at most 1024 characters, and free of XML tags.
+  - Describes both what the skill does and when to use it.
+  - Is written in third person (e.g., “Processes Excel files...”), not “I” or “you”.
+- Prefer concise, high-signal content in the body:
+  - Assume Claude already knows generic concepts and avoid long explanations.
+  - Keep `SKILL.md` under roughly 500 lines and move large reference material into separate files.
 - Clearly state whether the skill is safe to call repeatedly, may mutate state, or interacts with external systems.
-- Include 1–2 usage examples that show:
+- Include 1–2 concrete usage examples that show:
   - Example invocation context (e.g., which command or agent calls it, and with what arguments).
-  - Representative input and the exact shape of the expected output.
-- Document expected error modes (e.g., validation failure, missing env vars, external service failure) and how these are surfaced to callers.
-- Reference any long-form documentation or schemas in `skills/[skill-name]/references/` rather than embedding large payloads directly.
+  - Representative input and the exact shape or structure of the expected output.
+- Use progressive disclosure:
+  - Reference long-form documentation or schemas from `skills/[skill-name]/references/` (or equivalent) instead of embedding large payloads directly.
+  - Keep references one level deep from `SKILL.md` to avoid deeply nested chains of documents.
+- Use consistent, descriptive naming and terminology:
+  - Prefer gerund-style, activity-based names (e.g., `processing-pdfs`, `analyzing-spreadsheets`).
+  - Avoid vague names like `helper` or `utils` and overly generic terms like `data` or `files`.
+- Avoid time-sensitive instructions in the main flow; when historical context is needed, isolate it into clearly marked “legacy” or “old patterns” subsections.
+- Where workflows are complex or fragile, include explicit checklists or step-by-step sequences that Claude can follow and mark progress against.
 
 ### Agent Prompt Style and Authoring Rules
 
@@ -147,6 +164,7 @@ The following official documentation is considered authoritative for plugin, ski
 - [Discover plugins](https://code.claude.com/docs/en/discover-plugins)
 - [Troubleshooting](https://code.claude.com/docs/en/troubleshooting)
 - [Model Context Protocol (MCP)](https://code.claude.com/docs/en/mcp)
+- [Skill vs Subagent](https://code.claude.com/docs/en/features-overview#skill-vs-subagent)
 
 When this constitution is ambiguous, these documents MAY be used to clarify expected Claude Code and MCP behavior, but MUST NOT be used to weaken the non-negotiable principles defined above.
 
@@ -199,5 +217,4 @@ This constitution defines binding rules for the Claude Code Auth Plugin and supe
   - Verify that repository layout, documentation, and MCP configurations remain aligned with this constitution.
   - Identify and schedule work to close any gaps between practice and constitutional rules.
 
-**Version**: 1.1.0 | **Ratified**: 2026-02-12 | **Last Amended**: 2026-02-12
-
+**Version**: 1.2.0 | **Ratified**: 2026-02-12 | **Last Amended**: 2026-02-12

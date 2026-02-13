@@ -15,7 +15,7 @@
   "plugins":[
     {
       "name": "dryrun",
-      "source": ".plugins/dryrun"
+      "source": "./plugins/dryrun"
     }
   ]
 }

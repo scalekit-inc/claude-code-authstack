@@ -290,6 +290,8 @@ For quickstart guides with specific frameworks:
 - **FastAPI + FastMCP**: Python-based implementation
 - **Express.js**: Node.js implementation
 
+See complete working examples at [Scalekit MCP Auth Demos](https://github.com/scalekit-inc/mcp-auth-demos/tree/main)
+
 Refer to Scalekit documentation at docs.scalekit.com/authenticate/mcp/
 
 ## Common issues

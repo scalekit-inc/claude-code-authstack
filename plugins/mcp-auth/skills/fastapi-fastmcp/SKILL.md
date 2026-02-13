@@ -255,28 +255,28 @@ def test_health_check():
 ## Common Pitfalls
 
 ### 1. Mismatched Audience
-**Symptom**: Tokens fail validation with "invalid audience" error  
-**Cause**: `EXPECTED_AUDIENCE` doesn't match the Server URL registered in Scalekit  
+**Symptom**: Tokens fail validation with "invalid audience" error
+**Cause**: `EXPECTED_AUDIENCE` doesn't match the Server URL registered in Scalekit
 **Fix**: Ensure both have identical values including trailing slashes
 
 ### 2. Middleware Order Issues
-**Symptom**: CORS errors or authentication bypassed  
-**Cause**: Mounting order affects execution sequence  
+**Symptom**: CORS errors or authentication bypassed
+**Cause**: Mounting order affects execution sequence
 **Fix**: Add middleware before mounting MCP app; mount MCP last
 
 ### 3. Missing Resource Metadata
-**Symptom**: Clients can't discover how to authenticate  
-**Cause**: `PROTECTED_RESOURCE_METADATA` not set or endpoint not working  
+**Symptom**: Clients can't discover how to authenticate
+**Cause**: `PROTECTED_RESOURCE_METADATA` not set or endpoint not working
 **Fix**: Verify metadata JSON is copied correctly from Scalekit dashboard
 
 ### 4. Development vs Production URLs
-**Symptom**: Works locally but fails in production  
-**Cause**: Hardcoded localhost URLs in configuration  
+**Symptom**: Works locally but fails in production
+**Cause**: Hardcoded localhost URLs in configuration
 **Fix**: Use environment-specific values for `EXPECTED_AUDIENCE` and `RESOURCE_METADATA_URL`
 
 ### 5. Token Expiration During Testing
-**Symptom**: Tests pass initially then fail after 1 hour  
-**Cause**: Access tokens expire (default 3600 seconds)  
+**Symptom**: Tests pass initially then fail after 1 hour
+**Cause**: Access tokens expire (default 3600 seconds)
 **Fix**: Refresh tokens before each test run or implement automatic refresh
 
 ## Extension Patterns
@@ -371,6 +371,7 @@ starlette>=0.27.0                   # ASGI toolkit
 - [OAuth 2.1 Specification](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1)
 - [Scalekit MCP Authentication Docs](https://docs.scalekit.com/guides/mcp/)
 - [MCP Protocol Specification](https://spec.modelcontextprotocol.io/)
+- [Scalekit MCP Auth Demos](https://github.com/scalekit-inc/mcp-auth-demos/tree/main)
 
 ## Changelog
 

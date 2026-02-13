@@ -428,6 +428,7 @@ def flexible_operation() -> dict:
 ## Resources
 
 - Full example: [GitHub - todo-fastmcp](https://github.com/scalekit-inc/mcp-demo/tree/main/todo-fastmcp)
+- [Scalekit MCP Auth Demos](https://github.com/scalekit-inc/mcp-auth-demos/tree/main)
 - FastMCP docs: [fastmcp.dev](https://fastmcp.dev)
 - Scalekit docs: [docs.scalekit.com/authenticate/mcp/fastmcp-quickstart](https://docs.scalekit.com/authenticate/mcp/fastmcp-quickstart)
 - MCP Inspector: `npx @modelcontextprotocol/inspector@latest`

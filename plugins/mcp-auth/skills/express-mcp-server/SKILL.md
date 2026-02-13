@@ -79,9 +79,9 @@ const scalekit = new Scalekit(
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 
-const server = new McpServer({ 
-  name: 'Greeting MCP', 
-  version: '1.0.0' 
+const server = new McpServer({
+  name: 'Greeting MCP',
+  version: '1.0.0'
 });
 
 server.tool(
@@ -138,8 +138,8 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     // Validate with Scalekit SDK
-    await scalekit.validateToken(token, { 
-      audience: [EXPECTED_AUDIENCE] 
+    await scalekit.validateToken(token, {
+      audience: [EXPECTED_AUDIENCE]
     });
     next();
   } catch (error) {
@@ -165,8 +165,8 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 
 app.post('/', async (req: Request, res: Response) => {
-  const transport = new StreamableHTTPServerTransport({ 
-    sessionIdGenerator: undefined 
+  const transport = new StreamableHTTPServerTransport({
+    sessionIdGenerator: undefined
   });
   await server.connect(transport);
 
@@ -213,7 +213,7 @@ app.get('/.well-known/oauth-protected-resource', (_req: Request, res: Response) 
 ```typescript
 import cors from 'cors';
 
-app.use(cors({ 
+app.use(cors({
   origin: true,      // Allow all origins
   credentials: false // No credentials needed for Bearer tokens
 }));
@@ -367,8 +367,8 @@ autocannon -c 10 -d 30 \
 
 ### 1. Mismatched Audience
 
-**Symptom**: Tokens fail validation with "invalid audience" error  
-**Cause**: `EXPECTED_AUDIENCE` doesn't match the Server URL registered in Scalekit  
+**Symptom**: Tokens fail validation with "invalid audience" error
+**Cause**: `EXPECTED_AUDIENCE` doesn't match the Server URL registered in Scalekit
 **Fix**: Ensure both values are identical including protocol, host, port, and trailing slash
 
 **Example:**
@@ -382,8 +382,8 @@ EXPECTED_AUDIENCE=http://localhost:3002/
 
 ### 2. Headers Already Sent Error
 
-**Symptom**: `Error: Cannot set headers after they are sent to the client`  
-**Cause**: Forgetting to `return` after sending a response in middleware  
+**Symptom**: `Error: Cannot set headers after they are sent to the client`
+**Cause**: Forgetting to `return` after sending a response in middleware
 **Fix**: Always `return` immediately after `res.json()` or `res.send()`
 
 **Example:**
@@ -403,8 +403,8 @@ if (!token) {
 
 ### 3. Middleware Order Issues
 
-**Symptom**: CORS errors, authentication bypassed, or parsing failures  
-**Cause**: Middleware execution order matters in Express  
+**Symptom**: CORS errors, authentication bypassed, or parsing failures
+**Cause**: Middleware execution order matters in Express
 **Fix**: Correct order is: CORS → body parsing → authentication → routes
 
 **Example:**
@@ -419,8 +419,8 @@ app.post('/', protectedRoute);
 
 ### 4. Missing Resource Metadata
 
-**Symptom**: Clients can't discover how to authenticate  
-**Cause**: `PROTECTED_RESOURCE_METADATA` not set or malformed JSON  
+**Symptom**: Clients can't discover how to authenticate
+**Cause**: `PROTECTED_RESOURCE_METADATA` not set or malformed JSON
 **Fix**: Copy exact JSON from Scalekit dashboard, verify with `JSON.parse()`
 
 **Debugging:**
@@ -433,8 +433,8 @@ curl http://localhost:3002/.well-known/oauth-protected-resource
 
 ### 5. TypeScript Module Resolution
 
-**Symptom**: `Cannot find module '@modelcontextprotocol/sdk/server/mcp.js'`  
-**Cause**: Missing `.js` extension in ES module imports  
+**Symptom**: `Cannot find module '@modelcontextprotocol/sdk/server/mcp.js'`
+**Cause**: Missing `.js` extension in ES module imports
 **Fix**: Always include `.js` extension when importing from MCP SDK
 
 **Example:**
@@ -448,8 +448,8 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 
 ### 6. Token Expiration During Testing
 
-**Symptom**: Tests pass initially then fail after 1 hour  
-**Cause**: Access tokens expire (default 3600 seconds)  
+**Symptom**: Tests pass initially then fail after 1 hour
+**Cause**: Access tokens expire (default 3600 seconds)
 **Fix**: Implement token refresh before each test run or use shorter test cycles
 
 ## Extension Patterns
@@ -585,7 +585,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   logger.error({ err, path: req.path }, 'Unhandled error');
 
   res.status(500).json({
-    error: process.env.NODE_ENV === 'production' 
+    error: process.env.NODE_ENV === 'production'
       ? 'Internal server error'
       : err.message
   });
@@ -744,6 +744,7 @@ const appConfig = config[env];
 - [OAuth 2.1 Specification](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1)
 - [Scalekit MCP Authentication Docs](https://docs.scalekit.com/guides/mcp/)
 - [MCP Protocol Specification](https://spec.modelcontextprotocol.io/)
+- [Scalekit MCP Auth Demos](https://github.com/scalekit-inc/mcp-auth-demos/tree/main)
 
 ## Changelog
 

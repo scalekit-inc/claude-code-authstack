@@ -30,6 +30,11 @@ Once installed, you can:
 - Sometimes when the plugin names changes in both `plugin.json` and `marketplace.json`, the updates don't work.
 - Installation a plugin and immediately doesn't work
 
+To remove the cache
+```sh
+rm -rf ~/.claude/plugins/cache
+```
+
 
 ### notes
 

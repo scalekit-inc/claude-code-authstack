@@ -2,7 +2,6 @@
 name: scalekit-dryrun
 description: Validates Scalekit authentication setup end-to-end using the dryrun CLI against the local project’s Scalekit development environment.
 argument-hint: "[mode] [env_url] [client_id] [organization_id?]"
-disable-model-invocation: true
 allowed-tools: Bash(node *), Bash(npx *)
 ---
 
@@ -40,9 +39,9 @@ Before running dryrun, ensure:
 
 Checklist for new setups:
 
-- [ ] Obtain client credentials (env_url, client_id, optional organization_id) from the Scalekit Dashboard.  
-- [ ] Decide on mode: **fsa** (full stack auth) or **sso** (modular SSO) for this project.  
-- [ ] Configure redirect URI and required environment variables as described in the Scalekit environment setup docs.  
+- [ ] Obtain client credentials (env_url, client_id, optional organization_id) from the Scalekit Dashboard.
+- [ ] Decide on mode: **fsa** (full stack auth) or **sso** (modular SSO) for this project.
+- [ ] Configure redirect URI and required environment variables as described in the Scalekit environment setup docs.
 
 Limitations:
 
@@ -119,10 +118,10 @@ Use the dryrun output as a configuration health check:
 
 Typical findings → recommended actions:
 
-- Missing or invalid client ID → Verify credentials in the Scalekit Dashboard and ensure they match the env_url.  
-- Redirect URI mismatch → Add or correct `http://localhost:12456/auth/callback` in the Scalekit Dashboard.  
-- Organization issues in SSO mode → Confirm organization exists, SSO is configured, and the correct `org_...` identifier is used.  
-- Port 12456 in use → Stop the conflicting process and re-run dryrun.  
+- Missing or invalid client ID → Verify credentials in the Scalekit Dashboard and ensure they match the env_url.
+- Redirect URI mismatch → Add or correct `http://localhost:12456/auth/callback` in the Scalekit Dashboard.
+- Organization issues in SSO mode → Confirm organization exists, SSO is configured, and the correct `org_...` identifier is used.
+- Port 12456 in use → Stop the conflicting process and re-run dryrun.
 
 ## Common Issues
 

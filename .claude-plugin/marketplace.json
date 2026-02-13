@@ -10,13 +10,13 @@
   },
   "metadata": {
     "description": "Scalekit authentication skills for building secure auth, SSO, MCP auth, SCIM provisioning, and agent auth flows.",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "pluginRoot": "./plugins"
   },
   "plugins":[
     {
       "name": "dryrun",
-      "source": "dryrun"
+      "source": "./dryrun"
     }
   ]
 }

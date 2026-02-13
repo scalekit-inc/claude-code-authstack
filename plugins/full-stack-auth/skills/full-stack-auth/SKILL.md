@@ -33,7 +33,7 @@ Follow this systematic approach:
 ```bash
 # Install appropriate SDK based on detected stack
 npm install @scalekit-sdk/node  # Node.js
-pip install scalekit-sdk         # Python
+pip install scalekit-sdk-python # Python
 go get github.com/scalekit-inc/scalekit-sdk-go  # Go
 # Maven/Gradle for Java
 ```

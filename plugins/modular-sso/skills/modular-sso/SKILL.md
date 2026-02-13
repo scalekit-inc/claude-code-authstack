@@ -50,7 +50,7 @@ npm install @scalekit-sdk/node
 
 **Python:**
 ```bash
-pip install scalekit-sdk
+pip install scalekit-sdk-python
 ```
 
 **Go:**

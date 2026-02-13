@@ -20,7 +20,7 @@ pip install scalekit-sdk-python
 
 **Node.js installation**:
 ```bash
-npm install @scalekit-sdk/node@2.2.0-beta.1
+npm install @scalekit-sdk/node
 ```
 
 **Initialize client**:

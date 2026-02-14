@@ -1,6 +1,7 @@
 ---
 name: scalekit-dryrun
 description: Validates Scalekit authentication setup end-to-end using the dryrun CLI against the local project’s Scalekit development environment.
+disable-model-invocation: true
 argument-hint: "[mode] [env_url] [client_id] [organization_id?]"
 allowed-tools: Bash(node *), Bash(npx *)
 ---

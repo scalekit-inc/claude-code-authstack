@@ -20,6 +20,13 @@
       "source": "./plugins/mcp-auth",
       "category": "testing",
       "homepage": "https://docs.scalekit.com"
+    },
+    {
+      "name": "modular-sso",
+      "description": "Integrates with all popular SSO providers (Okta, JumpCloud, Entra ID, etc.) and allows users to login to your app using their existing identity provider.",
+      "source": "./plugins/modular-sso",
+      "category": "enterprise auth",
+      "homepage": "https://docs.scalekit.com"
     }
   ]
 }

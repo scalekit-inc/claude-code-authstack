@@ -41,3 +41,4 @@ specs/
 .cursor/
 tests/
 .specify/*
+.planning/*

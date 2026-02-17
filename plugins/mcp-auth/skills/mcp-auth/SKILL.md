@@ -7,6 +7,23 @@ description: Guides users through adding OAuth 2.1 authorization to Model Contex
 
 Secure your MCP server with production-ready OAuth 2.1 authorization using Scalekit. This enables authenticated access through AI hosts like Claude Desktop, Cursor, and VS Code.
 
+## Critical Prerequisites
+
+⚠️ **MCP OAuth requires HTTP-based transport**: OAuth 2.1 authentication only works with `StreamableHTTPServerTransport` or HTTP-based transports. The standard `StdioServerTransport` (stdin/stdout) does **not** support OAuth flows.
+
+**Node.js requirement:**
+```javascript
+import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
+```
+
+**Python requirement:**
+```python
+# Use FastMCP with SSE/HTTP support or httpx-sse
+from mcp.server.sse import SseServerTransport
+```
+
+If your MCP server currently uses stdio transport, you must migrate to HTTP-based transport before implementing OAuth. See [MCP Transport Documentation](https://spec.modelcontextprotocol.io/specification/architecture/#transports) for migration guidance.
+
 ## Setup workflow
 
 Copy this checklist and track progress:

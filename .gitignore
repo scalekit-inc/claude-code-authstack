@@ -40,5 +40,5 @@ temp/
 specs/
 .cursor/
 tests/
-.specify/*
-.planning/*
+.specify/
+.planning/

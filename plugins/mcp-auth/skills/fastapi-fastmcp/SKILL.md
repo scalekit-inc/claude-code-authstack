@@ -364,6 +364,39 @@ starlette>=0.27.0                   # ASGI toolkit
 - Test version upgrades in staging before production
 - Monitor security advisories for all dependencies
 
+## Complete Working Example
+
+A full production-ready FastAPI + FastMCP server is available in the Scalekit MCP Auth Demos repository:
+
+**GitHub Repository:** [scalekit-inc/mcp-auth-demos/tree/main/greeting-mcp-python](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/greeting-mcp-python)
+
+This example includes:
+- Complete server implementation with modular architecture
+- OAuth 2.1 authentication middleware
+- FastMCP tool registration
+- CORS configuration and health checks
+- Production-ready logging and error handling
+
+### Key Files
+
+- `main.py` - Main server entry point with FastAPI app
+- `src/config/config.py` - Environment configuration
+- `src/lib/auth.py` - OAuth discovery endpoint handler
+- `src/lib/middleware.py` - Token validation middleware
+- `src/lib/transport.py` - MCP transport layer setup
+
+### Getting Started
+
+```bash
+cd greeting-mcp-python
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python main.py
+```
+
+See [README.md](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/greeting-mcp-python) for complete setup instructions.
+
 ## Related Resources
 
 - [FastMCP Documentation](https://github.com/jlowin/fastmcp)

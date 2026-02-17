@@ -302,14 +302,60 @@ See Scalekit documentation for configuration details.
 
 ## Framework-specific guides
 
-For quickstart guides with specific frameworks:
-- **FastMCP**: 5-line integration with Scalekit plugin
-- **FastAPI + FastMCP**: Python-based implementation
-- **Express.js**: Node.js implementation
+For detailed implementation guides with specific frameworks:
+- **FastMCP**: 5-line integration with Scalekit provider (simplest approach)
+- **Express.js**: Full OAuth implementation with manual middleware (most control)
+- **FastAPI + FastMCP**: Python-based implementation with custom middleware
 
-See complete working examples at [Scalekit MCP Auth Demos](https://github.com/scalekit-inc/mcp-auth-demos/tree/main)
+See [Complete Working Examples](#complete-working-examples) below for production-ready code.
 
-Refer to Scalekit documentation at docs.scalekit.com/authenticate/mcp/
+## Complete Working Examples
+
+Production-ready examples demonstrating different implementation approaches:
+
+### FastMCP (5-Line OAuth Integration)
+**Skill:** [add-auth-fastmcp](../add-auth-fastmcp/SKILL.md)
+- Simplest approach with built-in OAuth provider
+- Automatic token validation and scope enforcement
+- Complete todo server with CRUD operations
+- **GitHub:** [todo-fastmcp](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/todo-fastmcp)
+
+### Express.js (Full Manual OAuth)
+**Skill:** [express-mcp-server](../express-mcp-server/SKILL.md)
+- Complete control over authentication middleware
+- Modular architecture with transport, tools, auth layers
+- Production-ready with CORS, logging, error handling
+- **GitHub:** [greeting-mcp-node](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/greeting-mcp-node)
+
+### FastAPI + FastMCP (Custom Middleware)
+**Skill:** [fastapi-fastmcp](../fastapi-fastmcp/SKILL.md)
+- Python-based with custom authentication middleware
+- Combines FastAPI's HTTP control with FastMCP's tooling
+- Ideal for existing FastAPI applications
+- **GitHub:** [greeting-mcp-python](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/greeting-mcp-python)
+
+### Scalekit MCP Server (Production Reference)
+**Reference:** [scalekit-mcp-server.md](../../references/scalekit-mcp-server.md)
+- Official Scalekit production implementation
+- Comprehensive tooling for identity management
+- Advanced patterns: scope-based auth, pagination, multi-step operations
+- Demonstrates best practices for complex MCP servers
+- **GitHub:** [scalekit-inc/scalekit-mcp-server](https://github.com/scalekit-inc/scalekit-mcp-server)
+
+### Choosing an Example
+
+| Example | Complexity | Best For | Control Level |
+|----------|-------------|-----------|---------------|
+| FastMCP | Simplest | Quick prototypes, minimal code | Low (automatic) |
+| Express.js | Medium | Production Node.js, custom logic | High (manual) |
+| FastAPI + FastMCP | Medium | Production Python, existing apps | High (manual) |
+| Scalekit Server | Advanced | Complex apps, reference patterns | Very High |
+
+All examples include:
+- Complete source code
+- Setup instructions
+- Environment configuration
+- Testing guidance
 
 ## Common issues
 

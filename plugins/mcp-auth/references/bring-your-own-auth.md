@@ -203,6 +203,34 @@ After processing the callback from your auth system, Scalekit handles the remain
 
 ## Next Steps
 
+### Complete Working Examples
+
+Production-ready MCP server implementations with different OAuth integration approaches:
+
+1. **FastMCP (Simplest)**
+   - 5-line OAuth integration with Scalekit provider
+   - Automatic token validation and scope enforcement
+   - [todo-fastmcp](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/todo-fastmcp)
+   - Skill: [add-auth-fastmcp](../skills/add-auth-fastmcp/SKILL.md)
+
+2. **Express.js (Full Control)**
+   - Manual OAuth middleware implementation
+   - Modular architecture with complete control
+   - [greeting-mcp-node](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/greeting-mcp-node)
+   - Skill: [express-mcp-server](../skills/express-mcp-server/SKILL.md)
+
+3. **FastAPI + FastMCP (Python)**
+   - Custom middleware with FastMCP tooling
+   - Ideal for existing FastAPI applications
+   - [greeting-mcp-python](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/greeting-mcp-python)
+   - Skill: [fastapi-fastmcp](../skills/fastapi-fastmcp/SKILL.md)
+
+4. **Scalekit MCP Server (Production Reference)**
+   - Official Scalekit implementation with advanced patterns
+   - Comprehensive tooling and best practices
+   - [scalekit-mcp-server](https://github.com/scalekit-inc/scalekit-mcp-server)
+   - Reference: [scalekit-mcp-server.md](./scalekit-mcp-server.md)
+
 **Download Sample MCP Server:**
 Check out a working MCP server implementation with complete authentication and authorization:
 https://github.com/scalekit-inc/mcp-auth-demos

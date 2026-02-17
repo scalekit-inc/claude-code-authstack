@@ -735,6 +735,38 @@ const env = process.env.NODE_ENV || 'development';
 const appConfig = config[env];
 ```
 
+## Complete Working Example
+
+A full production-ready Express.js MCP server is available in the Scalekit MCP Auth Demos repository:
+
+**GitHub Repository:** [scalekit-inc/mcp-auth-demos/tree/main/greeting-mcp-node](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/greeting-mcp-node)
+
+This example includes:
+- Complete server implementation with modular architecture
+- OAuth 2.1 authentication middleware
+- Tool registration with Zod validation
+- CORS configuration and error handling
+- Production-ready logging and monitoring
+
+### Key Files
+
+- `src/main.ts` - Main server entry point
+- `src/lib/auth.ts` - OAuth discovery endpoint handler
+- `src/lib/middleware.ts` - Token validation middleware
+- `src/lib/transport.ts` - MCP transport layer setup
+- `src/tools/` - Tool implementations
+
+### Getting Started
+
+```bash
+cd greeting-mcp-node
+npm install
+npm run build
+npm start
+```
+
+See [README.md](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/greeting-mcp-node) for complete setup instructions.
+
 ## Related Resources
 
 - [MCP SDK Documentation](https://github.com/modelcontextprotocol/typescript-sdk)

@@ -425,9 +425,21 @@ def flexible_operation() -> dict:
     return result
 ```
 
+## Complete Working Example
+
+The complete FastMCP todo server shown above is available in the Scalekit MCP Auth Demos repository:
+
+**GitHub Repository:** [scalekit-inc/mcp-auth-demos/tree/main/todo-fastmcp](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/todo-fastmcp)
+
+This example demonstrates:
+- Full CRUD operations with scope-based authorization
+- In-memory todo storage for testing
+- OAuth 2.1 integration via FastMCP ScalekitProvider
+- Production-ready error handling and logging
+
 ## Resources
 
-- Full example: [GitHub - todo-fastmcp](https://github.com/scalekit-inc/mcp-demo/tree/main/todo-fastmcp)
+- Full example: [GitHub - todo-fastmcp](https://github.com/scalekit-inc/mcp-auth-demos/tree/main/todo-fastmcp)
 - [Scalekit MCP Auth Demos](https://github.com/scalekit-inc/mcp-auth-demos/tree/main)
 - FastMCP docs: [fastmcp.dev](https://fastmcp.dev)
 - Scalekit docs: [docs.scalekit.com/authenticate/mcp/fastmcp-quickstart](https://docs.scalekit.com/authenticate/mcp/fastmcp-quickstart)

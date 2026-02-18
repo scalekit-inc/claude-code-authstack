@@ -9,18 +9,45 @@ Secure your MCP server with production-ready OAuth 2.1 authorization using Scale
 
 ## Critical Prerequisites
 
-⚠️ **MCP OAuth requires HTTP-based transport**: OAuth 2.1 authentication only works with `StreamableHTTPServerTransport` or HTTP-based transports. The standard `StdioServerTransport` (stdin/stdout) does **not** support OAuth flows.
+⚠️ **MCP OAuth requires HTTP-based transport (Streamable HTTP)**: OAuth 2.1 authentication only works when your MCP server is exposed over **HTTP** using the **Streamable HTTP** transport. The standard `StdioServerTransport` (stdin/stdout) does **not** support OAuth flows.
 
 **Node.js requirement:**
 ```javascript
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 ```
 
-**Python requirement:**
+**Python requirement (Streamable HTTP via ASGI app):**
+
+In Python, the practical equivalent of Node’s `StreamableHTTPServerTransport` is to **create a Streamable HTTP ASGI app** and run it behind an ASGI server (Uvicorn/Hypercorn). The official Python SDK exposes this as `streamable_http_app()` (convenience) or `create_streamable_http_app(...)` (lower-level).
+
+**Accurate Python snippet (FastMCP + Streamable HTTP):**
 ```python
-# Use FastMCP with SSE/HTTP support or httpx-sse
-from mcp.server.sse import SseServerTransport
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("My MCP Server")
+
+@mcp.tool
+def ping() -> str:
+    return "pong"
+
+# HTTP-based transport required for OAuth-capable deployments
+app = mcp.streamable_http_app(path="/mcp")
 ```
+
+**Lower-level equivalent (explicit constructor):**
+```python
+from mcp.server.fastmcp import FastMCP
+from fastmcp.server.http import create_streamable_http_app
+
+mcp = FastMCP("My MCP Server")
+app = create_streamable_http_app(server=mcp, streamable_http_path="/mcp")
+```
+
+Notes:
+- The imports above match the **official** Python MCP SDK on PyPI (`mcp`). See: `https://pypi.org/project/mcp/1.9.1/`
+- The result is an **ASGI `app`** you run with an ASGI server (e.g. `uvicorn module:app`)—this is **Streamable HTTP**, not stdio.
+- SSE-only transports are not the same as Streamable HTTP; for OAuth with MCP hosts (Claude Desktop/Cursor/VS Code), use Streamable HTTP. See: `https://gofastmcp.com/python-sdk/fastmcp-server-http`
+  - Example run: `uvicorn your_module:app --host 0.0.0.0 --port 8000`
 
 If your MCP server currently uses stdio transport, you must migrate to HTTP-based transport before implementing OAuth. See [MCP Transport Documentation](https://spec.modelcontextprotocol.io/specification/architecture/#transports) for migration guidance.
 
@@ -264,15 +291,49 @@ except Exception:
     }
 ```
 
-## Step 6: Test and deploy
+## Step 6: Verify and deploy
 
-### Testing checklist
+### Verify your integration
+
+Before testing with AI hosts, Claude Code will scan your project to determine
+the right URL to verify against. It will look for:
+
+- `RESOURCE_ID` or `resource` values in your code or `.env`
+- The host/domain used in `/.well-known/oauth-protected-resource`
+- Any deployed base URL in environment config (`SERVER_URL`, `PUBLIC_URL`, etc.)
+
+If no URL is found, you'll be asked:
+> "What is your MCP server base URL?
+> (e.g., `https://mcp.yourapp.com` or `https://mcp.yourapp.com/mcp`)"
+
+Once the URL is known, run these three checks:
+
+**Check 1 – Confirm 401 without token:**
+```bash
+curl -i <your-mcp-url>
+```
+Expected: `HTTP/1.1 401 Unauthorized`
+
+**Check 2 – Confirm WWW-Authenticate header:**
+The response must include:
+```
+WWW-Authenticate: Bearer realm="OAuth", resource_metadata="https://<your-domain>/.well-known/oauth-protected-resource"
+```
+This is what triggers the MCP client's OAuth flow. A plain 401 without this header
+will cause AI hosts (Claude Desktop, Cursor, VS Code) to fail silently.
+
+**Check 3 – Confirm metadata endpoint is reachable:**
+```bash
+curl https://<your-domain>/.well-known/oauth-protected-resource
+```
+Expected: JSON with `resource`, `authorization_servers`, and `scopes_supported`.
+
+### Testing checklist (after verification passes)
 - [ ] Test with Claude Desktop
 - [ ] Test with Cursor
 - [ ] Test with VS Code
 - [ ] Verify token validation rejects invalid tokens
 - [ ] Verify scope-based authorization (if implemented)
-- [ ] Test with different authentication methods
 
 ### Production deployment checklist
 - [ ] Configure CORS policies for endpoints

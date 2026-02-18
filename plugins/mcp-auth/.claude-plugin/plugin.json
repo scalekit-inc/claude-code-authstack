@@ -1,7 +1,7 @@
 {
   "name": "mcp-auth",
   "description": "OAuth 2.1 authorization for MCP servers using Scalekit to protect tools used by AI IDEs and agents.",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "author": {
     "name": "Scalekit Inc",
     "email": "support@scalekit.com"

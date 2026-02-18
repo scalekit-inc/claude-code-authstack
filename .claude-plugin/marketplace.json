@@ -7,19 +7,12 @@
     "email": "support@scalekit.com"
   },
   "plugins": [
-    {
-      "name": "dryrun",
-      "description": "Dry-run and validation for auth and provisioning flows.",
-      "source": "./plugins/dryrun",
-      "category": "testing",
-      "homepage": "https://docs.scalekit.com"
-    },
      {
       "name": "mcp-auth",
       "description": "Guides users through adding production-ready OAuth 2.1 authorization to Model Context Protocol (MCP) servers",
       "source": "./plugins/mcp-auth",
       "category": "testing",
-      "homepage": "https://docs.scalekit.com"
+      "homepage": "https://docs.scalekit.com/authenticate/mcp/start-mcp-auth-coding-agents"
     },
     {
       "name": "modular-sso",

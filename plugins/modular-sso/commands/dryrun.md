@@ -1,13 +1,13 @@
 ---
-description: Run Scalekit dryrun in fsa or sso mode
-argument-hint: "<mode:fsa|sso> <env_url> <client_id> [organization_id]"
+description: Run Scalekit dryrun in fsa
+argument-hint: "<mode:sso> <env_url> <client_id> [organization_id]"
 allowed-tools: Bash(node *), Bash(npx *)
 ---
 
 Run Scalekit dryrun with explicit arguments.
 
 Expected arguments:
-1. mode (`fsa` or `sso`)
+1. mode (`sso`)
 2. env_url
 3. client_id
 4. organization_id (required only for `sso`)

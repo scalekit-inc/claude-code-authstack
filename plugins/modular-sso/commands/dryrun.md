@@ -1,6 +1,6 @@
 ---
 description: Run Scalekit dryrun in fsa
-argument-hint: "<mode:fsa|sso> <env_url> <client_id> [organization_id]"
+argument-hint: "<mode:sso> <env_url> <client_id> [organization_id]"
 allowed-tools: Bash(node *), Bash(npx *)
 ---
 

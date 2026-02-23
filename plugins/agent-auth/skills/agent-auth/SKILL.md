@@ -1,33 +1,27 @@
 ---
-name: scalekit-agent-auth
-description: Implements Scalekit Agent Auth to enable AI agents to take actions in third-party applications (Gmail, Slack, Calendar, Notion) on behalf of users. Use when building agent authentication, OAuth workflows, managing connected accounts, or fetching access tokens for third-party APIs. Use when the user mentions Scalekit, Agent Auth, connected accounts, or authorizing agents.
+name: integrating-agent-auth
+description: Integrates Scalekit Agent Auth into a project to handle OAuth flows, token storage, and automatic refresh for third-party services (Gmail, Slack, Notion, Calendar). Use when a user needs to connect to an external service, authorize OAuth access, fetch access or refresh tokens, or execute API calls on behalf of a user.
 ---
 
-# Scalekit Agent Auth Implementation
+# Agent Auth Integration
 
-Helps AI agents authenticate users and execute actions in third-party applications like Gmail, Calendar, Slack, and Notion using Scalekit's Agent Auth.
+Scalekit handles the full OAuth lifecycle — authorization, token storage, and refresh — so agents can act on behalf of users in Gmail, Slack, Notion, Calendar, and other connectors.
 
-## Quick Start
+**Required env vars**: `SCALEKIT_CLIENT_ID`, `SCALEKIT_CLIENT_SECRET`, `SCALEKIT_ENV_URL`
+→ Get from [app.scalekit.com](https://app.scalekit.com): Developers → Settings → API Credentials
 
-### Setup Scalekit SDK
+## Setup
 
-**Get credentials**: Navigate to [app.scalekit.com](https://app.scalekit.com) → Developers → Settings → API Credentials
+Install the SDK and initialize the client:
 
-**Python installation**:
+<tabs>
+
+**Python**
 ```bash
 pip install scalekit-sdk-python
 ```
-
-**Node.js installation**:
-```bash
-npm install @scalekit-sdk/node@2.2.0-beta.1
-```
-
-**Initialize client**:
-
-Python:
 ```python
-import scalekit.client
+import scalekit.client, os
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -39,47 +33,58 @@ scalekit = scalekit.client.ScalekitClient(
 actions = scalekit.actions
 ```
 
-Node.js:
+**Node.js**
+```bash
+npm install @scalekit-sdk/node@2.2.0-beta.1
+```
 ```typescript
 import { ScalekitClient } from '@scalekit-sdk/node';
 import 'dotenv/config';
 
 const scalekitClient = new ScalekitClient(
-  process.env.SCALEKIT_ENV_URL,
-  process.env.SCALEKIT_CLIENT_ID,
-  process.env.SCALEKIT_CLIENT_SECRET
+  process.env.SCALEKIT_ENV_URL!,
+  process.env.SCALEKIT_CLIENT_ID!,
+  process.env.SCALEKIT_CLIENT_SECRET!
 );
-
-const { connectedAccounts, tools } = scalekitClient;
+const { connectedAccounts } = scalekitClient;
 ```
 
-## Core Workflow
+</tabs>
 
-Copy this checklist for implementation:
+## Integration workflow
+
+**First, ask the user:**
+
+> Are you starting fresh and want a quick test with Gmail, or are you integrating directly into your project?
+
+- If **fresh / quick test**: Use the Gmail example below to verify setup
+- If **integrating directly**: Skip the Gmail test and adapt the workflow to your connector
+
+Copy this checklist and check off steps as you complete them:
 
 ```
-Agent Auth Implementation:
-- [ ] Step 1: Create connected account
-- [ ] Step 2: Check authorization status
-- [ ] Step 3: Generate authorization link (if needed)
-- [ ] Step 4: Fetch OAuth tokens
-- [ ] Step 5: Execute third-party API calls
+Agent Auth Integration Progress:
+- [ ] Step 1: SDK installed and client initialized
+- [ ] Step 2: Connected account created for the user
+- [ ] Step 3: User has authorized the connection (status = ACTIVE)
+- [ ] Step 4: Access token fetched successfully
+- [ ] Step 5: Downstream API call succeeds with fetched token
 ```
 
-### Step 1: Create Connected Account
+### Step 1 — Create a connected account
 
-A connected account represents a user's connection to a third-party service.
+Replace `"user_123"` with the project's actual user ID. Replace `"gmail"` with the target connector.
 
-Python:
+**Python**
 ```python
 response = actions.get_or_create_connected_account(
-    connection_name="gmail",  # or "slack", "calendar", "notion"
-    identifier="user_123"     # unique ID from your system
+    connection_name="gmail",
+    identifier="user_123"
 )
 connected_account = response.connected_account
 ```
 
-Node.js:
+**Node.js**
 ```typescript
 const response = await connectedAccounts.getOrCreateConnectedAccount({
   connector: 'gmail',
@@ -88,53 +93,38 @@ const response = await connectedAccounts.getOrCreateConnectedAccount({
 const connectedAccount = response.connectedAccount;
 ```
 
-### Step 2: Check Authorization Status
+### Step 2 — Authorize the user
 
-Verify if the user has authorized access. Status values: `ACTIVE`, `INACTIVE`, `EXPIRED`.
+If status is not `ACTIVE`, the user must complete OAuth. In a web app, redirect to `link`. In CLI/dev, print and wait.
 
-Python:
+**Python**
 ```python
 if connected_account.status != "ACTIVE":
-    # User needs to authorize
+    link_response = actions.get_authorization_link(
+        connection_name="gmail",
+        identifier="user_123"
+    )
+    print("Authorize here:", link_response.link)
+    input("Press Enter after authorizing...")
 ```
 
-Node.js:
+**Node.js**
 ```typescript
 if (connectedAccount?.status !== 'ACTIVE') {
-  // User needs to authorize
+  const linkResponse = await connectedAccounts.getMagicLinkForConnectedAccount({
+    connector: 'gmail',
+    identifier: 'user_123',
+  });
+  console.log('Authorize here:', linkResponse.link);
+  // Web app: redirect user to linkResponse.link
 }
 ```
 
-### Step 3: Generate Authorization Link
+### Step 3 — Fetch OAuth tokens
 
-Create a magic link for users to complete OAuth authorization.
+ALWAYS call `get_connected_account` immediately before any API call — Scalekit auto-refreshes tokens and this guarantees the latest valid token.
 
-Python:
-```python
-link_response = actions.get_authorization_link(
-    connection_name="gmail",
-    identifier="user_123"
-)
-authorization_url = link_response.link
-# Redirect user to authorization_url
-```
-
-Node.js:
-```typescript
-const linkResponse = await connectedAccounts.getMagicLinkForConnectedAccount({
-  connector: 'gmail',
-  identifier: 'user_123',
-});
-// Redirect user to linkResponse.link
-```
-
-**In production**: Redirect users to this URL. Scalekit handles the complete OAuth flow, token management, and automatic token refresh.
-
-### Step 4: Fetch OAuth Tokens
-
-Retrieve current access and refresh tokens. Scalekit automatically refreshes tokens when needed.
-
-Python:
+**Python**
 ```python
 response = actions.get_connected_account(
     connection_name="gmail",
@@ -145,158 +135,150 @@ access_token = tokens["access_token"]
 refresh_token = tokens["refresh_token"]
 ```
 
-Node.js:
+**Node.js**
 ```typescript
 const accountResponse = await connectedAccounts.getConnectedAccountByIdentifier({
   connector: 'gmail',
-  identifier: 'user_123',
+  identifier: 'user@example.com',
 });
-
 const authDetails = accountResponse?.connectedAccount?.authorizationDetails;
-const accessToken = (authDetails && authDetails.details?.case === "oauthToken")
-  ? authDetails.details.value?.accessToken
-  : undefined;
+const accessToken = authDetails?.details?.case === 'oauthToken'
+  ? authDetails.details.value?.accessToken : undefined;
+const refreshToken = authDetails?.details?.case === 'oauthToken'
+  ? authDetails.details.value?.refreshToken : undefined;
 ```
 
-### Step 5: Execute Third-Party API Calls
+### Step 4 — Call the third-party API
 
-Use the access token to make authenticated API requests.
+Use `access_token` from Step 3 as a Bearer token. Example: fetch 5 unread Gmail messages.
 
-**Example: Fetch Gmail unread emails**:
+**Python**
 ```python
+import requests
+
 headers = {"Authorization": f"Bearer {access_token}"}
 list_url = "https://gmail.googleapis.com/gmail/v1/users/me/messages"
-params = {"q": "is:unread", "maxResults": 5}
 
-response = requests.get(list_url, headers=headers, params=params)
-messages = response.json().get("messages", [])
+messages = requests.get(
+    list_url, headers=headers, params={"q": "is:unread", "maxResults": 5}
+).json().get("messages", [])
+
+for msg in messages:
+    data = requests.get(
+        f"{list_url}/{msg['id']}", headers=headers,
+        params={"format": "metadata", "metadataHeaders": ["From", "Subject", "Date"]}
+    ).json()
+    hdrs = data.get("payload", {}).get("headers", [])
+    print(next((h["value"] for h in hdrs if h["name"] == "Subject"), "No Subject"))
+    print(next((h["value"] for h in hdrs if h["name"] == "From"), "Unknown"))
+    print(data.get("snippet", ""))
+    print("-" * 50)
 ```
 
-For complete API examples, see [GMAIL_EXAMPLE.md](GMAIL_EXAMPLE.md)
+**Node.js**
+```typescript
+const listUrl = 'https://gmail.googleapis.com/gmail/v1/users/me/messages';
+const params = new URLSearchParams({ q: 'is:unread', maxResults: '5' });
 
-## Supported Connectors
+const { messages = [] } = await fetch(`${listUrl}?${params}`, {
+  headers: { Authorization: `Bearer ${accessToken}` },
+}).then(r => r.json());
 
-Common connector values:
-- `gmail` - Gmail API access
-- `google-calendar` - Google Calendar
-- `slack` - Slack workspace
-- `notion` - Notion workspace
-- `microsoft-outlook` - Outlook email
-- `microsoft-calendar` - Microsoft Calendar
+for (const msg of messages) {
+  const msgData = await fetch(
+    `${listUrl}/${msg.id}?format=metadata&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date`,
+    { headers: { Authorization: `Bearer ${accessToken}` } }
+  ).then(r => r.json());
 
-## Connection States
+  const h = msgData.payload?.headers ?? [];
+  console.log('Subject:', h.find(x => x.name === 'Subject')?.value ?? 'No Subject');
+  console.log('From:', h.find(x => x.name === 'From')?.value ?? 'Unknown');
+  console.log('Snippet:', msgData.snippet ?? '');
+  console.log('-'.repeat(50));
+}
+```
 
-**ACTIVE**: User authorized, tokens valid
-→ Proceed with API calls
+## Adapting to other connectors
 
-**INACTIVE**: No authorization yet
-→ Generate authorization link
+Replace `"gmail"` with any supported connector name: `slack`, `notion`, `calendar`, etc.
+The SDK workflow (Steps 1–3) is identical for all connectors. Only the downstream API call (Step 4) changes.
 
-**EXPIRED**: Authorization expired
-→ Generate new authorization link
+For connector-specific API details, see [CONNECTORS.md](CONNECTORS.md).
 
-**Token refresh**: Automatic
-→ Scalekit refreshes tokens before expiry
+## Building agents
 
-## Error Handling
+Use Scalekit tools with AI frameworks to build agents that can execute actions on behalf of users.
 
-**Connection not found**:
+### LangChain agents
+
+Create conversational agents with LangChain that can autonomously call Scalekit tools based on user intent.
+
+**Python**
 ```python
-try:
-    response = actions.get_connected_account(...)
-except Exception as e:
-    # Create new connected account
-    response = actions.get_or_create_connected_account(...)
+from langchain_openai import ChatOpenAI
+from langchain.agents import AgentExecutor, create_openai_tools_agent
+from langchain_core.prompts import ChatPromptTemplate
+
+# Fetch tools from Scalekit in LangChain format
+tools = actions.langchain.get_tools(
+    identifier="user_123",
+    providers=["GMAIL"],
+    page_size=100
+)
+
+# Define the agent prompt
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are a helpful assistant with access to external tools."),
+    ("placeholder", "{chat_history}"),
+    ("human", "{input}"),
+    ("placeholder", "{agent_scratchpad}"),
+])
+
+# Create and run the agent
+llm = ChatOpenAI(model="gpt-4o")
+agent = create_openai_tools_agent(llm, tools, prompt)
+executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+result = executor.invoke({"input": "fetch my last 5 unread emails and summarize them"})
 ```
 
-**Authorization required**:
+### Google ADK agents
+
+Build agents using Google's Agent Development Kit with native Gemini integration.
+
+**Python**
 ```python
-if connected_account.status != "ACTIVE":
-    link = actions.get_authorization_link(...)
-    return {"authorization_required": True, "link": link.link}
+from google.adk.agents import Agent
+
+# Fetch tools from Scalekit in Google ADK format
+gmail_tools = actions.google.get_tools(
+    providers=["GMAIL"],
+    identifier="user_123",
+    page_size=100
+)
+
+# Create the agent
+agent = Agent(
+    name="gmail_assistant",
+    model="gemini-2.5-flash",
+    description="Gmail assistant that can read and manage emails",
+    instruction="You are a helpful Gmail assistant that can read, send, and organize emails.",
+    tools=gmail_tools
+)
+
+# Run the agent
+response = agent.process_request("fetch my last 5 unread emails and summarize them")
 ```
 
-**API call failures**:
-- Check token validity first
-- Verify connector permissions
-- Review API rate limits
+For more examples and framework-specific patterns, see [code-samples.md](../references/code-samples.md).
 
-## Best Practices
+## Deep reference
 
-**Security**:
-- Store credentials in environment variables
-- Never log access tokens
-- Use HTTPS for authorization redirects
+For comprehensive documentation on connected accounts lifecycle, states, and API usage, see [connected-accounts.md](../references/connected-accounts.md).
 
-**User Experience**:
-- Check authorization status before operations
-- Provide clear authorization prompts
-- Handle token expiration gracefully
+For code samples and implementation examples by framework, see [code-samples.md](../references/code-samples.md).
 
-**Performance**:
-- Cache connected account status
-- Reuse access tokens until expiry
-- Batch API requests when possible
+For an overview of supported providers and their capabilities, see [providers.md](../references/providers.md).
 
-## Common Patterns
+For comprehensive token management including refresh, security, and monitoring, see [token-management.md](../references/token-management.md).
 
-**Check before execute**:
-```python
-def execute_with_auth(connector, identifier, api_call):
-    account = actions.get_connected_account(
-        connection_name=connector,
-        identifier=identifier
-    )
-
-    if account.connected_account.status != "ACTIVE":
-        link = actions.get_authorization_link(connector, identifier)
-        return {"error": "Authorization required", "link": link.link}
-
-    tokens = account.connected_account.authorization_details["oauth_token"]
-    return api_call(tokens["access_token"])
-```
-
-**Multi-connector support**:
-```python
-connectors = ["gmail", "slack", "calendar"]
-for connector in connectors:
-    response = actions.get_or_create_connected_account(
-        connection_name=connector,
-        identifier=user_id
-    )
-    # Check and authorize as needed
-```
-
-## Advanced Topics
-
-**Custom scopes**: See [CUSTOM_SCOPES.md](CUSTOM_SCOPES.md)
-
-**Webhook notifications**: See [WEBHOOKS.md](WEBHOOKS.md)
-
-**Token lifecycle management**: See [TOKEN_MANAGEMENT.md](TOKEN_MANAGEMENT.md)
-
-**Multi-tenant architecture**: See [MULTI_TENANT.md](MULTI_TENANT.md)
-
-## Troubleshooting
-
-**"Connected account not found"**:
-→ Use `get_or_create_connected_account` instead of `get_connected_account`
-
-**"Invalid credentials"**:
-→ Verify API credentials at app.scalekit.com
-
-**"Authorization failed"**:
-→ Check connector configuration in Scalekit dashboard
-→ Verify redirect URLs are whitelisted
-
-**"Token expired"**:
-→ Scalekit auto-refreshes tokens; check connection status
-→ Regenerate authorization link if status is EXPIRED
-
-## Reference
-
-**Scalekit Documentation**: [docs.scalekit.com](https://docs.scalekit.com)
-
-**API Reference**: [docs.scalekit.com/apis](https://docs.scalekit.com/apis)
-
-**Supported Connectors**: [docs.scalekit.com/connectors](https://docs.scalekit.com/connectors)s
+For configuring your own OAuth credentials per connector (whitelabeling, dedicated quotas), see [byoc.md](../references/byoc.md).

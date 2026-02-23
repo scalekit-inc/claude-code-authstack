@@ -205,6 +205,80 @@ The SDK workflow (Steps 1–3) is identical for all connectors. Only the downstr
 
 For connector-specific API details, see [CONNECTORS.md](CONNECTORS.md).
 
+## Building agents
+
+Use Scalekit tools with AI frameworks to build agents that can execute actions on behalf of users.
+
+### LangChain agents
+
+Create conversational agents with LangChain that can autonomously call Scalekit tools based on user intent.
+
+**Python**
+```python
+from langchain_openai import ChatOpenAI
+from langchain.agents import AgentExecutor, create_openai_tools_agent
+from langchain_core.prompts import ChatPromptTemplate
+
+# Fetch tools from Scalekit in LangChain format
+tools = actions.langchain.get_tools(
+    identifier="user_123",
+    providers=["GMAIL"],
+    page_size=100
+)
+
+# Define the agent prompt
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are a helpful assistant with access to external tools."),
+    ("placeholder", "{chat_history}"),
+    ("human", "{input}"),
+    ("placeholder", "{agent_scratchpad}"),
+])
+
+# Create and run the agent
+llm = ChatOpenAI(model="gpt-4o")
+agent = create_openai_tools_agent(llm, tools, prompt)
+executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+result = executor.invoke({"input": "fetch my last 5 unread emails and summarize them"})
+```
+
+### Google ADK agents
+
+Build agents using Google's Agent Development Kit with native Gemini integration.
+
+**Python**
+```python
+from google.adk.agents import Agent
+
+# Fetch tools from Scalekit in Google ADK format
+gmail_tools = actions.google.get_tools(
+    providers=["GMAIL"],
+    identifier="user_123",
+    page_size=100
+)
+
+# Create the agent
+agent = Agent(
+    name="gmail_assistant",
+    model="gemini-2.5-flash",
+    description="Gmail assistant that can read and manage emails",
+    instruction="You are a helpful Gmail assistant that can read, send, and organize emails.",
+    tools=gmail_tools
+)
+
+# Run the agent
+response = agent.process_request("fetch my last 5 unread emails and summarize them")
+```
+
+For more examples and framework-specific patterns, see [code-samples.md](../references/code-samples.md).
+
 ## Deep reference
 
 For comprehensive documentation on connected accounts lifecycle, states, and API usage, see [connected-accounts.md](../references/connected-accounts.md).
+
+For code samples and implementation examples by framework, see [code-samples.md](../references/code-samples.md).
+
+For an overview of supported providers and their capabilities, see [providers.md](../references/providers.md).
+
+For comprehensive token management including refresh, security, and monitoring, see [token-management.md](../references/token-management.md).
+
+For configuring your own OAuth credentials per connector (whitelabeling, dedicated quotas), see [byoc.md](../references/byoc.md).

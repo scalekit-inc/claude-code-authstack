@@ -255,6 +255,8 @@ const refreshed = await agentConnect.accounts.refreshTokens('account_id');
 const tokenStatus = await agentConnect.accounts.getTokenStatus('account_id');
 ```
 
+For detailed token management including automatic refresh, error handling, and security, see [token-management.md](token-management.md).
+
 ### Account status monitoring
 
 Monitor account authentication status:

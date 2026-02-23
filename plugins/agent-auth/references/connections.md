@@ -424,3 +424,7 @@ Use templates for common connection patterns:
 ```
 
 Next, learn how to create and manage [Connected accounts](/agent-auth/connected-accounts) that use these connections to authenticate and execute tools for your users.
+
+## Related documentation
+
+- [byoc.md](byoc.md) — use your own OAuth credentials instead of Scalekit's shared defaults

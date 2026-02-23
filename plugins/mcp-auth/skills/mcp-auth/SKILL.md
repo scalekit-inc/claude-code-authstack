@@ -69,7 +69,7 @@ MCP OAuth Setup:
 
 **Node.js:**
 ```bash
-npm install @scalekit-sdk/node
+npm install @scalekit-sdk/node@2.2.0-beta.1
 ```
 
 **Python:**

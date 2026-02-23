@@ -53,6 +53,13 @@ const { connectedAccounts } = scalekitClient;
 
 ## Integration workflow
 
+**First, ask the user:**
+
+> Are you starting fresh and want a quick test with Gmail, or are you integrating directly into your project?
+
+- If **fresh / quick test**: Use the Gmail example below to verify setup
+- If **integrating directly**: Skip the Gmail test and adapt the workflow to your connector
+
 Copy this checklist and check off steps as you complete them:
 
 ```
@@ -197,3 +204,7 @@ Replace `"gmail"` with any supported connector name: `slack`, `notion`, `calenda
 The SDK workflow (Steps 1–3) is identical for all connectors. Only the downstream API call (Step 4) changes.
 
 For connector-specific API details, see [CONNECTORS.md](CONNECTORS.md).
+
+## Deep reference
+
+For comprehensive documentation on connected accounts lifecycle, states, and API usage, see [connected-accounts.md](../references/connected-accounts.md).

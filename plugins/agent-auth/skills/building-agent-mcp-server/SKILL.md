@@ -20,7 +20,14 @@ Scalekit lets you build MCP servers that manage authentication, create personali
 
 - [ ] **Scalekit credentials**: [app.scalekit.com](https://app.scalekit.com) → Settings → Copy `SCALEKIT_CLIENT_ID`, `SCALEKIT_CLIENT_SECRET`, `SCALEKIT_ENV_URL`
 - [ ] **OpenAI API key**: `OPENAI_API_KEY`
-- [ ] **Gmail connector**: Scalekit Dashboard → Agent Auth → Connections → Create Connection → Gmail → `Connection Name = MY_GMAIL` → Save
+
+> **Gmail is the only connector that does not require dashboard setup.** All other connectors (including Google Calendar) must be created in the Scalekit Dashboard before use:
+>
+> Go to **Scalekit Dashboard → Agent Auth → Connections → + Create Connection → Select connector** → Set `Connection Name` → Save
+
+> **Important**: The **Connection Name** you set in the dashboard is exactly what you use as the `connection_name` parameter in your code. They must match exactly.
+
+For this example, create the Google Calendar connector:
 - [ ] **Google Calendar connector**: Scalekit Dashboard → Agent Auth → Connections → Create Connection → Google Calendar → `Connection Name = MY_CALENDAR` → Save
 
 ## Step 1 — Set up your environment
@@ -72,12 +79,14 @@ cfg_response = my_mcp.create_config(
     name="reminder-manager",
     description="Summarizes latest email and creates a reminder event",
     connection_tool_mappings=[
+        # Gmail works directly — no dashboard setup required
         McpConfigConnectionToolMapping(
-            connection_name="MY_GMAIL",
+            connection_name="gmail",
             tools=[
                 "gmail_fetch_mails",
             ],
         ),
+        # Google Calendar must be created in dashboard first
         McpConfigConnectionToolMapping(
             connection_name="MY_CALENDAR",
             tools=[

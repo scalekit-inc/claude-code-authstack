@@ -344,10 +344,12 @@ config_response = my_mcp.create_config(
     name="reminder-manager",
     description="Summarizes emails and creates calendar events",
     connection_tool_mappings=[
+        # Gmail works directly — no dashboard setup required
         McpConfigConnectionToolMapping(
-            connection_name="MY_GMAIL",
+            connection_name="gmail",
             tools=[]
         ),
+        # Google Calendar must be created in dashboard first
         McpConfigConnectionToolMapping(
             connection_name="MY_CALENDAR",
             tools=["googlecalendar_create_event", "googlecalendar_delete_event"]

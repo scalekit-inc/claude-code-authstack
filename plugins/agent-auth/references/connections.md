@@ -95,6 +95,10 @@ For providers with unique authentication requirements:
 
 ## Creating connections
 
+> **Important**: Gmail is the only connector that does not require dashboard or API connection setup. Gmail can be used directly with `connection_name="gmail"` without any pre-configuration. All other connectors must be created via dashboard or API before use.
+
+> **Note**: The **Connection Name** you create in the dashboard or API is exactly what you use as the `connection_name` parameter in your SDK code. They must match exactly.
+
 ### Using the dashboard
 
 1. **Navigate to connections** in your Agent Auth dashboard

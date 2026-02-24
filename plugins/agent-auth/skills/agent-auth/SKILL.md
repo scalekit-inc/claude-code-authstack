@@ -14,6 +14,10 @@ Scalekit handles the full OAuth lifecycle — authorization, token storage, and 
 
 Install the SDK and initialize the client:
 
+> **Important**: Except for Gmail, all connectors must be configured in the Scalekit Dashboard first before creating authorization URLs.
+>
+> To set up a connector: **Scalekit Dashboard → Agent Auth → Connections → + Create Connection → Select connector → Set Connection Name → Save**
+
 <tabs>
 
 **Python**
@@ -51,14 +55,30 @@ const { connectedAccounts } = scalekitClient;
 
 </tabs>
 
+## Connector setup
+
+Before integrating with a connector, follow these steps in the Scalekit Dashboard:
+
+> **Gmail is the only connector that does not require dashboard setup.** Skip this section for Gmail.
+
+For all other connectors (Slack, Notion, Google Calendar, etc.):
+
+1. Go to **Scalekit Dashboard → Agent Auth → Connections**
+2. Click **+ Create Connection**
+3. Select the connector you want to use
+4. Enter a **Connection Name** (e.g., `MY_SLACK`, `MY_NOTION`)
+5. Click **Save**
+
+> **Important**: The **Connection Name** you set in the dashboard is exactly what you use as the `connection_name` parameter in your code. They must match exactly.
+
 ## Integration workflow
 
 **First, ask the user:**
 
 > Are you starting fresh and want a quick test with Gmail, or are you integrating directly into your project?
 
-- If **fresh / quick test**: Use the Gmail example below to verify setup
-- If **integrating directly**: Skip the Gmail test and adapt the workflow to your connector
+- If **fresh / quick test**: Use the Gmail example below (Gmail is the only connector that doesn't require dashboard setup)
+- If **integrating directly**: Create your connector in the Scalekit Dashboard first, then adapt the workflow below to your connector
 
 Copy this checklist and check off steps as you complete them:
 

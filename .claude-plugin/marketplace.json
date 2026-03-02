@@ -27,6 +27,20 @@
       "source": "./plugins/modular-sso",
       "category": "enterprise auth",
       "homepage": "https://docs.scalekit.com"
+    },
+    {
+      "name": "modular-scim",
+      "description": "Automates user and group provisioning and deprovisioning via SCIM 2.0 with identity providers like Okta, Entra ID, and JumpCloud.",
+      "source": "./plugins/modular-scim",
+      "category": "enterprise auth",
+      "homepage": "https://docs.scalekit.com"
+    },
+    {
+      "name": "full-stack-auth",
+      "description": "Adds end-to-end authentication to B2B and AI apps including user management, organization handling, session management, RBAC, and login flows.",
+      "source": "./plugins/full-stack-auth",
+      "category": "auth",
+      "homepage": "https://docs.scalekit.com"
     }
   ]
 }

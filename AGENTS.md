@@ -41,6 +41,18 @@ A plugin bundles any combination of: skills, sub-agents, hooks, and MCP server c
 
 ---
 
+## Non-negotiable Rules
+
+> These rules apply to all work in this monorepo. No exceptions.
+
+- **Work on one plugin at a time** — never edit multiple plugins in a single change unless explicitly requested
+- **Never add secrets** — no tokens, credentials, or private endpoints in any file
+- **Prefer minimal changes** — improve correctness, security, and clarity with smallest viable surface area
+- **Keep instructions stable** — avoid time-dependent guidance (e.g., "before August 2025")
+- **Use forward slashes** — always use forward slashes in all file paths, never backslashes
+
+---
+
 ## Plugin Manifest (`plugin.json`)
 
 Required at `.claude-plugin/plugin.json`. The directory lives at the plugin root,
@@ -216,7 +228,7 @@ Summarize this PR. Focus on intent, approach, and risks.
 
 ### Skill Anti-patterns
 
-- Never use Windows-style paths (`scripts\file.py`) — always forward slashes
+- **Never use Windows-style paths** — always use forward slashes (`scripts/file.py`, never `scripts\file.py`)
 - Never offer 3+ tool options without a clear recommended default
 - Never hardcode credentials, tokens, or API keys
 - Never use time-sensitive language ("before August 2025, use the old API")
@@ -415,10 +427,11 @@ const MAX_RETRIES = 3;             // resolves most intermittent failures
 
 ## Security (Non-negotiable)
 
-- Never hardcode credentials — use `${ENV_VAR}` in configs, `process.env.X` in code
+- **Never hardcode credentials** — use `${ENV_VAR}` in configs, `process.env.X` in code
 - Validate all tool inputs with Zod (TS) or Pydantic (Python) at every boundary
 - Use JSON-RPC 2.0 structured errors — never raw exception messages
 - No `eval()` or dynamic `exec()` — reject any generated code execution
+- **Always use forward slashes** in all file paths to prevent cross-platform issues
 - Sanitize all file paths — prevent path traversal
 - Validate before processing, not after
 
@@ -483,7 +496,7 @@ What skills are available?
 
 ## Documentation Requirements
 
-Every plugin `README.md` must include:
+> **Required for every plugin** — Every plugin README must include these 7 sections.
 
 1. **Purpose** — what problem this solves (2–3 sentences)
 2. **Installation** — `claude /plugin install <source>`
@@ -492,6 +505,8 @@ Every plugin `README.md` must include:
 5. **Usage examples** — at least one end-to-end walkthrough
 6. **Troubleshooting** — the 3 most common failure modes
 7. **Security** — what credentials are needed and how to store them
+
+**Important**: If behavior changes, update the plugin README in the same PR.
 
 ---
 
@@ -536,3 +551,5 @@ Documentation
 | Agent name | `kebab-case` role | `security-reviewer` |
 | Script files | `verb_noun.py` | `analyze_form.py` |
 | Hook scripts | `verb-noun.sh` | `validate-command.sh` |
+
+**Note**: All file paths must use forward slashes (`/`) regardless of operating system.

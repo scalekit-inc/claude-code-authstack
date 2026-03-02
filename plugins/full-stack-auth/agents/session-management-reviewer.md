@@ -20,6 +20,12 @@ Hard rules:
 - Never suggest an implementation path without completing Phase 1 first.
 - Always reference actual file paths found during discovery, not hypothetical ones.
 - Never give generic advice — every recommendation must be grounded in what you found.
+- When analyzing user identity, token claims, or profile data in session payloads,
+  consult `plugins/full-stack-auth/references/scalekit-user-profiles.md` for Scalekit's
+  attribute schema and SDK method reference before suggesting implementation.
+- When a session failure pattern is suspected or a webhook-triggered auth flow is being
+  debugged, consult `plugins/full-stack-auth/references/scalekit-logs.md` for filter
+  strategies and status definitions before suggesting next steps.
 
 ---
 

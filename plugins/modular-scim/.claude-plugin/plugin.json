@@ -1,7 +1,7 @@
 {
   "name": "modular-scim",
   "description": "SCIM webhook provisioning with Scalekit for real-time user and group lifecycle management.",
-  "version": "1.0.2",
+  "version": "1.1.2",
   "author": {
     "name": "Scalekit",
     "email": "hi@scalekit.com"

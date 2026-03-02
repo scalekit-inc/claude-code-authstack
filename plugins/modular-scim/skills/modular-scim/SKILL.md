@@ -209,6 +209,7 @@ After deploying the webhook endpoint:
    - `organization.directory.group_created`
    - `organization.directory.group_updated`
 4. Copy the webhook secret into `SCALEKIT_WEBHOOK_SECRET`
+5. Share the [SCIM setup guide](https://docs.scalekit.com/guides/integrations/scim-integrations/) with the customer's IT admin for their IdP-specific directory sync steps.
 
 ---
 

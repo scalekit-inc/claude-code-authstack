@@ -21,6 +21,7 @@ Work through each section in order — earlier sections are blockers for later o
 ## SCIM provisioning
 
 - [ ] Configure webhook endpoints to receive SCIM events
+  → IT admin setup guides per IdP: https://docs.scalekit.com/guides/integrations/scim-integrations/
 - [ ] Verify webhook security with signature validation on every request
 - [ ] Test user provisioning (automatic creation from IdP)
 - [ ] Test user deprovisioning (deactivation/deletion when removed in IdP)

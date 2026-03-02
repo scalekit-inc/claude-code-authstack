@@ -374,6 +374,8 @@ console.log('Admin Portal:', portalLink.location);
 
 **Share link**: Send to customer's IT administrator via email/Slack
 
+**Share setup guide**: Include the Scalekit [SSO setup guide](https://docs.scalekit.com/guides/integrations/sso-integrations/) — provider-specific steps for Okta, Azure AD, Google Workspace, and others.
+
 ### Embedded Portal (Advanced)
 
 Embed Admin Portal in your app for seamless experience:

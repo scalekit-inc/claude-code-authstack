@@ -46,6 +46,7 @@ Work through each section in order — earlier sections are blockers for later o
 ## SSO flows
 
 - [ ] Test SSO with target IdPs: Okta, Azure AD, Google Workspace
+  → IT admin setup guides per IdP: https://docs.scalekit.com/guides/integrations/sso-integrations/
 - [ ] Configure user attribute mapping (email, name, groups)
 - [ ] Test both SP-initiated and IdP-initiated SSO flows
 - [ ] Verify SSO error handling for misconfigured connections

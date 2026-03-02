@@ -45,6 +45,7 @@ Work through each section in order — earlier sections are blockers for later o
 - [ ] Email/password: sign-up, login, password reset
 - [ ] Magic links: initiation, delivery, redemption, expiry
 - [ ] Social logins: each configured provider (Google, Microsoft, GitHub, etc.)
+  → Provider setup guides: https://docs.scalekit.com/guides/integrations/social-connections/
 - [ ] Passkeys: registration, authentication, fallback
 - [ ] Auth method selection UI renders correctly
 - [ ] Fallback scenarios when an auth method fails
@@ -61,6 +62,7 @@ Work through each section in order — earlier sections are blockers for later o
 
 **SSO:**
 - [ ] Test SSO with target IdPs: Okta, Azure AD, Google Workspace
+  → IT admin setup guides per IdP: https://docs.scalekit.com/guides/integrations/sso-integrations/
 - [ ] Configure user attribute mapping (email, name, groups)
 - [ ] Test both SP-initiated and IdP-initiated SSO flows
 - [ ] Verify SSO error handling for misconfigured connections
@@ -75,6 +77,7 @@ Work through each section in order — earlier sections are blockers for later o
 
 **SCIM provisioning:**
 - [ ] Configure webhook endpoints to receive SCIM events
+  → IT admin setup guides per IdP: https://docs.scalekit.com/guides/integrations/scim-integrations/
 - [ ] Verify webhook security with signature validation
 - [ ] Test user provisioning (automatic creation)
 - [ ] Test user deprovisioning (deactivation/deletion)

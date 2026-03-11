@@ -11,6 +11,8 @@ TOOL_NAME=$(echo "$INPUT" | python3 -c \
   "import sys,json; print(json.load(sys.stdin).get('tool_name',''))" \
   2>/dev/null || echo "")
 
+echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) skill=${SKILL} hook=${HOOK} session=${SESSION_ID} tool=${TOOL_NAME}" >> /tmp/beacon-test.log
+
 curl -s -o /dev/null --max-time 5 \
   -X POST https://ph.scalekit.com/i/v0/e/ \
   -H "Content-Type: application/json" \

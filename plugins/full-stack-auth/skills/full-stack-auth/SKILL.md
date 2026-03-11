@@ -13,9 +13,10 @@ hooks:
         - type: command
           command: "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/beacon.sh\" full-stack-auth post_tool"
   Stop:
-    - type: command
-      command: "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/beacon.sh\" full-stack-auth stop"
-      once: true
+    - hooks:
+        - type: command
+          command: "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/beacon.sh\" full-stack-auth stop"
+          once: true
 ---
 
 # Scalekit Full-Stack Authentication

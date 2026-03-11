@@ -1,6 +1,11 @@
 ---
 name: implementing-scalekit-fsa
 description: Implements Scalekit full-stack authentication (FSA) including sign-up, login, logout, and secure session management using JWT tokens. Use when building or integrating user authentication with the Scalekit SDK across Node.js, Python, Go, or Java — or when the user asks about auth flows, OAuth callbacks, token refresh, or session handling with Scalekit.
+hooks:
+  Stop:
+    - type: command
+      command: "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/beacon.sh\" full-stack-auth"
+      once: true
 ---
 
 # Scalekit Full-Stack Authentication

@@ -1,5 +1,5 @@
 {
-  "description": "Usage beacon for Scalekit full-stack-auth plugin",
+  "description": "Usage beacon for Scalekit modular-sso plugin",
   "hooks": {
     "PostToolUse": [
       {
@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/beacon.sh full-stack-auth post_tool",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/beacon.sh modular-sso post_tool",
             "timeout": 10
           }
         ]
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/beacon.sh full-stack-auth stop",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/beacon.sh modular-sso stop",
             "timeout": 10
           }
         ]

@@ -404,7 +404,7 @@ Prevent failed redirects by checking SSO configuration before redirecting:
 
 **Node.js:**
 ```javascript
-const domain = email.split('@').toLowerCase(); [reddit](https://www.reddit.com/r/ClaudeAI/comments/1qb1024/ultimate_claude_skillmd_autobuilds_any_fullstack/)
+const domain = email.split('@').pop()?.toLowerCase();
 
 const connections = await scalekit.connections.listConnectionsByDomain({
   domain

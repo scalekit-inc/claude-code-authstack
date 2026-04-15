@@ -223,7 +223,7 @@ for (const msg of messages) {
 Replace `"gmail"` with any supported connector name: `slack`, `notion`, `calendar`, etc.
 The SDK workflow (Steps 1–3) is identical for all connectors. Only the downstream API call (Step 4) changes.
 
-For connector-specific API details, see [CONNECTORS.md](CONNECTORS.md).
+For connector-specific API details, see [agent-connectors/README.md](../../references/agent-connectors/README.md).
 
 ## Building agents
 
@@ -289,16 +289,16 @@ agent = Agent(
 response = agent.process_request("fetch my last 5 unread emails and summarize them")
 ```
 
-For more examples and framework-specific patterns, see [code-samples.md](../references/code-samples.md).
+For more examples and framework-specific patterns, see [code-samples.md](../../references/code-samples.md).
 
 ## Deep reference
 
-For comprehensive documentation on connected accounts lifecycle, states, and API usage, see [connected-accounts.md](../references/connected-accounts.md).
+For comprehensive documentation on connected accounts lifecycle, states, and API usage, see [connected-accounts.md](../../references/connected-accounts.md).
 
-For code samples and implementation examples by framework, see [code-samples.md](../references/code-samples.md).
+For code samples and implementation examples by framework, see [code-samples.md](../../references/code-samples.md).
 
-For an overview of supported providers and their capabilities, see [providers.md](../references/providers.md).
+For an overview of supported providers and their capabilities, see [providers.md](../../references/providers.md).
 
-For comprehensive token management including refresh, security, and monitoring, see [token-management.md](../references/token-management.md).
+For token refresh behavior and operational guidance, see [connected-accounts.md](../../references/connected-accounts.md).
 
-For configuring your own OAuth credentials per connector (whitelabeling, dedicated quotas), see [byoc.md](../references/byoc.md).
+For configuring your own OAuth credentials per connector (whitelabeling, dedicated quotas), see [byoc.md](../../references/byoc.md).

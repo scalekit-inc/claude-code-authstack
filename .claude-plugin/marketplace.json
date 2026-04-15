@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "scalekit-auth-stack",
-  "description": "Scalekit authentication skills for building secure auth, SSO, MCP auth, SCIM provisioning, and agent auth flows.",
+  "description": "Scalekit auth plugins for Claude Code covering full-stack auth, Modular SSO, SCIM provisioning, MCP OAuth 2.1, and agent authentication.",
   "owner": {
     "name": "Scalekit Inc",
     "email": "support@scalekit.com"
@@ -11,36 +11,36 @@
       "name": "mcp-auth",
       "description": "Guides users through adding production-ready OAuth 2.1 authorization to Model Context Protocol (MCP) servers",
       "source": "./plugins/mcp-auth",
-      "category": "testing",
-      "homepage": "https://docs.scalekit.com/authenticate/mcp/start-mcp-auth-coding-agents"
+      "category": "MCP Security",
+      "homepage": "https://docs.scalekit.com/dev-kit/build-with-ai/mcp-auth/"
     },
     {
       "name": "agent-auth",
       "description": "Implements Scalekit Agent Auth so AI agents can act in third-party apps (Gmail, Slack, Calendar, Notion) on behalf of users.",
       "source": "./plugins/agent-auth",
-      "category": "agent auth",
-      "homepage": "https://docs.scalekit.com/authenticate/agent/start-agent-auth-coding-agents"
+      "category": "Agent Auth",
+      "homepage": "https://docs.scalekit.com/dev-kit/build-with-ai/agent-auth/"
     },
     {
       "name": "modular-sso",
       "description": "Integrates with all popular SSO providers (Okta, JumpCloud, Entra ID, etc.) and allows users to login to your app using their existing identity provider.",
       "source": "./plugins/modular-sso",
-      "category": "enterprise auth",
-      "homepage": "https://docs.scalekit.com"
+      "category": "Enterprise SSO",
+      "homepage": "https://docs.scalekit.com/dev-kit/build-with-ai/sso/"
     },
     {
       "name": "modular-scim",
       "description": "Automates user and group provisioning and deprovisioning via SCIM 2.0 with identity providers like Okta, Entra ID, and JumpCloud.",
       "source": "./plugins/modular-scim",
-      "category": "enterprise auth",
-      "homepage": "https://docs.scalekit.com"
+      "category": "Provisioning",
+      "homepage": "https://docs.scalekit.com/dev-kit/build-with-ai/scim/"
     },
     {
       "name": "full-stack-auth",
       "description": "Adds end-to-end authentication to B2B and AI apps including user management, organization handling, session management, RBAC, and login flows.",
       "source": "./plugins/full-stack-auth",
-      "category": "auth",
-      "homepage": "https://docs.scalekit.com"
+      "category": "Application Auth",
+      "homepage": "https://docs.scalekit.com/dev-kit/build-with-ai/full-stack-auth/"
     }
   ]
 }

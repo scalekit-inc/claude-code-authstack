@@ -1,12 +1,12 @@
 {
   "name": "modular-scim",
   "description": "SCIM webhook provisioning with Scalekit for real-time user and group lifecycle management.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "Scalekit",
     "email": "hi@scalekit.com"
   },
-  "homepage": "https://docs.scalekit.com",
+  "homepage": "https://docs.scalekit.com/dev-kit/build-with-ai/scim/",
   "repository": "https://github.com/scalekit-inc/claude-code-authstack",
   "license": "MIT",
   "keywords": ["scim", "provisioning", "webhooks", "users", "groups"]

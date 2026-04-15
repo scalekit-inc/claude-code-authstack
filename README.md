@@ -32,7 +32,7 @@ claude
 /plugin marketplace add scalekit-inc/claude-code-authstack
 
 # Run the plugins wizard
-/plugin
+/plugins
 ```
 
 ---
@@ -41,7 +41,6 @@ claude
 
 | Plugin | Description |
 |--------|-------------|
-| **Dryrun** | Validate auth and provisioning flows before deployment. Test your configuration against real identity providers without touching production. |
 | **MCP Auth** | Add OAuth 2.1 authorization to Model Context Protocol servers. Guides you through token handling, refresh flows, and scope management. |
 | **Modular SSO** | Integrate enterprise SSO providers (Okta, JumpCloud, Entra ID, etc.). Support 20+ identity providers without writing SAML parsers. |
 | **Modular SCIM** | Enable user provisioning and directory sync. Let customers provision users automatically from their identity provider. |
@@ -52,12 +51,12 @@ claude
 
 ### Quick Start
 
-After installing the marketplace, choose a plugin based on your use case:
+After adding the marketplace, install a plugin based on your use case:
 
 #### For MCP Servers
 
 ```sh
-/plugin install mcp-auth
+/plugin install mcp-auth@scalekit-auth-stack
 ```
 
 Use this to secure your MCP servers with OAuth 2.1 authorization.
@@ -65,7 +64,7 @@ Use this to secure your MCP servers with OAuth 2.1 authorization.
 #### For Enterprise SSO
 
 ```sh
-/plugin install modular-sso
+/plugin install modular-sso@scalekit-auth-stack
 ```
 
 Use this to add SAML/OIDC SSO with providers like Okta, JumpCloud, or Entra ID.
@@ -73,7 +72,7 @@ Use this to add SAML/OIDC SSO with providers like Okta, JumpCloud, or Entra ID.
 #### For AI Agents
 
 ```sh
-/plugin install agent-auth
+/plugin install agent-auth@scalekit-auth-stack
 ```
 
 Use this to add authentication for AI agents that act on behalf of users.
@@ -81,10 +80,18 @@ Use this to add authentication for AI agents that act on behalf of users.
 #### For User Provisioning
 
 ```sh
-/plugin install modular-scim
+/plugin install modular-scim@scalekit-auth-stack
 ```
 
 Use this to enable SCIM directory sync for automatic user provisioning.
+
+#### For Full-stack App Authentication
+
+```sh
+/plugin install full-stack-auth@scalekit-auth-stack
+```
+
+Use this to add login, callback handling, sessions, and logout flows to web apps.
 
 ---
 
@@ -93,7 +100,6 @@ Use this to enable SCIM directory sync for automatic user provisioning.
 ```
 .
 ├── plugins/
-│   ├── dryrun/           # Validate auth flows before deployment
 │   ├── mcp-auth/         # OAuth 2.1 for MCP servers
 │   ├── modular-sso/      # Enterprise SSO integration
 │   ├── modular-scim/     # SCIM provisioning
@@ -119,8 +125,11 @@ Use this to enable SCIM directory sync for automatic user provisioning.
 #### Documentation
 
 - [Scalekit Documentation](https://docs.scalekit.com) — Complete guides and API reference
-- [SSO Quickstart](https://docs.scalekit.com/sso/quickstart/) — Implement enterprise SSO
-- [MCP Auth Guide](https://docs.scalekit.com/mcp-auth/quickstart/) — Secure MCP servers
+- [Build with AI overview](https://docs.scalekit.com/dev-kit/build-with-ai/) — Claude, Codex, Copilot CLI, Cursor setup flows
+- [Modular SSO guide](https://docs.scalekit.com/authenticate/sso/add-modular-sso/) — Implement enterprise SSO
+- [MCP Auth guide](https://docs.scalekit.com/authenticate/mcp/quickstart/) — Secure MCP servers
+- [Full-stack auth guide](https://docs.scalekit.com/authenticate/fsa/quickstart/) — Add login, callback, and session management
+- [SCIM directory sync guide](https://docs.scalekit.com/directory/scim/quickstart/) — Provision and deprovision users
 - [Agent Auth Guide](https://docs.scalekit.com/agent-auth/quickstart/) — Authentication for AI agents
 
 #### Resources

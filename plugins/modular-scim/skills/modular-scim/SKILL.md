@@ -32,8 +32,8 @@ Detect the project's language/framework from existing files (`package.json`, `re
 | Stack | Install command |
 |-------|----------------|
 | Node.js | `npm install @scalekit-sdk/node` |
-| Python | `pip install scalekit-sdk` |
-| Go | `go get github.com/scalekit/scalekit-go` |
+| Python | `pip install scalekit-sdk-python` |
+| Go | `go get github.com/scalekit-inc/scalekit-sdk-go/v2` |
 | Java | Add `com.scalekit:scalekit-sdk` to `pom.xml` or `build.gradle` |
 
 ---
@@ -78,7 +78,7 @@ scalekit_client = ScalekitClient(
 )
 ```
 
-For Go and Java patterns, see [REFERENCE.md](REFERENCE.md).
+For Go and Java patterns, follow the language-specific SDK docs in [Scalekit API references](https://docs.scalekit.com/apis/).
 
 ---
 
@@ -166,7 +166,7 @@ async def scalekit_webhook(request: Request):
     return JSONResponse(status_code=201, content={"status": "processed"})
 ```
 
-For Go and Java, see [REFERENCE.md](REFERENCE.md).
+For Go and Java webhook patterns, follow the language-specific SDK docs in [Scalekit API references](https://docs.scalekit.com/apis/).
 
 ---
 
@@ -225,6 +225,6 @@ After deploying the webhook endpoint:
 
 ## Reference files
 
-- Full Go/Java SDK examples → [REFERENCE.md](REFERENCE.md)
-- Webhook event payload schemas → [EVENTS.md](EVENTS.md)
-- RBAC group-to-role mapping patterns → [RBAC.md](RBAC.md)
+- SCIM implementation guide → [Directory SCIM quickstart](https://docs.scalekit.com/directory/scim/quickstart/)
+- Dashboard onboarding guide → [SCIM integration guides](https://docs.scalekit.com/guides/integrations/scim-integrations/)
+- Redirect and callback reference → [redirects.md](../../references/redirects.md)

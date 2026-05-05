@@ -16,6 +16,8 @@ The Claude Code plugin still includes adapter/runtime files such as `.claude-plu
 
 These pages are the best external entrypoints for the material in this directory:
 
+- [LLM docs map](https://docs.scalekit.com/llms.txt)
+- [Docs sitemap](https://docs.scalekit.com/sitemap-0.xml)
 - [AgentKit overview](https://docs.scalekit.com/agentkit/overview.md)
 - [AgentKit quickstart](https://docs.scalekit.com/agentkit/quickstart.md)
 - [AgentKit connectors](https://docs.scalekit.com/agentkit/connectors.md)

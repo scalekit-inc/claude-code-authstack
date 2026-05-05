@@ -142,6 +142,8 @@ Use this to add login, callback handling, sessions, and logout flows to web apps
 #### Documentation
 
 - [Scalekit Documentation](https://docs.scalekit.com) — Complete guides and API reference
+- [LLM docs map](https://docs.scalekit.com/llms.txt) — High-level index of published Scalekit documentation sets
+- [Docs sitemap](https://docs.scalekit.com/sitemap-0.xml) — Stable sitemap for discovering published docs pages
 - [Build with AI overview](https://docs.scalekit.com/dev-kit/build-with-ai/) — Claude, Codex, Copilot CLI, Cursor setup flows
 - [Modular SSO guide](https://docs.scalekit.com/authenticate/sso/add-modular-sso/) — Implement enterprise SSO
 - [MCP Auth guide](https://docs.scalekit.com/authenticate/mcp/quickstart/) — Secure MCP servers

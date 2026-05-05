@@ -1,7 +1,7 @@
 {
   "name": "agent-auth",
   "description": "Sets up Scalekit AgentKit in Claude Code so agents can authorize users, discover tools, and execute authenticated tool calls across connectors.",
-  "version": "1.9.0",
+  "version": "2.0.0",
   "author": {
     "name": "Scalekit",
     "email": "hi@scalekit.com"

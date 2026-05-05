@@ -22,16 +22,17 @@ Use this skill when the user asks:
 ## Discovery workflow
 
 1. Identify the target connector or exact tool name.
-2. Prefer live lookup through the built-in testing workflow or SDK metadata.
-3. Summarize:
+2. Prefer live lookup through `/agent-auth:testing-agentkit-tools get-tool --provider <PROVIDER>` or `/agent-auth:testing-agentkit-tools get-tool --tool-name <TOOL_NAME>`.
+3. If older docs or muscle memory mention `/test-tool`, treat it as a legacy compatibility alias for the testing skill rather than the canonical workflow.
+4. Summarize:
    - tool name
    - connector
    - what the tool does
    - required fields from `input_schema.required`
    - optional fields from `input_schema.properties`
    - important fields from `output_schema.properties`
-4. Recommend the smallest useful tool set for the workflow.
-5. If live credentials are unavailable, use the connector notes only as a fallback and say they may be stale.
+5. Recommend the smallest useful tool set for the workflow.
+6. If live credentials are unavailable, use the connector notes only as a fallback and say they may be stale.
 
 ## Terminology
 
@@ -46,11 +47,13 @@ Use `connector` in explanations. Only use `provider` when the SDK or API filter 
 
 - `connection_name` is the exact dashboard value and may not equal the connector slug.
 - Tool metadata is the durable way to determine current inputs and outputs.
+- The preferred runnable surface is the testing skill in `skills/testing-agentkit-tools/`, not the legacy `commands/` alias.
 - Restrict the tool set before handing it to an LLM. Fewer relevant tools improve tool selection and parameter filling.
 
 ## Deep reference
 
 - Canonical docs entrypoint: [../../docs/index.md](../../docs/index.md)
 - Live discovery model: [../../docs/tool-discovery.md](../../docs/tool-discovery.md)
+- Runnable testing workflow: [../testing-agentkit-tools/SKILL.md](../testing-agentkit-tools/SKILL.md)
 - Curated connector notes: [../../docs/connectors/README.md](../../docs/connectors/README.md)
 - Broader implementation examples: [../../docs/code-samples.md](../../docs/code-samples.md)

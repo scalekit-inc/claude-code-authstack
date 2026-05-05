@@ -11,7 +11,7 @@ Canonical content lives in:
 Claude runtime files remain in place as adapters:
 - `.claude-plugin/`
 - `.mcp.json`
-- `commands/`
+- `commands/` for legacy slash-command aliases and compatibility shims
 - `hooks/`
 - `agents/`
 
@@ -38,15 +38,15 @@ Official Scalekit docs:
 - `/agent-auth:discovering-agentkit-tools`
   Uses live AgentKit metadata to find tools, inspect schemas, and narrow the tool set.
 - `/agent-auth:testing-agentkit-tools`
-  Generates authorization links, fetches live tool metadata, and executes tools from Claude Code.
+  Generates authorization links, fetches live tool metadata, and executes tools from Claude Code. This is the preferred runnable playground surface.
 - `/agent-auth:building-agent-mcp-server`
   Exposes AgentKit tools through MCP for MCP-compatible runtimes.
 - `/agent-auth:production-readiness-scalekit`
   Runs a structured production-readiness checklist for AgentKit integrations.
 
-Command:
+Legacy command alias:
 - `/test-tool [generate-link|get-tool|execute-tool ...]`
-  Runs the live AgentKit playground command.
+  Compatibility wrapper for older usage. Prefer `/agent-auth:testing-agentkit-tools ...`.
 
 ## Configuration
 Required environment variables:
@@ -80,9 +80,9 @@ Typical flow for a new connector integration:
 1. Read [`docs/index.md`](docs/index.md) for the canonical model and [`docs/connections.md`](docs/connections.md) for connection naming.
 2. Create the connection in `AgentKit -> Connections`.
 3. Use `/agent-auth:integrating-agent-auth` to scaffold connected-account creation and authorization.
-4. Use `/agent-auth:discovering-agentkit-tools` or `/test-tool get-tool --provider GMAIL` to inspect the live tool catalog and schema.
-5. Use `/test-tool generate-link --connection-name <dashboard-connection-name> --identifier user_123` if the user still needs to authorize.
-6. Use `/test-tool execute-tool --tool-name gmail_fetch_mails --connection-name <dashboard-connection-name> --identifier user_123 --tool-input '{"query":"is:unread","max_results":5}'` to validate the payload before wiring it into application code.
+4. Use `/agent-auth:discovering-agentkit-tools` or `/agent-auth:testing-agentkit-tools get-tool --provider GMAIL` to inspect the live tool catalog and schema.
+5. Use `/agent-auth:testing-agentkit-tools generate-link --connection-name <dashboard-connection-name> --identifier user_123` if the user still needs to authorize.
+6. Use `/agent-auth:testing-agentkit-tools execute-tool --tool-name gmail_fetch_mails --connection-name <dashboard-connection-name> --identifier user_123 --tool-input '{"query":"is:unread","max_results":5}'` to validate the payload before wiring it into application code.
 
 ## Troubleshooting
 1. No tools show up for a connector:

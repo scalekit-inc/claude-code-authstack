@@ -61,7 +61,8 @@ Use:
 
 - `discovering-agentkit-tools` when the user needs current tools or schemas
 - `testing-agentkit-tools` when the user wants to run a live tool and inspect the exact payload
-- `/test-tool get-tool ...` for the runnable playground flow
+- `/agent-auth:testing-agentkit-tools get-tool ...` for the preferred runnable playground flow
+- `/test-tool get-tool ...` only as a legacy compatibility alias
 
 ## Fallback rule
 

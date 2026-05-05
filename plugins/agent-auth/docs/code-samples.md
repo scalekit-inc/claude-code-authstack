@@ -8,7 +8,7 @@ Use it to choose an implementation style before opening a larger sample reposito
 
 | Goal | Recommended path |
 |---|---|
-| Validate one tool quickly | Use `/test-tool` with `testing-agentkit-tools` |
+| Validate one tool quickly | Use `/agent-auth:testing-agentkit-tools` |
 | Integrate AgentKit into app code | Use `integrating-agent-auth` |
 | Build an agent with a framework | Use framework-specific examples below |
 | Expose tools over MCP | Use `building-agent-mcp-server` |

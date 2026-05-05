@@ -46,12 +46,14 @@ If the metadata contains pagination or large result fields, mention them so the 
 
 ## How to use this in Claude Code
 
-For interactive discovery, use the live playground command:
+For interactive discovery, prefer the testing skill:
 
 ```sh
-/test-tool get-tool --provider GMAIL
-/test-tool get-tool --tool-name gmail_fetch_mails
+/agent-auth:testing-agentkit-tools get-tool --provider GMAIL
+/agent-auth:testing-agentkit-tools get-tool --tool-name gmail_fetch_mails
 ```
+
+The legacy `/test-tool ...` alias still works for compatibility, but it is no longer the canonical path.
 
 For implementation guidance, use:
 

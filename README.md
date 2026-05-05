@@ -25,15 +25,32 @@ This plugin adds the complete Scalekit auth stack to your projects — whether t
 ### Installation
 
 ```sh
+# One-line installer
+curl -fsSL https://raw.githubusercontent.com/scalekit-inc/claude-code-authstack/main/install.sh | bash
+```
+
+Or install manually inside Claude Code:
+
+```sh
 # Start Claude REPL
 claude
 
 # Add Scalekit Auth Stack marketplace
 /plugin marketplace add scalekit-inc/claude-code-authstack
 
-# Run the plugins wizard
+# Install AgentKit for AI agents
+/plugin install agent-auth@scalekit-auth-stack
+
+# Open the plugins wizard
 /plugins
 ```
+
+After installation, enable auto-update:
+
+1. Open `/plugins`
+2. Go to `Marketplaces`
+3. Select `scalekit-auth-stack`
+4. Enable `auto-update`
 
 ---
 
@@ -130,7 +147,8 @@ Use this to add login, callback handling, sessions, and logout flows to web apps
 - [MCP Auth guide](https://docs.scalekit.com/authenticate/mcp/quickstart/) — Secure MCP servers
 - [Full-stack auth guide](https://docs.scalekit.com/authenticate/fsa/quickstart/) — Add login, callback, and session management
 - [SCIM directory sync guide](https://docs.scalekit.com/directory/scim/quickstart/) — Provision and deprovision users
-- [Agent Auth Guide](https://docs.scalekit.com/agent-auth/quickstart/) — Authentication for AI agents
+- [AgentKit overview](https://docs.scalekit.com/agentkit/overview.md) — Connect agents to authenticated tools through connectors, connections, and connected accounts
+- [AgentKit quickstart](https://docs.scalekit.com/agentkit/quickstart.md) — Build an agent that makes authenticated tool calls on behalf of users
 
 #### Resources
 

@@ -25,6 +25,12 @@ Use live metadata for:
 - optional input fields
 - output shape
 
+## Official Scalekit docs
+
+- [Tools overview](https://docs.scalekit.com/agentkit/tools/overview.md)
+- [Scalekit optimized built-in tools](https://docs.scalekit.com/agentkit/tools/scalekit-optimized-tools.md)
+- [AgentKit connectors](https://docs.scalekit.com/agentkit/connectors.md)
+
 ## Discovery workflow
 
 1. Start from a connector or exact tool name.

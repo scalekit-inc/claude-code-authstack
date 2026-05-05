@@ -20,6 +20,13 @@ Use it to choose an implementation style before opening a larger sample reposito
 - Direct SDK usage: best for deterministic or single-tool flows
 - MCP: best when you want tools exposed to MCP-compatible runtimes
 
+## Official Scalekit docs
+
+- [AgentKit examples](https://docs.scalekit.com/agentkit/examples.md)
+- [Code samples](https://docs.scalekit.com/agentkit/code-samples.md)
+- [LangChain example](https://docs.scalekit.com/agentkit/examples/langchain.md)
+- [Google ADK example](https://docs.scalekit.com/agentkit/examples/google-adk.md)
+
 ## Important rule
 
 Do not treat example code as a fixed tool catalog.

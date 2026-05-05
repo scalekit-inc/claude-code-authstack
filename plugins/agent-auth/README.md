@@ -24,6 +24,12 @@ claude /plugin install agent-auth@scalekit-auth-stack
 
 Start with the canonical docs entrypoint at [`docs/index.md`](docs/index.md).
 
+Official Scalekit docs:
+- [AgentKit overview](https://docs.scalekit.com/agentkit/overview.md)
+- [AgentKit quickstart](https://docs.scalekit.com/agentkit/quickstart.md)
+- [AgentKit connectors](https://docs.scalekit.com/agentkit/connectors.md)
+- [AgentKit examples](https://docs.scalekit.com/agentkit/examples.md)
+
 ## Skills Reference
 - `/agent-auth:integrating-agent-auth`
   Integrates AgentKit into app code or an agent workflow and routes into the core docs.

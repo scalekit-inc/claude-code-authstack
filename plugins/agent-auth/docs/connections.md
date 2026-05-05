@@ -22,6 +22,11 @@ Do not confuse:
 
 They are related, but they are not always the same string.
 
+## Official Scalekit docs
+
+- [Configure a connection](https://docs.scalekit.com/agentkit/connections.md)
+- [Scopes and permissions](https://docs.scalekit.com/agentkit/authentication/scopes-permissions.md)
+
 ## Typical setup flow
 
 1. Go to `AgentKit -> Connections` in the Scalekit Dashboard.

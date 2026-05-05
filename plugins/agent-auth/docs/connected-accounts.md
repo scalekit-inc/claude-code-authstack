@@ -23,6 +23,11 @@ Typical lifecycle:
 4. The account becomes `ACTIVE`.
 5. AgentKit can execute tools on behalf of that user.
 
+## Official Scalekit docs
+
+- [Manage connected accounts](https://docs.scalekit.com/agentkit/connected-accounts.md)
+- [Authorize a user](https://docs.scalekit.com/agentkit/tools/authorize.md)
+
 ## Operational rules
 
 - Always use the correct user identifier from your own system.

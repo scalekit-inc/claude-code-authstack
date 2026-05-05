@@ -12,6 +12,15 @@ Use it for the durable AgentKit model:
 
 The Claude Code plugin still includes adapter/runtime files such as `.claude-plugin/`, `.mcp.json`, `commands/`, `hooks/`, and `agents/`, but those are secondary to the content model here.
 
+## Official Scalekit docs
+
+These pages are the best external entrypoints for the material in this directory:
+
+- [AgentKit overview](https://docs.scalekit.com/agentkit/overview.md)
+- [AgentKit quickstart](https://docs.scalekit.com/agentkit/quickstart.md)
+- [AgentKit connectors](https://docs.scalekit.com/agentkit/connectors.md)
+- [AgentKit examples](https://docs.scalekit.com/agentkit/examples.md)
+
 ## How this directory is organized
 
 - [connections.md](connections.md) explains how AgentKit connections are configured and named.

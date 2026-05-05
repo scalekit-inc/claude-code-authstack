@@ -11,6 +11,10 @@ Common reasons:
 - you need stricter compliance or audit ownership
 - you want a more fully whitelabeled production experience
 
+## Official Scalekit docs
+
+- [Bring your own credentials](https://docs.scalekit.com/agentkit/advanced/bring-your-own-oauth.md)
+
 ## What changes
 
 With BYOC:

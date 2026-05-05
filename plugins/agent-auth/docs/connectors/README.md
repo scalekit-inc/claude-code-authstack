@@ -11,6 +11,10 @@ Connector notes are intentionally curated and lightweight. They should explain:
 
 They should not claim to be the exhaustive current tool catalog.
 
+## Official Scalekit docs
+
+- [Agent connectors](https://docs.scalekit.com/agentkit/connectors.md)
+
 ## Source of truth
 
 Use live AgentKit metadata for:

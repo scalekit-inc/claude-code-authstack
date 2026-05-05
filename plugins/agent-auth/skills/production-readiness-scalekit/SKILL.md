@@ -1,9 +1,9 @@
 ---
 name: production-readiness-scalekit
-description: Walks through a structured production readiness checklist for Scalekit agent authentication implementations. Use when the user says they are going live, launching to production, doing a pre-launch review, or wants to verify their agent OAuth implementation is production-ready.
+description: Walks through a structured production readiness checklist for Scalekit AgentKit implementations. Use when the user says they are going live, launching to production, doing a pre-launch review, or wants to verify their AgentKit authorization and tool-calling setup is production-ready.
 ---
 
-# Scalekit Agent Auth Production Readiness
+# Scalekit AgentKit Production Readiness
 
 Work through each section in order — earlier sections are blockers for later ones.
 
@@ -60,3 +60,10 @@ Work through each section in order — earlier sections are blockers for later o
 - OAuth authorization completion rate (initiated vs completed)
 - Per-service API error rates (distinguish auth errors from service errors)
 - Token expiry distribution (are tokens being refreshed proactively?)
+
+## Deep reference
+
+- Canonical docs entrypoint: [../../docs/index.md](../../docs/index.md)
+- Connections: [../../docs/connections.md](../../docs/connections.md)
+- Connected accounts: [../../docs/connected-accounts.md](../../docs/connected-accounts.md)
+- BYOC: [../../docs/byoc.md](../../docs/byoc.md)

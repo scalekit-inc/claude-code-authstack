@@ -1,6 +1,8 @@
 # Connections
 
-Connections in Agent Auth are specific configurations that define how your application authenticates and interacts with third-party providers. Each connection contains the necessary credentials, settings, and parameters required to establish secure communication with a provider's API.
+> Canonical doc: [../docs/connections.md](../docs/connections.md)
+
+Connections in AgentKit are configurations that define how your application authenticates to a connector. A connection contains the credentials, scopes, and settings Scalekit needs before any user creates a connected account.
 
 ## Table of Contents
 
@@ -18,17 +20,17 @@ Connections in Agent Auth are specific configurations that define how your appli
 
 ## What are connections?
 
-Connections serve as the bridge between your Agent Auth setup and third-party providers. They contain:
+Connections serve as the bridge between your AgentKit setup and third-party connectors. They contain:
 
 - **Authentication credentials** (OAuth client ID/secret, API keys, etc.)
 - **Configuration settings** (scopes, permissions, endpoints)
-- **Tool definitions** and their parameters
+- **Access configuration** used before tools are executed
 - **Rate limiting** and retry policies
 - **Custom settings** specific to your use case
 
 ## Connection types
 
-Agent Auth supports various connection types based on different authentication methods:
+AgentKit supports various connection types based on different authentication methods:
 
 ### OAuth 2.0 connections
 
@@ -101,8 +103,8 @@ For providers with unique authentication requirements:
 
 ### Using the dashboard
 
-1. **Navigate to connections** in your Agent Auth dashboard
-2. **Select provider** from the list of available providers
+1. **Navigate to connections** in your AgentKit dashboard
+2. **Select connector** from the list of available connectors
 3. **Choose connection type** based on your authentication method
 4. **Configure credentials** by entering your API keys or OAuth settings
 5. **Set permissions** and scopes for the connection
@@ -111,7 +113,7 @@ For providers with unique authentication requirements:
 
 ### Using the API
 
-Create connections programmatically using the Agent Auth API:
+Create connections programmatically using the AgentKit API:
 
 **cURL:**
 

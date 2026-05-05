@@ -1,6 +1,10 @@
 # Agent Connectors Reference
 
-This directory contains documentation for all supported agent connectors in the Scalekit Agent Auth platform.
+> Canonical entrypoint: [../../docs/connectors/README.md](../../docs/connectors/README.md)
+
+This directory contains curated notes for AgentKit connectors in Scalekit.
+
+Use these files for connector-specific guidance, auth quirks, and example workflows. Do not treat them as the exhaustive source of truth for current tools or schemas; use live AgentKit tool metadata for that.
 
 ## Available Connectors
 
@@ -51,17 +55,20 @@ This directory contains documentation for all supported agent connectors in the 
 
 ## Getting Started
 
-Each connector documentation includes:
+Each connector document can include:
 
 - Service description and capabilities
 - Authentication requirements
-- Complete API reference for all available tools
-- Parameter specifications and examples
+- Product and workflow context
+- Authentication requirements
+- Example tool patterns and usage notes
 - Usage guidelines and best practices
+
+For the live tool catalog and current `input_schema` / `output_schema`, use [../tool-discovery.md](../tool-discovery.md).
 
 ## Authentication
 
-Connectors support OAuth 2.0, API Key, or Basic Auth authentication through the Agent Auth platform. You'll need to:
+Connectors support OAuth 2.0, API Key, or Basic Auth authentication through AgentKit. You'll need to:
 
 1. Create a connection for the desired service
 2. Configure OAuth credentials in your connection

@@ -1,6 +1,8 @@
 # Connected accounts
 
-Connected accounts in Agent Auth represent individual user or organization connections to third-party providers. They contain the authentication state, tokens, and permissions needed to execute tools on behalf of a specific identifier (user_id, org_id, or custom identifier).
+> Canonical doc: [../docs/connected-accounts.md](../docs/connected-accounts.md)
+
+Connected accounts in AgentKit represent individual user or organization authorizations for a connection. They contain the auth state, tokens, and permissions needed to execute tools on behalf of a specific identifier (`user_id`, `org_id`, or a custom identifier).
 
 ## What are connected accounts?
 
@@ -51,7 +53,7 @@ F -> B
 
 ### Using the dashboard
 
-1. Navigate to connected accounts in your Agent Auth dashboard
+1. Navigate to connected accounts in your AgentKit dashboard
 2. Click create account to start the process
 3. Select connection to use for authentication
 4. Enter identifier (user_id, email, or custom identifier)

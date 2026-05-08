@@ -1,6 +1,44 @@
 # Changelog
 
-## Unreleased
+## 2.0.0
+
+### Breaking Changes
+
+- Consolidated 5 plugins into 2: **AgentKit** and **SaaSKit**
+- Removed `full-stack-auth`, `mcp-auth`, `modular-sso`, `modular-scim` plugins
+- All slash commands now use `/agentkit:` or `/saaskit:` namespace
+
+### Added
+
+- **AgentKit** plugin (`plugins/agentkit/`) — renamed from `agent-auth`, adopting Scalekit AgentKit branding
+  - New skills: `discovering-agentkit-tools`, `testing-agentkit-tools`
+  - Added `docs/` layer with canonical documentation (connections, tool-discovery, code-samples)
+  - Added `rules/` layer for cross-cutting guidance
+- **SaaSKit** plugin (`plugins/saaskit/`) — consolidates FSA, SSO, SCIM, and MCP server auth
+  - 11 skills covering login, sessions, SSO, SCIM, RBAC, MCP server auth, API keys, migration, and production readiness
+  - `docs/` layer with 13 documentation files including framework-specific guides (Python, Next.js, Go, Spring Boot, Laravel)
+  - `rules/` layer with terminology and redirect URL guidance
+  - Framework-specific reference files (Go, Spring Boot, Laravel, FastMCP, Express, FastAPI)
+  - Consolidated agents, commands, hooks, and references from all 4 source plugins
+
+### Changed
+
+- Repository structure simplified from 5 plugins to 2
+- Content model: `docs/ + rules/ + thin skills/` pattern (established in PR #19) applied to both plugins
+- Skill names follow updated Scalekit terminology (AgentKit, SaaSKit)
+- Root README updated with 2-plugin listing and install instructions
+- CLAUDE.md updated with new plugin layout
+
+### Removed
+
+- `plugins/full-stack-auth/` — skills migrated to SaaSKit
+- `plugins/mcp-auth/` — server-side auth skills migrated to SaaSKit, MCP bridge stays in AgentKit
+- `plugins/modular-sso/` — SSO + admin portal skills migrated to SaaSKit
+- `plugins/modular-scim/` — SCIM provisioning skills migrated to SaaSKit
+
+---
+
+## Unreleased (pre-2.0)
 
 - Align Claude marketplace metadata with current Build with AI docs:
   - Updated plugin categories to match product taxonomy used in docs and marketplaces.

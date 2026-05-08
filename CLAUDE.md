@@ -1,7 +1,7 @@
 # CLAUDE.md (Repo guide for agents)
 
-This repository contains multiple Claude Code plugins for marketplace distribution.
-It is a monorepo. Always work inside one plugin directory at a time.
+This repository contains two Claude Code plugins for marketplace distribution:
+**AgentKit** (AI agent authentication) and **SaaSKit** (B2B SaaS authentication).
 
 If you are making changes, read AGENTS.md first and follow it as the source of truth.
 
@@ -9,27 +9,29 @@ If you are making changes, read AGENTS.md first and follow it as the source of t
 
 Top level:
 
-- plugins/ Monorepo root for all plugins
+- plugins/ Monorepo root for both plugins
 - AGENTS.md Non negotiable rules for manifests, skills, hooks, MCP, security
-- README.md Repo overview
-- CHANGELOG.md Repo level changelog (also check plugin level changelogs if present)
-- .lsp.json LSP configuration for this repo
+- README.md Repo overview and install instructions
+- CHANGELOG.md Repo level changelog
 
-Plugins (examples you may see here):
+Plugins:
 
-- plugins/agent-auth/
-- plugins/full-stack-auth/
-- plugins/mcp-auth/
+- plugins/agentkit/ AI agent auth — connectors, token vault, tool discovery
+- plugins/saaskit/ B2B SaaS auth — login, sessions, SSO, SCIM, RBAC, MCP server auth
 
-Each plugin is expected to look like:
+Each plugin follows the `docs/ + rules/ + skills/` content model:
+```
 plugins/<plugin-name>/
-.claude-plugin/plugin.json Plugin manifest
-README.md Required docs for that plugin
-skills/<skill-name>/SKILL.md Skill entrypoint
-agents/ Optional sub agents
-hooks/ Optional hooks.json
-.mcp.json Optional MCP config
-settings.json Optional default settings
+  .claude-plugin/plugin.json  Plugin manifest
+  docs/                       Canonical durable documentation
+  rules/                      Cross-cutting guidance (terminology, etc.)
+  skills/<skill-name>/SKILL.md Thin routing layer pointing to docs/
+  agents/                     Optional sub agents
+  hooks/                      Optional hooks.json
+  commands/                   Optional slash commands
+  references/                 Optional reference material
+  README.md                   Required docs for that plugin
+```
 
 ## Golden rules
 

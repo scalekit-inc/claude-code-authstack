@@ -1,0 +1,13 @@
+{
+  "name": "agentkit",
+  "description": "Sets up Scalekit AgentKit in Claude Code so agents can authorize users, discover tools, and execute authenticated tool calls across connectors.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Scalekit",
+    "email": "hi@scalekit.com"
+  },
+  "homepage": "https://docs.scalekit.com/dev-kit/build-with-ai/agent-auth/",
+  "repository": "https://github.com/scalekit-inc/claude-code-authstack",
+  "license": "MIT",
+  "keywords": ["scalekit", "agentkit", "agent-auth", "connectors", "tools", "connected-accounts"]
+}

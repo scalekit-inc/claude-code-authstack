@@ -1,0 +1,13 @@
+{
+  "name": "saaskit",
+  "description": "Production-ready authentication for B2B SaaS apps using Scalekit — login, sessions, SSO, SCIM, MCP server auth, RBAC, and API key management.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Scalekit",
+    "email": "hi@scalekit.com"
+  },
+  "homepage": "https://docs.scalekit.com",
+  "repository": "https://github.com/scalekit-inc/claude-code-authstack",
+  "license": "MIT",
+  "keywords": ["scalekit", "saaskit", "authentication", "sso", "scim", "mcp-auth", "sessions", "rbac"]
+}

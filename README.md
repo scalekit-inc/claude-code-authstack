@@ -2,21 +2,21 @@
 
 <img src="./images/scalekit.jpg" alt="Scalekit" height="64">
 
-<p><strong>Scalekit Auth Plugins for Claude Code — the auth stack for agents.</strong><br>
-Add SSO, SCIM, MCP Auth, agent auth, and tool-calling from your Claude Code editor.</p>
+<p><strong>Scalekit Auth Stack for Claude Code — AgentKit and SaaSKit plugins.</strong><br>
+Add agent auth, tool calling, SSO, SCIM, MCP auth, and session management from Claude Code.</p>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/scalekit-inc/claude-code-authstack/pulls)
 
-**[📖 Documentation](https://docs.scalekit.com)** · **[💬 Slack](https://join.slack.com/t/scalekit-community/shared_invite/zt-3gsxwr4hc-0tvhwT2b_qgVSIZQBQCWRw)**
+**[📖 Documentation](https://docs.scalekit.com)** · **[📋 LLM Docs](https://docs.scalekit.com/llms.txt)** · **[💬 Slack](https://join.slack.com/t/scalekit-community/shared_invite/zt-3gsxwr4hc-0tvhwT2b_qgVSIZQBQCWRw)**
 
 </div>
 
 ---
 
-Setting up auth for B2B and AI apps is complex. Between auth flows, SSO providers, SCIM provisioning, MCP auth, and securing AI agents, most developers spend weeks on auth instead of shipping features with confidence.
+Setting up auth for B2B and AI apps is complex. Between agent OAuth flows, SSO providers, SCIM provisioning, MCP server auth, and session management, most developers spend weeks on auth instead of shipping features.
 
-This plugin adds the complete Scalekit auth stack to your projects — whether that's a B2B app, AI agent, or MCP server — directly from Claude Code.
+This marketplace adds the complete Scalekit auth stack to your projects — whether that's an AI agent, a B2B SaaS app, or an MCP server — directly from Claude Code.
 
 ![Scalekit AuthStack demo](./images/scalekit-authstack-demo.gif)
 
@@ -38,8 +38,9 @@ claude
 # Add Scalekit Auth Stack marketplace
 /plugin marketplace add scalekit-inc/claude-code-authstack
 
-# Install AgentKit for AI agents
-/plugin install agent-auth@scalekit-auth-stack
+# Install a plugin
+/plugin install agentkit@scalekit-auth-stack
+/plugin install saaskit@scalekit-auth-stack
 
 # Open the plugins wizard
 /plugins
@@ -58,57 +59,28 @@ After installation, enable auto-update:
 
 | Plugin | Description |
 |--------|-------------|
-| **MCP Auth** | Add OAuth 2.1 authorization to Model Context Protocol servers. Guides you through token handling, refresh flows, and scope management. |
-| **Modular SSO** | Integrate enterprise SSO providers (Okta, JumpCloud, Entra ID, etc.). Support 20+ identity providers without writing SAML parsers. |
-| **Modular SCIM** | Enable user provisioning and directory sync. Let customers provision users automatically from their identity provider. |
-| **Full Stack Auth** | Complete authentication setup for web applications. End-to-end auth including login pages, session management, and protected routes. |
-| **Agent Auth** | Secure authentication for AI agents and services. OAuth flows designed for AI agents with token persistence and refresh logic. |
+| **AgentKit** | Authentication for AI agents. OAuth flows, token vault, 40+ connectors (Gmail, Slack, Salesforce, etc.), tool discovery, and live testing — so agents can act on behalf of users. |
+| **SaaSKit** | Production-ready auth for B2B SaaS apps. Login, sessions, SSO (Okta, Azure AD, Google), SCIM provisioning, RBAC, MCP server auth, and API key management. |
 
 ---
 
 ### Quick Start
 
-After adding the marketplace, install a plugin based on your use case:
-
-#### For MCP Servers
-
-```sh
-/plugin install mcp-auth@scalekit-auth-stack
-```
-
-Use this to secure your MCP servers with OAuth 2.1 authorization.
-
-#### For Enterprise SSO
-
-```sh
-/plugin install modular-sso@scalekit-auth-stack
-```
-
-Use this to add SAML/OIDC SSO with providers like Okta, JumpCloud, or Entra ID.
-
 #### For AI Agents
 
 ```sh
-/plugin install agent-auth@scalekit-auth-stack
+/plugin install agentkit@scalekit-auth-stack
 ```
 
-Use this to add authentication for AI agents that act on behalf of users.
+Use AgentKit to add authentication for AI agents that connect to third-party services, discover tools, and execute authenticated actions on behalf of users.
 
-#### For User Provisioning
+#### For B2B SaaS Apps
 
 ```sh
-/plugin install modular-scim@scalekit-auth-stack
+/plugin install saaskit@scalekit-auth-stack
 ```
 
-Use this to enable SCIM directory sync for automatic user provisioning.
-
-#### For Full-stack App Authentication
-
-```sh
-/plugin install full-stack-auth@scalekit-auth-stack
-```
-
-Use this to add login, callback handling, sessions, and logout flows to web apps.
+Use SaaSKit to add login, session management, enterprise SSO, SCIM provisioning, RBAC, MCP server auth, and API key management to web applications.
 
 ---
 
@@ -117,12 +89,10 @@ Use this to add login, callback handling, sessions, and logout flows to web apps
 ```
 .
 ├── plugins/
-│   ├── mcp-auth/         # OAuth 2.1 for MCP servers
-│   ├── modular-sso/      # Enterprise SSO integration
-│   ├── modular-scim/     # SCIM provisioning
-│   ├── full-stack-auth/  # Complete web app auth
-│   └── agent-auth/       # AI agent authentication
+│   ├── agentkit/         # AI agent authentication (AgentKit)
+│   └── saaskit/          # B2B SaaS authentication (SaaSKit)
 ├── images/               # Documentation images
+├── scripts/              # Install scripts
 ├── AGENTS.md             # Contribution guidelines
 └── LICENSE               # MIT License
 ```

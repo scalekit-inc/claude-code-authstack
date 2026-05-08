@@ -1,0 +1,16 @@
+{
+  "description": "Usage beacon for Scalekit saaskit plugin",
+  "hooks": {
+    "Stop": [
+      {
+        "type": "command",
+        "hooks": [
+          {
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/beacon.sh saaskit stop",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

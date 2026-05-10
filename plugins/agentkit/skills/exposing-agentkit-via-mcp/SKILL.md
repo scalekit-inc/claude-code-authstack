@@ -1,13 +1,13 @@
 ---
-name: building-agentkit-mcp-server
-description: Guides developers through creating a Scalekit AgentKit MCP server with authenticated tool access. Use when building an MCP server, exposing AgentKit tools over MCP, or connecting AI agents via LangChain or LangGraph MCP adapters.
+name: exposing-agentkit-via-mcp
+description: Guides developers through configuring a Scalekit AgentKit MCP endpoint with authenticated tool access. Use when exposing AgentKit tools over MCP, generating per-user MCP URLs, or connecting AI agents via LangChain or LangGraph MCP adapters.
 ---
 
-# Building an Agent MCP Server
+# Exposing AgentKit via MCP
 
-Scalekit lets you build MCP servers that manage authentication, create personalized access URLs for users, and define which tools are accessible. You can also bundle several toolkits (e.g., Gmail + Google Calendar) within a single server.
+Scalekit lets you configure MCP endpoints that manage authentication, create personalized access URLs for users, and define which AgentKit tools are accessible. You can also bundle several toolkits (e.g., Gmail + Google Calendar) within a single endpoint.
 
-[Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-started/intro) is an open-source standard that enables AI systems to interface with external tools and data sources. Where the `integrating-agentkit` skill uses the SDK directly, this workflow exposes AgentKit tools over the MCP protocol so any compliant client — LangChain, Claude Desktop, MCP Inspector — can consume them.
+[Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-started/intro) is an open-source standard that enables AI systems to interface with external tools and data sources. Where the `integrating-agentkit` skill uses the SDK directly, this workflow configures AgentKit to expose tools over the MCP protocol so any compliant client — LangChain, Claude Desktop, MCP Inspector — can consume them.
 
 > **Note:** AgentKit MCP servers only support Streamable HTTP transport.
 

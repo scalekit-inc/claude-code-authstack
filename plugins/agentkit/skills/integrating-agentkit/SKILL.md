@@ -121,4 +121,4 @@ console.log(result);
 
 - Use `discovering-agentkit-tools` when the user needs the current tool catalog or schema.
 - Use `testing-agentkit-tools` when the user wants to validate a tool call in Claude Code.
-- Use `building-agent-mcp-server` when the user wants AgentKit tools exposed over MCP.
+- Use `exposing-agentkit-via-mcp` when the user wants AgentKit tools exposed over MCP.

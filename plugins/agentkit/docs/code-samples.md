@@ -11,7 +11,7 @@ Use it to choose an implementation style before opening a larger sample reposito
 | Validate one tool quickly | Use `/agentkit:testing-agentkit-tools` |
 | Integrate AgentKit into app code | Use `integrating-agentkit` |
 | Build an agent with a framework | Use framework-specific examples below |
-| Expose tools over MCP | Use `building-agent-mcp-server` |
+| Expose tools over MCP | Use `exposing-agentkit-via-mcp` |
 
 ## Framework directions
 

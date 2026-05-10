@@ -39,7 +39,7 @@ Official Scalekit docs:
   Uses live AgentKit metadata to find tools, inspect schemas, and narrow the tool set.
 - `/agentkit:testing-agentkit-tools`
   Generates authorization links, fetches live tool metadata, and executes tools from Claude Code. This is the preferred runnable playground surface.
-- `/agentkit:building-agent-mcp-server`
+- `/agentkit:exposing-agentkit-via-mcp`
   Exposes AgentKit tools through MCP for MCP-compatible runtimes.
 - `/agentkit:production-readiness-agentkit`
   Runs a structured production-readiness checklist for AgentKit integrations.

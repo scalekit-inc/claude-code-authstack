@@ -35,7 +35,7 @@ Official Scalekit docs:
 ## Skills Reference
 - `/agentkit:integrating-agentkit`
   Integrates AgentKit into app code or an agent workflow and routes into the core docs.
-- `/agentkit:discovering-agentkit-tools`
+- `/agentkit:discovering-connector-tools`
   Uses live AgentKit metadata to find tools, inspect schemas, and narrow the tool set.
 - `/agentkit:testing-agentkit-tools`
   Generates authorization links, fetches live tool metadata, and executes tools from Claude Code. This is the preferred runnable playground surface.
@@ -80,7 +80,7 @@ Typical flow for a new connector integration:
 1. Read [`docs/index.md`](docs/index.md) for the canonical model and [`docs/connections.md`](docs/connections.md) for connection naming.
 2. Create the connection in `AgentKit -> Connections`.
 3. Use `/agentkit:integrating-agentkit` to scaffold connected-account creation and authorization.
-4. Use `/agentkit:discovering-agentkit-tools` or `/agentkit:testing-agentkit-tools get-tool --provider GMAIL` to inspect the live tool catalog and schema.
+4. Use `/agentkit:discovering-connector-tools` or `/agentkit:testing-agentkit-tools get-tool --provider GMAIL` to inspect the live tool catalog and schema.
 5. Use `/agentkit:testing-agentkit-tools generate-link --connection-name <dashboard-connection-name> --identifier user_123` if the user still needs to authorize.
 6. Use `/agentkit:testing-agentkit-tools execute-tool --tool-name gmail_fetch_mails --connection-name <dashboard-connection-name> --identifier user_123 --tool-input '{"query":"is:unread","max_results":5}'` to validate the payload before wiring it into application code.
 

@@ -57,7 +57,7 @@ The legacy `/test-tool ...` alias still works for compatibility, but it is no lo
 
 For implementation guidance, use:
 
-- `discovering-agentkit-tools` when the user needs the current tool list or schema
+- `discovering-connector-tools` when the user needs the current tool list or schema
 - `testing-agentkit-tools` when the user wants to execute the tool and inspect the exact payload
 - `integrating-agentkit` when the user wants to wire the result into application code
 

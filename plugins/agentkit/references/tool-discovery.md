@@ -11,7 +11,7 @@ In AgentKit, the live tool metadata is the source of truth for:
 - `input_schema`
 - `output_schema`
 
-The static connector notes in `references/agent-connectors/` are curated guidance. They are useful for auth quirks, example workflows, and product context, but they are not a guaranteed up-to-date catalog of every current tool.
+For connector-specific guidance, auth quirks, and example workflows, see the canonical connector docs at [docs.scalekit.com/agentkit/connectors](https://docs.scalekit.com/agentkit/connectors/).
 
 ## Terminology
 
@@ -85,6 +85,6 @@ They are related, but they are not always the same string.
 
 If live credentials are not available:
 
-- use `references/agent-connectors/` as a directional guide
-- clearly say the catalog may be stale
+- refer to [docs.scalekit.com/agentkit/connectors](https://docs.scalekit.com/agentkit/connectors/) as a directional guide
+- clearly say the catalog may be stale without live credentials
 - avoid claiming that the listed tools are exhaustive

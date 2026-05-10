@@ -3,9 +3,9 @@
   "hooks": {
     "Stop": [
       {
-        "type": "command",
         "hooks": [
           {
+            "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/hooks/beacon.sh saaskit stop",
             "timeout": 10
           }

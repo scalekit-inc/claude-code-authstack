@@ -9,26 +9,29 @@ if ! command -v claude >/dev/null 2>&1; then
 fi
 
 MARKETPLACE_SLUG="${CLAUDE_CODE_AUTHSTACK_MARKETPLACE:-scalekit-inc/claude-code-authstack}"
-PLUGIN_SOURCE="${CLAUDE_CODE_AUTHSTACK_PLUGIN_SOURCE:-agentkit@scalekit-auth-stack}"
+OLD_PLUGINS=("agent-auth" "full-stack-auth" "mcp-auth" "modular-sso" "modular-scim")
 
 echo "Installing Scalekit Auth Stack for Claude Code"
 echo "Marketplace: $MARKETPLACE_SLUG"
-echo "Default plugin: $PLUGIN_SOURCE"
 echo
 
 claude plugin marketplace add "$MARKETPLACE_SLUG"
-claude plugin install "$PLUGIN_SOURCE"
+
+# Remove old plugin names from v1.x (now consolidated into agentkit + saaskit)
+for old in "${OLD_PLUGINS[@]}"; do
+  claude plugin uninstall "${old}@scalekit-auth-stack" 2>/dev/null || true
+done
+
+claude plugin install agentkit@scalekit-auth-stack
+claude plugin install saaskit@scalekit-auth-stack
 
 cat <<EOF
 
-Installed AgentKit from Scalekit Auth Stack.
+Installed Scalekit Auth Stack for Claude Code.
 
-Available plugins:
+Installed plugins:
   agentkit  — AI agent authentication (connectors, tool discovery, token vault)
   saaskit   — B2B SaaS authentication (login, SSO, SCIM, RBAC, MCP server auth)
-
-To install saaskit as well:
-  claude plugin install saaskit@scalekit-auth-stack
 
 Next steps:
 1. Run \`/plugins\` in Claude Code.

@@ -16,7 +16,7 @@ Keep these terms straight:
 - `connected account`: the per-user authorization record
 - `tool`: the executable action exposed by a connector
 
-Prefer live tool discovery over hand-maintained catalogs. If the user needs the current tool list or schema, switch to `discovering-connector-tools` or `testing-agentkit-tools`.
+Prefer live tool discovery over hand-maintained catalogs. If the user needs the current tool list or schema, switch to `discovering-connector-tools` or use the Scalekit MCP server tools directly.
 
 ## Default workflow
 
@@ -120,5 +120,5 @@ console.log(result);
 ## When to switch skills
 
 - Use `discovering-connector-tools` when the user needs the current tool catalog or schema.
-- Use `testing-agentkit-tools` when the user wants to validate a tool call in Claude Code.
+- Use the Scalekit MCP server tools to validate a tool call interactively.
 - Use `exposing-agentkit-via-mcp` when the user wants AgentKit tools exposed over MCP.

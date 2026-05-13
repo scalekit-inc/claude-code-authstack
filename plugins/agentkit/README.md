@@ -37,30 +37,16 @@ Official Scalekit docs:
   Integrates AgentKit into app code or an agent workflow and routes into the core docs.
 - `/agentkit:discovering-connector-tools`
   Uses live AgentKit metadata to find tools, inspect schemas, and narrow the tool set.
-- `/agentkit:testing-agentkit-tools`
-  Generates authorization links, fetches live tool metadata, and executes tools from Claude Code. This is the preferred runnable playground surface.
 - `/agentkit:exposing-agentkit-via-mcp`
   Exposes AgentKit tools through MCP for MCP-compatible runtimes.
 - `/agentkit:production-readiness-agentkit`
   Runs a structured production-readiness checklist for AgentKit integrations.
 
-Legacy command alias:
-- `/test-tool [generate-link|get-tool|execute-tool ...]`
-  Compatibility wrapper for older usage. Prefer `/agentkit:testing-agentkit-tools ...`.
-
 ## Configuration
-Required environment variables:
+Required environment variables (for SDK-based integrations):
 - `SCALEKIT_ENV_URL`
 - `SCALEKIT_CLIENT_ID`
 - `SCALEKIT_CLIENT_SECRET`
-
-Optional sample variable:
-- `GMAIL_CONNECTION_NAME`
-
-Legacy aliases supported by the testing command:
-- `TOOL_ENV_URL`
-- `TOOL_CLIENT_ID`
-- `TOOL_CLIENT_SECRET`
 
 Example `.mcp.json`:
 
@@ -80,9 +66,8 @@ Typical flow for a new connector integration:
 1. Read [`docs/index.md`](docs/index.md) for the canonical model and [`docs/connections.md`](docs/connections.md) for connection naming.
 2. Create the connection in `AgentKit -> Connections`.
 3. Use `/agentkit:integrating-agentkit` to scaffold connected-account creation and authorization.
-4. Use `/agentkit:discovering-connector-tools` or `/agentkit:testing-agentkit-tools get-tool --provider GMAIL` to inspect the live tool catalog and schema.
-5. Use `/agentkit:testing-agentkit-tools generate-link --connection-name <dashboard-connection-name> --identifier user_123` if the user still needs to authorize.
-6. Use `/agentkit:testing-agentkit-tools execute-tool --tool-name gmail_fetch_mails --connection-name <dashboard-connection-name> --identifier user_123 --tool-input '{"query":"is:unread","max_results":5}'` to validate the payload before wiring it into application code.
+4. Use `/agentkit:discovering-connector-tools` to inspect the live tool catalog and schema via the Scalekit MCP server.
+5. Use the Scalekit MCP server tools directly to generate auth links, discover tools, and execute tool calls interactively.
 
 ## Troubleshooting
 1. No tools show up for a connector:

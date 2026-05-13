@@ -8,7 +8,7 @@ Use it to choose an implementation style before opening a larger sample reposito
 
 | Goal | Recommended path |
 |---|---|
-| Validate one tool quickly | Use `/agentkit:testing-agentkit-tools` |
+| Validate one tool quickly | Use the Scalekit MCP server tools directly |
 | Integrate AgentKit into app code | Use `integrating-agentkit` |
 | Build an agent with a framework | Use framework-specific examples below |
 | Expose tools over MCP | Use `exposing-agentkit-via-mcp` |

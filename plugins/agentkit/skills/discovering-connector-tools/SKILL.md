@@ -22,7 +22,7 @@ Use this skill when the user asks:
 ## Discovery workflow
 
 1. Identify the target connector or exact tool name.
-2. Prefer live lookup through `/agentkit:testing-agentkit-tools get-tool --provider <PROVIDER>` or `/agentkit:testing-agentkit-tools get-tool --tool-name <TOOL_NAME>`.
+2. Use the Scalekit MCP server to fetch live tool metadata. If the MCP server is connected, query it directly. Otherwise, use the SDK.
 3. If older docs or muscle memory mention `/test-tool`, treat it as a legacy compatibility alias for the testing skill rather than the canonical workflow.
 4. Summarize:
    - tool name
@@ -47,13 +47,13 @@ Use `connector` in explanations. Only use `provider` when the SDK or API filter 
 
 - `connection_name` is the exact dashboard value and may not equal the connector slug.
 - Tool metadata is the durable way to determine current inputs and outputs.
-- The preferred runnable surface is the testing skill in `skills/testing-agentkit-tools/`, not the legacy `commands/` alias.
+- The preferred runnable surface is the Scalekit MCP server at `https://mcp.scalekit.com`.
 - Restrict the tool set before handing it to an LLM. Fewer relevant tools improve tool selection and parameter filling.
 
 ## Deep reference
 
 - Canonical docs entrypoint: [../../docs/index.md](../../docs/index.md)
 - Live discovery model: [../../docs/tool-discovery.md](../../docs/tool-discovery.md)
-- Runnable testing workflow: [../testing-agentkit-tools/SKILL.md](../testing-agentkit-tools/SKILL.md)
+- Scalekit MCP server: `https://mcp.scalekit.com`
 - Curated connector notes: [../../docs/connectors/README.md](../../docs/connectors/README.md)
 - Broader implementation examples: [../../docs/code-samples.md](../../docs/code-samples.md)

@@ -46,19 +46,12 @@ If the metadata contains pagination or large result fields, mention them so the 
 
 ## How to use this in Claude Code
 
-For interactive discovery, prefer the testing skill:
-
-```sh
-/agentkit:testing-agentkit-tools get-tool --provider GMAIL
-/agentkit:testing-agentkit-tools get-tool --tool-name gmail_fetch_mails
-```
-
-The legacy `/test-tool ...` alias still works for compatibility, but it is no longer the canonical path.
+For interactive discovery, use the Scalekit MCP server. When connected at `https://mcp.scalekit.com`, you can query tool metadata, generate auth links, and execute tools directly through MCP tool calls.
 
 For implementation guidance, use:
 
 - `discovering-connector-tools` when the user needs the current tool list or schema
-- `testing-agentkit-tools` when the user wants to execute the tool and inspect the exact payload
+- The Scalekit MCP server when the user wants to execute a tool and inspect the payload interactively
 - `integrating-agentkit` when the user wants to wire the result into application code
 
 ## Connection names vs connector names

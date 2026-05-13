@@ -15,7 +15,7 @@ Claude runtime files remain in place as adapters:
 - `hooks/`
 - `agents/`
 
-The plugin treats live AgentKit metadata as the source of truth for tool names, `input_schema`, and `output_schema`. Per-connector reference docs in `references/agent-connectors/` provide curated guidance on scopes, quirks, and tool categories — but they are not a guaranteed exhaustive catalog.
+The plugin treats live AgentKit metadata as the source of truth for tool names, `input_schema`, and `output_schema`. For per-connector details, see the [AgentKit connectors catalog](https://docs.scalekit.com/agentkit/connectors/).
 
 ## Installation
 ```sh

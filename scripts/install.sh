@@ -33,9 +33,14 @@ Installed plugins:
   agentkit  — AI agent authentication (connectors, tool discovery, token vault)
   saaskit   — B2B SaaS authentication (login, SSO, SCIM, RBAC, MCP server auth)
 
-Next steps:
-1. Run \`/plugins\` in Claude Code.
-2. Open \`Marketplaces\`.
-3. Select \`scalekit-auth-stack\`.
-4. Enable auto-update.
+To activate the plugins in Claude Code:
+1. Open Claude Code.
+2. Type \`/plugins\` to open the plugin manager.
+3. Go to \`Marketplaces\` → select \`scalekit-auth-stack\`.
+4. You should see agentkit and saaskit listed as installed.
+5. Set update policy to "Auto-update (recommended)" to stay current.
+
+To verify:
+  Type \`/plugins\` and confirm both agentkit and saaskit show as installed.
+  Try a skill: ask "help me integrate agentkit" or "test my auth setup".
 EOF

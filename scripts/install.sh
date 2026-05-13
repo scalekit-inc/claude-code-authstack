@@ -8,28 +8,18 @@ if ! command -v claude >/dev/null 2>&1; then
   exit 1
 fi
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-
 MARKETPLACE_SLUG="${CLAUDE_CODE_AUTHSTACK_MARKETPLACE:-scalekit-inc/claude-code-authstack}"
 MARKETPLACE_NAME="scalekit-auth-stack"
 OLD_PLUGINS=("agent-auth" "full-stack-auth" "mcp-auth" "modular-sso" "modular-scim")
 
-# Use local path when running from a git checkout; GitHub slug when from a downloaded archive
-if [[ -d "$REPO_ROOT/.git" ]]; then
-  MARKETPLACE_SOURCE="$REPO_ROOT"
-else
-  MARKETPLACE_SOURCE="$MARKETPLACE_SLUG"
-fi
-
 echo "Installing Scalekit Auth Stack for Claude Code"
-echo "Source: $MARKETPLACE_SOURCE"
+echo "Marketplace: $MARKETPLACE_SLUG"
 echo
 
 # Overwrite any previously registered version of this marketplace
 echo "Updating marketplace..."
 claude plugin marketplace remove "$MARKETPLACE_NAME" 2>/dev/null || true
-claude plugin marketplace add "$MARKETPLACE_SOURCE" >/dev/null
+claude plugin marketplace add "$MARKETPLACE_SLUG" >/dev/null
 echo "Marketplace \"${MARKETPLACE_NAME}\" is up to date."
 echo
 

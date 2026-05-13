@@ -9,12 +9,15 @@ if ! command -v claude >/dev/null 2>&1; then
 fi
 
 MARKETPLACE_SLUG="${CLAUDE_CODE_AUTHSTACK_MARKETPLACE:-scalekit-inc/claude-code-authstack}"
+MARKETPLACE_NAME="scalekit-auth-stack"
 OLD_PLUGINS=("agent-auth" "full-stack-auth" "mcp-auth" "modular-sso" "modular-scim")
 
 echo "Installing Scalekit Auth Stack for Claude Code"
 echo "Marketplace: $MARKETPLACE_SLUG"
 echo
 
+# Remove and re-add marketplace to ensure the latest version is fetched
+claude plugin marketplace remove "$MARKETPLACE_NAME" 2>/dev/null || true
 claude plugin marketplace add "$MARKETPLACE_SLUG"
 
 # Remove old plugin names from v1.x (now consolidated into agentkit + saaskit)

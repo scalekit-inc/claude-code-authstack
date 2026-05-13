@@ -16,10 +16,8 @@ echo "Marketplace: $MARKETPLACE_SLUG"
 echo
 
 if ! claude plugin marketplace add "$MARKETPLACE_SLUG" 2>/dev/null; then
-  echo "Marketplace \"scalekit-auth-stack\" is already registered."
-  echo "To get the latest plugins, enable auto-update or run:"
-  echo "  claude plugin update --all"
-  echo
+  echo "Marketplace already registered. Updating..."
+  claude plugin marketplace update scalekit-auth-stack
 fi
 
 # Remove old plugin names from v1.x (now consolidated into agentkit + saaskit)

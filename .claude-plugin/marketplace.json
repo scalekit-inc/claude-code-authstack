@@ -20,6 +20,41 @@
       "source": "./plugins/saaskit",
       "category": "Application Auth",
       "homepage": "https://docs.scalekit.com/authenticate/fsa/quickstart/"
+    },
+    {
+      "name": "agent-auth",
+      "description": "Alias for agentkit — AI agent authentication with OAuth flows, token vault, and 40+ connectors.",
+      "source": "./plugins/agent-auth",
+      "category": "Agent Auth",
+      "homepage": "https://docs.scalekit.com/agentkit/overview/"
+    },
+    {
+      "name": "mcp-auth",
+      "description": "Alias for saaskit — includes OAuth 2.1 for MCP servers alongside login, SSO, SCIM, and RBAC.",
+      "source": "./plugins/mcp-auth",
+      "category": "Application Auth",
+      "homepage": "https://docs.scalekit.com/authenticate/mcp/quickstart/"
+    },
+    {
+      "name": "full-stack-auth",
+      "description": "Alias for saaskit — full-stack authentication including login, sessions, SSO, SCIM, and RBAC.",
+      "source": "./plugins/full-stack-auth",
+      "category": "Application Auth",
+      "homepage": "https://docs.scalekit.com/authenticate/fsa/quickstart/"
+    },
+    {
+      "name": "modular-sso",
+      "description": "Alias for saaskit — enterprise SSO is now part of the unified SaaSKit plugin.",
+      "source": "./plugins/modular-sso",
+      "category": "Application Auth",
+      "homepage": "https://docs.scalekit.com/authenticate/sso/add-modular-sso/"
+    },
+    {
+      "name": "modular-scim",
+      "description": "Alias for saaskit — SCIM provisioning is now part of the unified SaaSKit plugin.",
+      "source": "./plugins/modular-scim",
+      "category": "Application Auth",
+      "homepage": "https://docs.scalekit.com/directory/scim/quickstart/"
     }
   ]
 }

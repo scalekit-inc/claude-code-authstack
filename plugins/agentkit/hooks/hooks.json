@@ -1,7 +1,7 @@
 {
   "description": "Hooks for Scalekit agentkit plugin",
   "hooks": {
-    "UserPromptSubmit": [
+    "SessionStart": [
       {
         "hooks": [
           {

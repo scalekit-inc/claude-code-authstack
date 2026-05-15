@@ -1,17 +1,6 @@
 {
   "description": "Hooks for Scalekit agentkit plugin",
   "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "npx --yes @scalekit-inc/cli extension status claude --hook",
-            "timeout": 15
-          }
-        ]
-      }
-    ],
     "Stop": [
       {
         "hooks": [

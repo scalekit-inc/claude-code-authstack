@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "agentkit",
-      "description": "Authentication for AI agents. OAuth flows, token vault, 40+ connectors (Gmail, Slack, Salesforce, etc.), tool discovery, and live testing — so agents can act on behalf of users.",
+      "description": "Authentication for AI agents. OAuth flows, token vault, 100+ connectors (Gmail, Slack, Salesforce, etc.), tool discovery, and live testing — so agents can act on behalf of users.",
       "source": "./plugins/agentkit",
       "category": "Agent Auth",
       "homepage": "https://docs.scalekit.com/agentkit/overview/"
@@ -23,7 +23,7 @@
     },
     {
       "name": "agent-auth",
-      "description": "Alias for agentkit — AI agent authentication with OAuth flows, token vault, and 40+ connectors.",
+      "description": "Alias for agentkit — AI agent authentication with OAuth flows, token vault, and 100+ connectors.",
       "source": "./plugins/agent-auth",
       "category": "Agent Auth",
       "homepage": "https://docs.scalekit.com/agentkit/overview/"

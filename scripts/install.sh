@@ -25,8 +25,8 @@ for old in "${OLD_PLUGINS[@]}"; do
   claude plugin uninstall "${old}@scalekit-auth-stack" 2>/dev/null || true
 done
 
-claude plugin install agentkit@scalekit-auth-stack
-claude plugin install saaskit@scalekit-auth-stack
+claude plugin install agentkit@scalekit-auth-stack || true
+claude plugin install saaskit@scalekit-auth-stack || true
 
 cat <<EOF
 
@@ -37,8 +37,8 @@ Installed plugins:
   saaskit   — B2B SaaS authentication (login, SSO, SCIM, RBAC, MCP server auth)
 
 What to do next in Claude Code:
-- Look for the "scalekit-auth-stack" marketplace in your plugin settings.
-- Install both plugins: "agentkit" and "saaskit".
+- Try /agentkit:integrating-agentkit to start building with AgentKit.
+- Try /saaskit:implementing-saaskit to add login, sessions, and SSO.
 - Set the update policy to auto-update so you always have the latest skills.
 
 To verify it works:

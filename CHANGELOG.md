@@ -5,17 +5,17 @@
 ### Breaking Changes
 
 - Consolidated 5 plugins into 2: **AgentKit** and **SaaSKit**
-- Removed `full-stack-auth`, `mcp-auth`, `modular-sso`, `modular-scim` plugins
+- Consolidated `full-stack-auth`, `mcp-auth`, `modular-sso`, `modular-scim` as symlink aliases — old install commands still work
 - All slash commands now use `/agentkit:` or `/saaskit:` namespace
 
 ### Added
 
 - **AgentKit** plugin (`plugins/agentkit/`) — renamed from `agent-auth`, adopting Scalekit AgentKit branding
-  - New skills: `discovering-agentkit-tools`, `testing-agentkit-tools`
+  - New skills: `discovering-connector-tools`, `exposing-agentkit-via-mcp`, `scalekit-code-doctor`
   - Added `docs/` layer with canonical documentation (connections, tool-discovery, code-samples)
   - Added `rules/` layer for cross-cutting guidance
 - **SaaSKit** plugin (`plugins/saaskit/`) — consolidates FSA, SSO, SCIM, and MCP server auth
-  - 11 skills covering login, sessions, SSO, SCIM, RBAC, MCP server auth, API keys, migration, and production readiness
+  - 13 skills covering login, sessions, SSO, SCIM, RBAC, MCP server auth, API keys, migration, production readiness, auth testing, and SDK debugging
   - `docs/` layer with 13 documentation files including framework-specific guides (Python, Next.js, Go, Spring Boot, Laravel)
   - `rules/` layer with terminology and redirect URL guidance
   - Framework-specific reference files (Go, Spring Boot, Laravel, FastMCP, Express, FastAPI)
@@ -29,12 +29,12 @@
 - Root README updated with 2-plugin listing and install instructions
 - CLAUDE.md updated with new plugin layout
 
-### Removed
+### Aliased (backward-compatible)
 
-- `plugins/full-stack-auth/` — skills migrated to SaaSKit
-- `plugins/mcp-auth/` — server-side auth skills migrated to SaaSKit, MCP bridge stays in AgentKit
-- `plugins/modular-sso/` — SSO + admin portal skills migrated to SaaSKit
-- `plugins/modular-scim/` — SCIM provisioning skills migrated to SaaSKit
+- `plugins/full-stack-auth/` → symlink to `saaskit/`; old install commands continue to work
+- `plugins/mcp-auth/` → symlink to `saaskit/`; old install commands continue to work
+- `plugins/modular-sso/` → symlink to `saaskit/`; old install commands continue to work
+- `plugins/modular-scim/` → symlink to `saaskit/`; old install commands continue to work
 
 ---
 

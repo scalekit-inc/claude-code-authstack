@@ -40,6 +40,8 @@ Official Scalekit docs:
 - `/saaskit:adding-api-auth` — API keys (org/user scoped) and OAuth 2.0 client credentials.
 - `/saaskit:migrating-to-saaskit` — Migration planning from Auth0, Firebase, Cognito, or custom auth.
 - `/saaskit:production-readiness-saaskit` — Unified production checklist across all SaaSKit domains.
+- `/saaskit:testing-auth-setup` — Validates auth configuration end-to-end using the Scalekit dryrun CLI.
+- `/saaskit:scalekit-code-doctor` — Diagnoses SDK usage issues, import errors, and common mistakes across AgentKit and SaaSKit.
 
 ## Configuration
 Required environment variables:

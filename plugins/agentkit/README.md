@@ -41,6 +41,8 @@ Official Scalekit docs:
   Exposes AgentKit tools through MCP for MCP-compatible runtimes.
 - `/agentkit:production-readiness-agentkit`
   Runs a structured production-readiness checklist for AgentKit integrations.
+- `/agentkit:scalekit-code-doctor`
+  Diagnoses SDK usage issues, import errors, and common mistakes across AgentKit and SaaSKit.
 
 ## Configuration
 Required environment variables (for SDK-based integrations):

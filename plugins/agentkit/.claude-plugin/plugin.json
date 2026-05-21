@@ -6,7 +6,7 @@
     "name": "Scalekit Inc.",
     "email": "hi@scalekit.com"
   },
-  "homepage": "https://docs.scalekit.com/dev-kit/build-with-ai/agent-auth/",
+  "homepage": "https://docs.scalekit.com/agentkit/overview/",
   "repository": "https://github.com/scalekit-inc/claude-code-authstack",
   "license": "MIT",
   "keywords": ["scalekit", "agentkit", "agent-auth", "connectors", "tools", "connected-accounts"]

@@ -33,20 +33,11 @@ Use connector notes for:
 
 ## Current connector coverage in the plugin
 
-The plugin already contains curated notes for connectors such as:
+Per-connector implementation notes were removed in v2.0.0. Use live AgentKit metadata
+via the Scalekit MCP server as the current source of truth for tool schemas and coverage.
 
-- Gmail
-- Google Calendar
-- Google Sheets
-- Slack
-- Salesforce
-- GitHub
-- Notion
-- Zendesk
-
-and many others in the legacy connector-notes set.
-
-During this hybrid migration, those existing notes remain available in the plugin as the backing source for connector-specific guidance while `docs/` becomes the canonical entry layer.
+For official connector documentation see the
+[Scalekit connector catalog](https://docs.scalekit.com/agentkit/connectors.md).
 
 ## Related docs
 

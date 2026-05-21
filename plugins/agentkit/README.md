@@ -40,6 +40,8 @@ Official Scalekit docs:
 - [AgentKit examples](https://docs.scalekit.com/agentkit/examples.md)
 
 ## Skills Reference
+- `/agentkit:setup`
+  New to AgentKit? Start here — answers 2 questions and routes you to the right skill.
 - `/agentkit:integrating-agentkit`
   Integrates AgentKit into app code or an agent workflow and routes into the core docs.
 - `/agentkit:discovering-connector-tools`

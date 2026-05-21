@@ -36,6 +36,8 @@ Official Scalekit docs:
 - [MCP Auth quickstart](https://docs.scalekit.com/authenticate/mcp/quickstart/)
 
 ## Skills Reference
+- `/saaskit:setup`
+  New to SaaSKit? Start here — answers 3 questions and routes you to the right skill.
 - `/saaskit:implementing-saaskit` — Core auth flow: login, signup, callback, token exchange, logout. Framework reference files for Go, Spring Boot, Laravel.
 - `/saaskit:managing-saaskit-sessions` — Secure session storage, token refresh middleware, session revocation.
 - `/saaskit:implementing-access-control` — RBAC and permission checks using Scalekit access tokens.

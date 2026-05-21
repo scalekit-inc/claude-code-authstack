@@ -18,8 +18,15 @@ Claude runtime files remain in place as adapters:
 The plugin treats live AgentKit metadata as the source of truth for tool names, `input_schema`, and `output_schema`. For per-connector details, see the [AgentKit connectors catalog](https://docs.scalekit.com/agentkit/connectors/).
 
 ## Installation
+
+Run the install script (macOS/Linux):
 ```sh
-claude /plugin install agentkit@scalekit-auth-stack
+curl -fsSL https://raw.githubusercontent.com/scalekit-inc/claude-code-authstack/main/scripts/install.sh | bash
+```
+
+Or inside Claude Code, run:
+```
+/plugin install agentkit@scalekit-auth-stack
 ```
 
 Start with the canonical docs entrypoint at [`docs/index.md`](docs/index.md).
@@ -41,8 +48,8 @@ Official Scalekit docs:
   Exposes AgentKit tools through MCP for MCP-compatible runtimes.
 - `/agentkit:production-readiness-agentkit`
   Runs a structured production-readiness checklist for AgentKit integrations.
-- `/agentkit:scalekit-code-doctor`
-  Diagnoses SDK usage issues, import errors, and common mistakes across AgentKit and SaaSKit.
+- `/saaskit:scalekit-code-doctor` (cross-plugin)
+  Diagnoses SDK usage issues, import errors, and common mistakes across AgentKit and SaaSKit. Requires the saaskit plugin.
 
 ## Configuration
 Required environment variables (for SDK-based integrations):
@@ -62,6 +69,11 @@ Example `.mcp.json`:
   }
 }
 ```
+
+**MCP authentication**: Claude Code handles auth for `https://mcp.scalekit.com` automatically via OAuth 2.1 dynamic client registration. No auth fields are needed in `.mcp.json`. If MCP tool calls fail:
+1. Verify `SCALEKIT_ENV_URL`, `SCALEKIT_CLIENT_ID`, and `SCALEKIT_CLIENT_SECRET` are set in your environment.
+2. Re-open Claude Code — it re-runs the OAuth handshake on startup.
+3. Check that your Scalekit environment has MCP server access enabled in the dashboard.
 
 ## Usage Examples
 Typical flow for a new connector integration:

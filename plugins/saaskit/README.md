@@ -17,8 +17,15 @@ Claude runtime files:
 - `references/`
 
 ## Installation
+
+Run the install script (macOS/Linux):
 ```sh
-claude /plugin install saaskit@scalekit-auth-stack
+curl -fsSL https://raw.githubusercontent.com/scalekit-inc/claude-code-authstack/main/scripts/install.sh | bash
+```
+
+Or inside Claude Code, run:
+```
+/plugin install saaskit@scalekit-auth-stack
 ```
 
 Official Scalekit docs:

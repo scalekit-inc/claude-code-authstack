@@ -105,6 +105,8 @@ Use SaaSKit to add login, session management, enterprise SSO, SCIM provisioning,
 - Claude Code installed and configured
 - Project where you want to add authentication
 
+> **Windows**: `install.sh` requires macOS or Linux (or WSL on Windows). Native Windows PowerShell install is not yet supported.
+
 ---
 
 ### Helpful Links

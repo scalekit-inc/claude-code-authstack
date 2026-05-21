@@ -159,7 +159,13 @@ Full working example: [github.com/scalekit-inc/python-connect-demos/tree/main/mc
 
 ## Deep reference
 
-- Canonical docs entrypoint: [../../docs/index.md](../../docs/index.md)
-- Connections: [../../docs/connections.md](../../docs/connections.md)
-- Connected accounts: [../../docs/connected-accounts.md](../../docs/connected-accounts.md)
-- Tool discovery: [../../docs/tool-discovery.md](../../docs/tool-discovery.md)
+- AgentKit overview: [docs.scalekit.com/agentkit/overview](https://docs.scalekit.com/agentkit/overview/)
+- Connections: [docs.scalekit.com/agentkit/connections](https://docs.scalekit.com/agentkit/connections/)
+- Connected accounts: [docs.scalekit.com/agentkit/connected-accounts](https://docs.scalekit.com/agentkit/connected-accounts/)
+- Tool discovery: [docs.scalekit.com/agentkit/tool-discovery](https://docs.scalekit.com/agentkit/tool-discovery/)
+
+## When to switch skills
+
+- Use `integrating-agentkit` for direct SDK integration without MCP.
+- Use `discovering-connector-tools` when the user needs the current tool catalog or schema.
+- Use the Scalekit MCP server (`https://mcp.scalekit.com`) to validate a tool call interactively.

@@ -3,77 +3,115 @@ name: implementing-saaskit
 description: Implements Scalekit SaaSKit authentication (sign-up, login, logout, sessions) using JWT tokens across Node.js, Python, Go, Java, or PHP. Use when building or integrating user authentication with Scalekit, setting up OAuth callbacks, token refresh, or session handling.
 ---
 
-# SaaSKit Authentication
+# Scalekit SaaSKit (Full-Stack Authentication)
 
-Use this skill as the auth integration entrypoint. It should stay thin and route into the canonical docs in `docs/`.
+## Setup
 
-## Mental model
+Install the SDK and set credentials in `.env`:
 
-SaaSKit is Scalekit-managed login, session, and RBAC for SaaS apps. Scalekit acts as an OIDC/OAuth 2.0 provider — your app implements the authorization code flow against it. The SDK handles token exchange, validation, and refresh.
-
-Key concepts:
-- **Auth URL**: Scalekit-hosted login page your app redirects to
-- **Callback**: Your endpoint that receives the authorization code
-- **Access token**: JWT carrying user identity, org, roles, and permissions
-- **Refresh token**: Long-lived token used to renew access tokens silently
-
-## Default workflow
-
-1. Set `SCALEKIT_ENV_URL`, `SCALEKIT_CLIENT_ID`, `SCALEKIT_CLIENT_SECRET` in env.
-2. Initialize the SDK client (once, at startup).
-3. Build the authorization URL and redirect the user to Scalekit.
-4. Handle the callback — exchange the code for tokens.
-5. Store tokens in a secure session (httpOnly cookies or server-side store).
-6. On logout, clear the session and redirect to Scalekit's end-session endpoint.
-
-## Quick skeleton
-
-### Node.js
-```bash
-npm install @scalekit-sdk/node
-```
-```typescript
-import { ScalekitClient } from '@scalekit-sdk/node';
-const sc = new ScalekitClient(
-  process.env.SCALEKIT_ENV_URL!,
-  process.env.SCALEKIT_CLIENT_ID!,
-  process.env.SCALEKIT_CLIENT_SECRET!
-);
-// Step 3 — redirect to auth URL
-// Step 4 — sc.authenticateWithCode(code, redirectUri)
-// Step 5 — store tokens in session
-// Step 6 — sc.getLogoutUrl(options)
+```sh
+SCALEKIT_ENVIRONMENT_URL=<your-environment-url>
+SCALEKIT_CLIENT_ID=<your-client-id>
+SCALEKIT_CLIENT_SECRET=<your-client-secret>
 ```
 
-### Python
-```bash
-pip install scalekit-sdk-python
+## Auth flow
+
+### 1. Redirect to login
+
+Generate an authorization URL and redirect the user:
+
+```js
+// Node.js
+const authorizationUrl = scalekit.getAuthorizationUrl(redirectUri, {
+  scopes: ['openid', 'profile', 'email', 'offline_access']
+});
+res.redirect(authorizationUrl);
 ```
-```python
-from scalekit import ScalekitClient
-sc = ScalekitClient(env_url, client_id, client_secret)
-# Same 6-step flow — see docs/auth-flows.md for full patterns
+
+> `redirectUri` must exactly match the allowed callback URL registered in the Scalekit dashboard.
+
+### 2. Handle the callback
+
+Exchange the authorization code for tokens:
+
+```js
+// Node.js
+const { user, idToken, accessToken, refreshToken } =
+  await scalekit.authenticateWithCode(code, redirectUri);
 ```
+
+| Token | Purpose |
+|---|---|
+| `idToken` | Full user profile (sub, oid, email, name, exp) |
+| `accessToken` | Roles + permissions; expires in 5 min (configurable) |
+| `refreshToken` | Long-lived; use to renew access tokens |
+
+### 3. Create the session
+
+Store tokens in HttpOnly cookies:
+
+```js
+// Node.js
+res.cookie('accessToken', authResult.accessToken, {
+  maxAge: (authResult.expiresIn - 60) * 1000,
+  httpOnly: true, secure: true, path: '/api', sameSite: 'strict'
+});
+res.cookie('refreshToken', authResult.refreshToken, {
+  httpOnly: true, secure: true, path: '/auth/refresh', sameSite: 'strict'
+});
+```
+
+**Token validation middleware pattern:**
+1. Read `accessToken` cookie → decrypt → `scalekit.validateAccessToken(token)`
+2. If invalid → `scalekit.refreshAccessToken(refreshToken)` → update cookies
+3. If refresh fails → log out the user
+
+### 4. Log out
+
+Clear session data, then redirect to Scalekit's logout endpoint:
+
+```js
+// Node.js
+clearSessionData();
+const logoutUrl = scalekit.getLogoutUrl(idTokenHint, postLogoutRedirectUri);
+res.redirect(logoutUrl); // One-time use URL; expires after logout
+```
+
+## Cross-language reference
+
+All SDK methods follow the same pattern across languages with minor naming conventions:
+
+| Operation | Node.js | Python | Go | Java |
+|---|---|---|---|---|
+| Auth URL | `getAuthorizationUrl` | `get_authorization_url` | `GetAuthorizationUrl` | `getAuthorizationUrl` |
+| Exchange code | `authenticateWithCode` | `authenticate_with_code` | `AuthenticateWithCode` | `authenticateWithCode` |
+| Validate token | `validateAccessToken` | `validate_access_token` | `ValidateAccessToken` | `validateAccessToken` |
+| Refresh token | `refreshAccessToken` | `refresh_access_token` | `RefreshAccessToken` | `refreshToken` |
+| Logout URL | `getLogoutUrl` | `get_logout_url` | `GetLogoutUrl` | `getLogoutUrl` |
+
+## What this unlocks
+
+One integration enables: Magic Link & OTP, social sign-ins, enterprise SSO, workspaces, MCP authentication, SCIM provisioning, and user management.
 
 ## Framework-specific references
 
-- Go (Gin): [go-reference.md](go-reference.md)
-- Spring Boot: [springboot-reference.md](springboot-reference.md)
-- Laravel: [laravel-reference.md](laravel-reference.md)
 - Python (Django/FastAPI/Flask): use `implementing-saaskit-python` skill
 - Next.js: use `implementing-saaskit-nextjs` skill
+- Go (Gin): see [go-reference.md](go-reference.md)
+- Spring Boot: see [springboot-reference.md](springboot-reference.md)
+- Laravel: see [laravel-reference.md](laravel-reference.md)
 
 ## Deep reference
 
-- Auth flows: [../../docs/auth-flows.md](../../docs/auth-flows.md)
-- Sessions: [../../docs/sessions.md](../../docs/sessions.md)
-- Access control: [../../docs/access-control.md](../../docs/access-control.md)
-- API auth: [../../docs/api-auth.md](../../docs/api-auth.md)
-- All frameworks: [../../docs/frameworks/](../../docs/frameworks/)
+- Auth flows: [docs.scalekit.com/authenticate/fsa/quickstart](https://docs.scalekit.com/authenticate/fsa/quickstart/)
+- Sessions: [docs.scalekit.com/authenticate/fsa/sessions](https://docs.scalekit.com/authenticate/fsa/sessions/)
+- Access control: [docs.scalekit.com/authenticate/fsa/access-control](https://docs.scalekit.com/authenticate/fsa/access-control/)
 
 ## When to switch skills
 
 - Use `managing-saaskit-sessions` for token storage, refresh middleware, and session auditing.
 - Use `implementing-access-control` for RBAC and permission enforcement.
+- Use `implementing-modular-sso` for enterprise SSO on top of SaaSKit.
 - Use `migrating-to-saaskit` when replacing an existing auth system.
 - Use `production-readiness-saaskit` before going live.

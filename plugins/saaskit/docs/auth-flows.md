@@ -97,10 +97,11 @@ res.redirect(logoutUrl);
 ```python
 # Python (Flask)
 id_token = request.cookies.get("idToken")
-logout_url = scalekit_client.get_logout_url(
+from scalekit.common.scalekit import LogoutUrlOptions
+logout_url = scalekit_client.get_logout_url(LogoutUrlOptions(
     id_token_hint=id_token,
-    post_logout_redirect_uri=post_logout_redirect_uri
-)
+    post_logout_redirect_uri=post_logout_redirect_uri,
+))
 resp = make_response(redirect(logout_url))
 resp.set_cookie("accessToken", "", max_age=0, path="/")
 resp.set_cookie("refreshToken", "", max_age=0, path="/")

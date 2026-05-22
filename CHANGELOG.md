@@ -15,7 +15,7 @@
   - Added `docs/` layer with canonical documentation (connections, tool-discovery, code-samples)
   - Added `rules/` layer for cross-cutting guidance
 - **SaaSKit** plugin (`plugins/saaskit/`) — consolidates FSA, SSO, SCIM, and MCP server auth
-  - 13 skills covering login, sessions, SSO, SCIM, RBAC, MCP server auth, API keys, migration, production readiness, auth testing, and SDK debugging
+  - 14 skills covering login, sessions, SSO, SCIM, RBAC, MCP server auth, API keys, migration, production readiness, auth testing, and SDK debugging
   - `docs/` layer with 13 documentation files including framework-specific guides (Python, Next.js, Go, Spring Boot, Laravel)
   - `rules/` layer with terminology and redirect URL guidance
   - Framework-specific reference files (Go, Spring Boot, Laravel, FastMCP, Express, FastAPI)

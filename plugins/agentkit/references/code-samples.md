@@ -159,14 +159,14 @@ adk run scalekit_tool_agent
 **1. Complete Agent Implementation**
 ```python
 from google.adk.agents import Agent
-import scalekit.client
+from scalekit import ScalekitClient
 import os
 
 identifier = "user-1234"
 connection_name = "gmail"
 
 # Initialize Scalekit client
-client = scalekit.client.ScalekitClient(
+client = ScalekitClient(
     client_id=os.getenv("SCALEKIT_CLIENT_ID"),
     client_secret=os.getenv("SCALEKIT_CLIENT_SECRET"),
     env_url=os.getenv("SCALEKIT_ENVIRONMENT_URL")

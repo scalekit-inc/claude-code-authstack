@@ -121,8 +121,8 @@ Use SaaSKit to add login, session management, enterprise SSO, SCIM provisioning,
 - [MCP Auth guide](https://docs.scalekit.com/authenticate/mcp/quickstart/) — Secure MCP servers
 - [Full-stack auth guide](https://docs.scalekit.com/authenticate/fsa/quickstart/) — Add login, callback, and session management
 - [SCIM directory sync guide](https://docs.scalekit.com/directory/scim/quickstart/) — Provision and deprovision users
-- [AgentKit overview](https://docs.scalekit.com/agentkit/overview.md) — Connect agents to authenticated tools through connectors, connections, and connected accounts
-- [AgentKit quickstart](https://docs.scalekit.com/agentkit/quickstart.md) — Build an agent that makes authenticated tool calls on behalf of users
+- [AgentKit overview](https://docs.scalekit.com/agentkit/overview) — Connect agents to authenticated tools through connectors, connections, and connected accounts
+- [AgentKit quickstart](https://docs.scalekit.com/agentkit/quickstart) — Build an agent that makes authenticated tool calls on behalf of users
 
 #### Resources
 

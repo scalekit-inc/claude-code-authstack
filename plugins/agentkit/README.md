@@ -55,7 +55,7 @@ Official Scalekit docs:
 
 ## Configuration
 Required environment variables (for SDK-based integrations):
-- `SCALEKIT_ENV_URL`
+- `SCALEKIT_ENVIRONMENT_URL`
 - `SCALEKIT_CLIENT_ID`
 - `SCALEKIT_CLIENT_SECRET`
 
@@ -73,7 +73,7 @@ Example `.mcp.json`:
 ```
 
 **MCP authentication**: Claude Code handles auth for `https://mcp.scalekit.com` automatically via OAuth 2.1 dynamic client registration. No auth fields are needed in `.mcp.json`. If MCP tool calls fail:
-1. Verify `SCALEKIT_ENV_URL`, `SCALEKIT_CLIENT_ID`, and `SCALEKIT_CLIENT_SECRET` are set in your environment.
+1. Verify `SCALEKIT_ENVIRONMENT_URL`, `SCALEKIT_CLIENT_ID`, and `SCALEKIT_CLIENT_SECRET` are set in your environment.
 2. Re-open Claude Code — it re-runs the OAuth handshake on startup.
 3. Check that your Scalekit environment has MCP server access enabled in the dashboard.
 

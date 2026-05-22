@@ -1,5 +1,7 @@
 # Scalekit MCP Server - Production Reference Implementation
 
+> **Note:** This document describes Scalekit's MCP server architecture conceptually. The methods shown are illustrative — refer to the SDK reference for the actual API surface.
+
 ## Overview
 
 This document provides an architectural overview and key patterns from Scalekit's official MCP server implementation. This production-ready server demonstrates advanced OAuth 2.1 patterns, comprehensive tooling, and best practices for building secure, scalable MCP servers.
@@ -73,7 +75,7 @@ server.tool(
   },
   async ({ environmentId, name }, { token }) => {
     // Token already validated by middleware
-    const organization = await scalekit.createOrganization({
+    const organization = await scalekit.organization.createOrganization({
       environmentId,
       name,
     });
@@ -174,7 +176,7 @@ server.tool(
     pageToken: z.string().optional().default('1'),
   },
   async ({ environmentId, pageToken }) => {
-    const result = await scalekit.listOrganizations({
+    const result = await scalekit.organization.listOrganization({
       environmentId,
       page: parseInt(pageToken, 10),
     });
@@ -210,7 +212,7 @@ server.tool(
   },
   async ({ environmentId, organizationId }) => {
     // Safe to proceed with validated IDs
-    const organization = await scalekit.getOrganization({
+    const organization = await scalekit.organization.getOrganization({
       environmentId,
       organizationId
     });
@@ -257,7 +259,7 @@ server.tool(
 
 ```bash
 # Scalekit Configuration
-SCALEKIT_ENV_URL=https://your-env.scalekit.com
+SCALEKIT_ENVIRONMENT_URL=https://your-env.scalekit.com
 SCALEKIT_CLIENT_ID=your_client_id
 SCALEKIT_CLIENT_SECRET=your_client_secret
 
@@ -276,7 +278,7 @@ NODE_ENV=production
 ```typescript
 const config = {
   port: parseInt(process.env.PORT || '3002', 10),
-  environmentUrl: process.env.SCALEKIT_ENV_URL,
+  environmentUrl: process.env.SCALEKIT_ENVIRONMENT_URL,
   clientId: process.env.SCALEKIT_CLIENT_ID,
   clientSecret: process.env.SCALEKIT_CLIENT_SECRET,
   expectedAudience: process.env.EXPECTED_AUDIENCE,

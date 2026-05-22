@@ -33,8 +33,8 @@ Detect the project's language/framework from existing files (`package.json`, `re
 |-------|----------------|
 | Node.js | `npm install @scalekit-sdk/node` |
 | Python | `pip install scalekit-sdk-python` |
-| Go | `go get github.com/scalekit/scalekit-go` |
-| Java | Add `com.scalekit:scalekit-sdk` to `pom.xml` or `build.gradle` |
+| Go | `go get github.com/scalekit-inc/scalekit-sdk-go/v2` |
+| Java | Add `com.scalekit:scalekit-sdk-java` to `pom.xml` or `build.gradle` |
 
 ---
 
@@ -90,7 +90,9 @@ Use for scheduled jobs, onboarding flows, or bulk imports. Integrate into existi
 
 ```javascript
 // Node.js
-const { directory } = await scalekit.directory.getPrimaryDirectoryByOrganizationId(orgId);
+// Note: returns the first directory; multi-directory orgs need an explicit directory ID.
+const { directories } = await scalekit.directory.listDirectories(orgId);
+const directory = directories[0];
 const { users } = await scalekit.directory.listDirectoryUsers(orgId, directory.id);
 
 for (const user of users) {
@@ -100,7 +102,8 @@ for (const user of users) {
 
 ```python
 # Python
-directory = scalekit_client.directory.get_primary_directory_by_organization_id(org_id)
+# Note: returns the first directory; multi-directory orgs need an explicit directory ID.
+directory = scalekit_client.directory.list_directories(organization_id=org_id).directories[0]
 users = scalekit_client.directory.list_directory_users(org_id, directory.id)
 
 for user in users:
@@ -126,20 +129,18 @@ Add a new route to the existing HTTP server/router. Match the framework pattern 
 
 **ALWAYS verify the signature before processing. Return 400 on failure.**
 
-**Node.js (Express):**
-```javascript
-app.post('/webhooks/scalekit', async (req, res) => {
-  try {
-    await scalekit.verifyWebhookPayload(
-      process.env.SCALEKIT_WEBHOOK_SECRET,
-      req.headers,
-      req.body
-    );
-  } catch {
-    return res.status(400).json({ error: 'Invalid signature' });
-  }
+**Node.js (Express):** mount the route with `express.raw({ type: 'application/json' })` so `req.body` is the raw `Buffer` — signature verification must run on the exact bytes that were signed.
 
-  const { type, data } = req.body;
+```javascript
+app.post('/webhooks/scalekit', express.raw({ type: 'application/json' }), async (req, res) => {
+  const ok = await scalekit.verifyWebhookPayload(
+    process.env.SCALEKIT_WEBHOOK_SECRET,
+    req.headers,
+    req.body
+  );
+  if (!ok) return res.status(401).end();
+
+  const { type, data } = JSON.parse(req.body.toString('utf8'));
   try {
     await handleDirectoryEvent(type, data);
     res.status(201).json({ status: 'processed' });
@@ -149,19 +150,21 @@ app.post('/webhooks/scalekit', async (req, res) => {
 });
 ```
 
-**Python (FastAPI):**
+**Python (FastAPI):** read the raw body BEFORE parsing JSON so the bytes match exactly what Scalekit signed.
+
 ```python
 @app.post("/webhooks/scalekit")
 async def scalekit_webhook(request: Request):
-    body = await request.json()
+    raw_body = await request.body()
     valid = scalekit_client.verify_webhook_payload(
         secret=os.getenv("SCALEKIT_WEBHOOK_SECRET"),
-        headers=request.headers,
-        payload=json.dumps(body).encode()
+        headers=dict(request.headers),
+        payload=raw_body,
     )
     if not valid:
-        raise HTTPException(status_code=400, detail="Invalid signature")
+        raise HTTPException(status_code=401, detail="Invalid signature")
 
+    body = json.loads(raw_body)
     await handle_directory_event(body.get("type"), body.get("data", {}))
     return JSONResponse(status_code=201, content={"status": "processed"})
 ```

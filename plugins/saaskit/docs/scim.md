@@ -17,7 +17,9 @@ Fetch users and groups for an organization:
 
 ```js
 // Node.js
-const { directory } = await scalekit.directory.getPrimaryDirectoryByOrganizationId(orgId);
+// Note: returns the first directory; multi-directory orgs need an explicit directory ID.
+const { directories } = await scalekit.directory.listDirectories(orgId);
+const directory = directories[0];
 const { users } = await scalekit.directory.listDirectoryUsers(orgId, directory.id);
 for (const user of users) {
   await upsertUser({ email: user.email, name: user.name, orgId });
@@ -26,7 +28,8 @@ for (const user of users) {
 
 ```python
 # Python
-directory = scalekit_client.directory.get_primary_directory_by_organization_id(org_id)
+# Note: returns the first directory; multi-directory orgs need an explicit directory ID.
+directory = scalekit_client.directory.list_directories(organization_id=org_id).directories[0]
 users = scalekit_client.directory.list_directory_users(org_id, directory.id)
 for user in users:
     upsert_user(email=user.email, name=user.name, org_id=org_id)
@@ -48,32 +51,34 @@ for (const group of groups) {
 Add a POST route, verify the signature, and dispatch events:
 
 ```js
-// Node.js (Express)
-app.post('/webhooks/scalekit', async (req, res) => {
-  try {
-    await scalekit.verifyWebhookPayload(
-      process.env.SCALEKIT_WEBHOOK_SECRET, req.headers, req.body
-    );
-  } catch { return res.status(400).json({ error: 'Invalid signature' }); }
+// Node.js (Express) — mount with `express.raw({ type: 'application/json' })`
+// so req.body is a Buffer for accurate signature verification.
+app.post('/webhooks/scalekit', express.raw({ type: 'application/json' }), async (req, res) => {
+  const ok = await scalekit.verifyWebhookPayload(
+    process.env.SCALEKIT_WEBHOOK_SECRET, req.headers, req.body
+  );
+  if (!ok) return res.status(401).end();
 
-  const { type, data } = req.body;
+  const { type, data } = JSON.parse(req.body.toString('utf8'));
   await handleDirectoryEvent(type, data);
   res.status(201).json({ status: 'processed' });
 });
 ```
 
 ```python
-# Python (FastAPI)
+# Python (FastAPI) — read the RAW body BEFORE parsing JSON so the bytes
+# match exactly what was signed.
 @app.post("/webhooks/scalekit")
 async def scalekit_webhook(request: Request):
-    body = await request.json()
+    raw_body = await request.body()
     valid = scalekit_client.verify_webhook_payload(
         secret=os.getenv("SCALEKIT_WEBHOOK_SECRET"),
-        headers=request.headers,
-        payload=json.dumps(body).encode()
+        headers=dict(request.headers),
+        payload=raw_body,
     )
     if not valid:
-        raise HTTPException(status_code=400, detail="Invalid signature")
+        raise HTTPException(status_code=401, detail="Invalid signature")
+    body = json.loads(raw_body)
     await handle_directory_event(body.get("type"), body.get("data", {}))
     return JSONResponse(status_code=201, content={"status": "processed"})
 ```

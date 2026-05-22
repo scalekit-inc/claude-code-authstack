@@ -88,7 +88,7 @@ Logout requires two steps: clear your application session, then redirect the bro
 ```js
 // Node.js
 const idTokenHint = req.cookies?.idToken; // read BEFORE clearing
-const logoutUrl = scalekit.getLogoutUrl(idTokenHint, postLogoutRedirectUri);
+const logoutUrl = scalekit.getLogoutUrl({ idTokenHint, postLogoutRedirectUri });
 res.clearCookie('accessToken', { path: '/' });
 res.clearCookie('refreshToken', { path: '/' });
 res.redirect(logoutUrl);

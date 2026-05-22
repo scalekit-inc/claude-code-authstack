@@ -25,6 +25,7 @@ from dotenv import load_dotenv
 from flask import Flask, redirect, request, session, url_for, jsonify
 from flask_session import Session
 from scalekit import ScalekitClient
+from scalekit.common.scalekit import AuthorizationUrlOptions, LogoutUrlOptions
 
 load_dotenv()
 
@@ -68,7 +69,7 @@ GET /auth/logout
 def login():
     state = secrets.token_urlsafe(32)
     session["oauth_state"] = state
-    auth_url = sc.get_authorization_url(REDIRECT_URI, options={"state": state})
+    auth_url = sc.get_authorization_url(REDIRECT_URI, options=AuthorizationUrlOptions(state=state))
     return redirect(auth_url)
 
 @app.get("/auth/callback")
@@ -90,7 +91,7 @@ def callback():
 @app.get("/auth/logout")
 def logout():
     id_token = session.get("id_token", "")
-    logout_url = sc.get_logout_url({"post_logout_redirect_uri": "http://localhost:5000"})
+    logout_url = sc.get_logout_url(LogoutUrlOptions(post_logout_redirect_uri="http://localhost:5000"))
     session.clear()
     return redirect(logout_url)
 ```

@@ -61,6 +61,7 @@ GET /auth/logout
 import os, secrets
 from django.shortcuts import redirect
 from django.http import HttpRequest, HttpResponse
+from scalekit.common.scalekit import AuthorizationUrlOptions, LogoutUrlOptions
 from .auth_client import get_scalekit_client
 
 REDIRECT_URI = os.getenv("SCALEKIT_REDIRECT_URI", "http://localhost:8000/auth/callback")
@@ -69,7 +70,7 @@ def login(request: HttpRequest):
     state = secrets.token_urlsafe(32)
     request.session["oauth_state"] = state
     sc = get_scalekit_client()
-    auth_url = sc.get_authorization_url(REDIRECT_URI, options={"state": state})
+    auth_url = sc.get_authorization_url(REDIRECT_URI, options=AuthorizationUrlOptions(state=state))
     return redirect(auth_url)
 
 def callback(request: HttpRequest):
@@ -92,7 +93,7 @@ def callback(request: HttpRequest):
 def logout(request: HttpRequest):
     id_token = request.session.get("id_token", "")
     sc = get_scalekit_client()
-    logout_url = sc.get_logout_url({"post_logout_redirect_uri": "http://localhost:8000"})
+    logout_url = sc.get_logout_url(LogoutUrlOptions(post_logout_redirect_uri="http://localhost:8000"))
     request.session.flush()
     return redirect(logout_url)
 ```

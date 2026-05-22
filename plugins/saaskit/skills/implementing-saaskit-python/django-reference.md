@@ -234,11 +234,12 @@ def dashboard(request):
 def idp_login(request):
     sc = get_scalekit_client()
     claims = sc.get_idp_initiated_login_claims(request.GET.get("idp_initiated_login", ""))
-    options = {}
-    if claims.organization_id: options["organization_id"] = claims.organization_id
-    if claims.connection_id:   options["connection_id"]   = claims.connection_id
-    if claims.login_hint:      options["login_hint"]      = claims.login_hint
-    auth_url = sc.get_authorization_url(REDIRECT_URI, options=options)
+    opts = AuthorizationUrlOptions(
+        organization_id=claims.organization_id or None,
+        connection_id=claims.connection_id or None,
+        login_hint=claims.login_hint or None,
+    )
+    auth_url = sc.get_authorization_url(REDIRECT_URI, options=opts)
     return redirect(auth_url)
 ```
 

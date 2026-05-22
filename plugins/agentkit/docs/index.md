@@ -18,10 +18,10 @@ These pages are the best external entrypoints for the material in this directory
 
 - [LLM docs map](https://docs.scalekit.com/llms.txt)
 - [Docs sitemap](https://docs.scalekit.com/sitemap-0.xml)
-- [AgentKit overview](https://docs.scalekit.com/agentkit/overview.md)
-- [AgentKit quickstart](https://docs.scalekit.com/agentkit/quickstart.md)
-- [AgentKit connectors](https://docs.scalekit.com/agentkit/connectors.md)
-- [AgentKit examples](https://docs.scalekit.com/agentkit/examples.md)
+- [AgentKit overview](https://docs.scalekit.com/agentkit/overview)
+- [AgentKit quickstart](https://docs.scalekit.com/agentkit/quickstart)
+- [AgentKit connectors](https://docs.scalekit.com/agentkit/connectors)
+- [AgentKit examples](https://docs.scalekit.com/agentkit/examples)
 
 ## How this directory is organized
 

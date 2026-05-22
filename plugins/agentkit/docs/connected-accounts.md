@@ -25,8 +25,8 @@ Typical lifecycle:
 
 ## Official Scalekit docs
 
-- [Manage connected accounts](https://docs.scalekit.com/agentkit/connected-accounts.md)
-- [Authorize a user](https://docs.scalekit.com/agentkit/tools/authorize.md)
+- [Manage connected accounts](https://docs.scalekit.com/agentkit/connected-accounts)
+- [Authorize a user](https://docs.scalekit.com/agentkit/tools/authorize)
 
 ## Operational rules
 

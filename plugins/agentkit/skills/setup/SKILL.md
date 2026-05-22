@@ -42,7 +42,7 @@ If answers aren't already clear from context, ask:
 Before starting any skill, verify credentials exist:
 
 ```bash
-SCALEKIT_ENV_URL=https://your-env.scalekit.dev
+SCALEKIT_ENVIRONMENT_URL=https://your-env.scalekit.dev
 SCALEKIT_CLIENT_ID=<from dashboard>
 SCALEKIT_CLIENT_SECRET=<from dashboard>
 ```

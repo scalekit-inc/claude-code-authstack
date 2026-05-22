@@ -24,8 +24,8 @@ They are related, but they are not always the same string.
 
 ## Official Scalekit docs
 
-- [Configure a connection](https://docs.scalekit.com/agentkit/connections.md)
-- [Scopes and permissions](https://docs.scalekit.com/agentkit/authentication/scopes-permissions.md)
+- [Configure a connection](https://docs.scalekit.com/agentkit/connections)
+- [Scopes and permissions](https://docs.scalekit.com/agentkit/authentication/scopes-permissions)
 
 ## Typical setup flow
 

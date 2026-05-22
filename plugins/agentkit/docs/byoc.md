@@ -13,7 +13,7 @@ Common reasons:
 
 ## Official Scalekit docs
 
-- [Bring your own credentials](https://docs.scalekit.com/agentkit/advanced/bring-your-own-oauth.md)
+- [Bring your own credentials](https://docs.scalekit.com/agentkit/advanced/bring-your-own-oauth)
 
 ## What changes
 

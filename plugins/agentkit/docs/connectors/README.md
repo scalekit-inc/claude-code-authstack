@@ -13,7 +13,7 @@ They should not claim to be the exhaustive current tool catalog.
 
 ## Official Scalekit docs
 
-- [Agent connectors](https://docs.scalekit.com/agentkit/connectors.md)
+- [Agent connectors](https://docs.scalekit.com/agentkit/connectors)
 
 ## Source of truth
 
@@ -37,7 +37,7 @@ Per-connector implementation notes were removed in v2.0.0. Use live AgentKit met
 via the Scalekit MCP server as the current source of truth for tool schemas and coverage.
 
 For official connector documentation see the
-[Scalekit connector catalog](https://docs.scalekit.com/agentkit/connectors.md).
+[Scalekit connector catalog](https://docs.scalekit.com/agentkit/connectors).
 
 ## Related docs
 

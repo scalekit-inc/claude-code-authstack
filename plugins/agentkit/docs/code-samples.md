@@ -22,10 +22,10 @@ Use it to choose an implementation style before opening a larger sample reposito
 
 ## Official Scalekit docs
 
-- [AgentKit examples](https://docs.scalekit.com/agentkit/examples.md)
-- [Code samples](https://docs.scalekit.com/agentkit/code-samples.md)
-- [LangChain example](https://docs.scalekit.com/agentkit/examples/langchain.md)
-- [Google ADK example](https://docs.scalekit.com/agentkit/examples/google-adk.md)
+- [AgentKit examples](https://docs.scalekit.com/agentkit/examples)
+- [Code samples](https://docs.scalekit.com/agentkit/code-samples)
+- [LangChain example](https://docs.scalekit.com/agentkit/examples/langchain)
+- [Google ADK example](https://docs.scalekit.com/agentkit/examples/google-adk)
 
 ## Important rule
 

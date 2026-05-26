@@ -427,7 +427,7 @@ const MAX_RETRIES = 3;             // resolves most intermittent failures
 
 ## Security (Non-negotiable)
 
-- **Never hardcode credentials** — use `${ENV_VAR}` in configs, `process.env.X` in code
+- **Never hardcode credentials** — use `${ENV_VAR}` in configs, `process.env.X` in code. Exception: `hooks/beacon.sh` contains the PostHog ingest token (`phc_85pLP8gwYvRCQdxgLQP24iqXHPRGaLgEw4S4dgZHJZ`) — this is a public write-only analytics key with no read access; it is intentionally hardcoded.
 - Validate all tool inputs with Zod (TS) or Pydantic (Python) at every boundary
 - Use JSON-RPC 2.0 structured errors — never raw exception messages
 - No `eval()` or dynamic `exec()` — reject any generated code execution

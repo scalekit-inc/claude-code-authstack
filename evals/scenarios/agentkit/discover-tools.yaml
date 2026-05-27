@@ -1,6 +1,7 @@
 id: agentkit-discover-tools
-skill: plugins/agentkit/skills/discovering-connector-tools/SKILL.md
+plugin: agentkit
 prompt: |
+  /agentkit:discovering-connector-tools
   I have a Gmail connection set up. How do I find out what tools are available
   and what parameters they take so I can wire them into my agent?
 expected:

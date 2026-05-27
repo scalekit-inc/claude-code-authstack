@@ -2,8 +2,9 @@
 """
 Eval runner for claude-code-authstack plugins.
 
-Simulates Claude Code skill injection: loads SKILL.md as system context,
-sends a test prompt, checks the response against patterns and a judge rubric.
+Uses `claude --plugin-dir` to load each plugin and run test prompts,
+then judges responses with a second `claude` call. No API key needed —
+reuses your existing Claude Code session.
 
 Usage:
   python run.py                    # run all scenarios
@@ -14,53 +15,62 @@ Usage:
 
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
-import anthropic
 import yaml
 
 REPO_ROOT = Path(__file__).parent.parent
 SCENARIOS_DIR = Path(__file__).parent / "scenarios"
 RESULTS_DIR = Path(__file__).parent / "results"
-MODEL = "claude-sonnet-4-6"
-
-client = anthropic.Anthropic()
 
 
-def load_skill(skill_path: str) -> str:
-    path = REPO_ROOT / skill_path
-    if not path.exists():
-        raise FileNotFoundError(f"Skill not found: {skill_path}")
-    return path.read_text()
-
-
-def load_scenario(path: Path) -> dict:
-    with open(path) as f:
-        return yaml.safe_load(f)
-
-
-def generate(skill_content: str, prompt: str) -> tuple[str, dict]:
-    """Call Claude with skill as cached system context. Returns (response_text, usage)."""
-    response = client.messages.create(
-        model=MODEL,
-        max_tokens=2048,
-        system=[
-            {
-                "type": "text",
-                "text": skill_content,
-                "cache_control": {"type": "ephemeral"},
-            }
-        ],
-        messages=[{"role": "user", "content": prompt}],
+def claude(args: list[str], prompt: str) -> str:
+    """Run claude CLI and return stdout. Raises on non-zero exit."""
+    result = subprocess.run(
+        ["claude", *args, "-p", prompt, "--print"],
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
     )
-    usage = {
-        "input_tokens": response.usage.input_tokens,
-        "output_tokens": response.usage.output_tokens,
-        "cache_read": getattr(response.usage, "cache_read_input_tokens", 0),
-        "cache_write": getattr(response.usage, "cache_creation_input_tokens", 0),
-    }
-    return response.content[0].text, usage
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or "claude exited non-zero")
+    return result.stdout.strip()
+
+
+def generate(plugin: str, prompt: str) -> str:
+    plugin_dir = str(REPO_ROOT / "plugins" / plugin)
+    return claude(["--plugin-dir", plugin_dir], prompt)
+
+
+def judge(response: str, rubric: list[str]) -> dict[str, bool]:
+    if not rubric:
+        return {}
+
+    items = "\n".join(f"{i+1}. {item}" for i, item in enumerate(rubric))
+    judge_prompt = f"""Evaluate this response against each rubric item. Return a JSON object where each key is the exact rubric item text and the value is true (passes) or false (fails). Return only valid JSON, nothing else.
+
+Response to evaluate:
+<response>
+{response}
+</response>
+
+Rubric:
+{items}"""
+
+    raw = claude([], judge_prompt)
+    raw = re.sub(r"^```(?:json)?\s*", "", raw.strip())
+    raw = re.sub(r"\s*```$", "", raw)
+
+    try:
+        parsed = json.loads(raw)
+        # normalise by position if keys don't match exactly
+        if len(parsed) == len(rubric):
+            return dict(zip(rubric, parsed.values()))
+        return {item: bool(parsed.get(item, False)) for item in rubric}
+    except json.JSONDecodeError:
+        return {item: False for item in rubric}
 
 
 def check_patterns(response: str, expected: dict) -> dict[str, bool]:
@@ -72,49 +82,17 @@ def check_patterns(response: str, expected: dict) -> dict[str, bool]:
     return results
 
 
-def judge(response: str, rubric: list[str]) -> dict[str, bool]:
-    """Ask Claude to evaluate the response against the rubric. Returns pass/fail per item."""
-    if not rubric:
-        return {}
-
-    items = "\n".join(f"{i+1}. {item}" for i, item in enumerate(rubric))
-    prompt = f"""Evaluate this response against each rubric item. Return a JSON object where each key is the rubric item (exact text) and the value is true (passes) or false (fails). Return only valid JSON, nothing else.
-
-Response to evaluate:
-<response>
-{response}
-</response>
-
-Rubric:
-{items}"""
-
-    result = client.messages.create(
-        model=MODEL,
-        max_tokens=1024,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    text = result.content[0].text.strip()
-
-    # strip markdown code fences if present
-    text = re.sub(r"^```(?:json)?\s*", "", text)
-    text = re.sub(r"\s*```$", "", text)
-
-    try:
-        raw = json.loads(text)
-        # normalise: match rubric items by position if keys differ
-        if len(raw) == len(rubric):
-            return dict(zip(rubric, raw.values()))
-        return {item: raw.get(item, False) for item in rubric}
-    except json.JSONDecodeError:
-        return {item: False for item in rubric}
+def load_scenario(path: Path) -> dict:
+    with open(path) as f:
+        return yaml.safe_load(f)
 
 
-def run_scenario(scenario_path: Path, verbose: bool = False) -> dict:
-    scenario = load_scenario(scenario_path)
-    skill_content = load_skill(scenario["skill"])
+def run_scenario(path: Path, verbose: bool = False) -> dict:
+    scenario = load_scenario(path)
+    plugin = scenario["plugin"]
     expected = scenario.get("expected", {})
 
-    response, usage = generate(skill_content, scenario["prompt"])
+    response = generate(plugin, scenario["prompt"])
     pattern_results = check_patterns(response, expected)
     judge_results = judge(response, expected.get("rubric", []))
 
@@ -124,13 +102,12 @@ def run_scenario(scenario_path: Path, verbose: bool = False) -> dict:
 
     return {
         "id": scenario["id"],
-        "skill": scenario["skill"],
+        "plugin": plugin,
         "prompt": scenario["prompt"],
-        "response": response if verbose else response[:300] + "…",
+        "response": response if verbose else response[:400] + "…",
         "checks": all_checks,
         "score": f"{passed_count}/{total_count}",
         "passed": all(all_checks.values()),
-        "usage": usage,
     }
 
 
@@ -139,7 +116,7 @@ def print_result(result: dict, verbose: bool = False) -> None:
     print(f"  {status}  ({result['score']})  {result['id']}")
     for check, ok in result["checks"].items():
         if not ok:
-            print(f"         FAIL: {check}")
+            print(f"         ✗ {check}")
     if verbose:
         print(f"\n  Response:\n{result['response']}\n")
 
@@ -161,7 +138,6 @@ def main() -> None:
         sys.exit(1)
 
     results = []
-    total_tokens = 0
 
     for path in scenario_files:
         plugin = path.parent.name
@@ -170,23 +146,20 @@ def main() -> None:
             result = run_scenario(path, verbose=verbose)
             results.append(result)
             print_result(result, verbose=verbose)
-            total_tokens += result["usage"]["input_tokens"] + result["usage"]["output_tokens"]
         except Exception as e:
             print(f"  ERROR: {e}")
             results.append({"id": path.stem, "passed": False, "error": str(e)})
 
-    # summary
     passed = sum(1 for r in results if r.get("passed"))
     total = len(results)
-    print(f"\n{'─'*40}")
-    print(f"  {passed}/{total} scenarios passed  (~{total_tokens:,} tokens used)")
+    print(f"\n{'─' * 40}")
+    print(f"  {passed}/{total} scenarios passed")
 
-    # save results
     RESULTS_DIR.mkdir(exist_ok=True)
     out = RESULTS_DIR / "latest.json"
     with open(out, "w") as f:
         json.dump(results, f, indent=2)
-    print(f"  Results saved to evals/results/latest.json")
+    print(f"  Results → evals/results/latest.json")
 
     sys.exit(0 if passed == total else 1)
 

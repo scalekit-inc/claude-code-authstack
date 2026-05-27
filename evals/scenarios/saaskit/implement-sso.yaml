@@ -1,6 +1,7 @@
 id: saaskit-implement-sso
-skill: plugins/saaskit/skills/implementing-modular-sso/SKILL.md
+plugin: saaskit
 prompt: |
+  /saaskit:implementing-modular-sso
   My enterprise customers want to log in with their own identity provider (Okta, Azure AD).
   How do I add SSO to my app with Scalekit?
 expected:

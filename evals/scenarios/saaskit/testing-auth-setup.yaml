@@ -2,8 +2,9 @@
 # The skill previously listed @scalekit-inc/cli as a prerequisite but the dryrun
 # commands use @scalekit-sdk/dryrun — a different package. The prereq was removed.
 id: saaskit-testing-auth-setup
-skill: plugins/saaskit/skills/testing-auth-setup/SKILL.md
+plugin: saaskit
 prompt: |
+  /saaskit:testing-auth-setup
   How do I verify that my Scalekit auth setup is working correctly before going to production?
 expected:
   code_patterns:

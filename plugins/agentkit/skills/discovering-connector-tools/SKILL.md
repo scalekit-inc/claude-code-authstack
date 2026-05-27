@@ -85,6 +85,7 @@ Use `connector` in explanations. Only use `provider` when the SDK or API filter 
 - `connection_name` is the exact dashboard value — may not equal the connector slug
 - Always use live tool metadata, not static docs
 - Restrict the tool set before handing to an LLM — fewer relevant tools improve selection accuracy
+- **Before executing any tool**: verify the connected account status is `ACTIVE`. Tool execution fails silently or errors if the account is not yet authorized.
 
 **If `get_tools` returns empty:** verify the connector is configured in the dashboard and the connection name matches exactly.
 

@@ -1,6 +1,7 @@
 id: agentkit-code-doctor-old-patterns
-skill: plugins/agentkit/skills/scalekit-code-doctor/SKILL.md
+plugin: saaskit
 prompt: |
+  /saaskit:scalekit-code-doctor
   Review this Python code for correctness:
 
   ```python

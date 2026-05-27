@@ -1,6 +1,7 @@
 id: agentkit-integrate-nodejs
-skill: plugins/agentkit/skills/integrating-agentkit/SKILL.md
+plugin: agentkit
 prompt: |
+  /agentkit:integrating-agentkit
   I want to integrate AgentKit into my Node.js app so my AI agent can call Gmail
   and Slack on behalf of users. Walk me through the setup.
 expected:

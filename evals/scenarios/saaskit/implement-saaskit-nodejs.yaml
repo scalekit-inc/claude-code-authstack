@@ -1,6 +1,7 @@
 id: saaskit-implement-nodejs
-skill: plugins/saaskit/skills/implementing-saaskit/SKILL.md
+plugin: saaskit
 prompt: |
+  /saaskit:implementing-saaskit
   I'm building a Node.js Express app and want to add login with Scalekit.
   I need the auth callback route and session handling. How do I set this up?
 expected:

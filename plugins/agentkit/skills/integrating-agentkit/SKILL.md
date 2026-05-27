@@ -10,6 +10,8 @@ Scalekit handles the full OAuth lifecycle — authorization, token storage, and 
 **Required env vars**: `SCALEKIT_CLIENT_ID`, `SCALEKIT_CLIENT_SECRET`, `SCALEKIT_ENVIRONMENT_URL`
 → Get from [app.scalekit.com](https://app.scalekit.com): Developers → Settings → API Credentials
 
+**Key concept — `connection_name`**: Every connector has a `connection_name` — the exact string set in the Scalekit Dashboard when creating the connection. It is used in all SDK calls (`get_or_create_connected_account`, `get_authorization_link`, `get_connected_account`). It may differ from the connector slug (e.g., the connector is "gmail" but the `connection_name` could be `"MY_GMAIL_PROD"`). Always use the exact dashboard value.
+
 ## Setup
 
 Install the SDK and initialize the client:

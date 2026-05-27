@@ -13,7 +13,10 @@ Install the SDK and set credentials in `.env`:
 SCALEKIT_ENVIRONMENT_URL=<your-environment-url>
 SCALEKIT_CLIENT_ID=<your-client-id>
 SCALEKIT_CLIENT_SECRET=<your-client-secret>
+SCALEKIT_REDIRECT_URI=<your-callback-url>   # e.g. https://yourapp.com/auth/callback
 ```
+
+> `SCALEKIT_REDIRECT_URI` must exactly match the callback URL registered in the Scalekit dashboard under Allowed Redirect URIs.
 
 ## Auth flow
 

@@ -13,6 +13,8 @@ description: Implements enterprise SSO and authentication flows using Scalekit, 
 
 This skill covers Modular SSO for applications with existing user management.
 
+**Key concept — `organization_id`**: SSO in Scalekit is scoped to an organization. Pass `organization_id` (or the user's email domain) in the authorization URL to route the user to their identity provider (Okta, Azure AD, Google Workspace, etc.). Without it, Scalekit cannot determine which IdP to use.
+
 ## Implementation Workflow
 
 Copy this checklist and track progress:

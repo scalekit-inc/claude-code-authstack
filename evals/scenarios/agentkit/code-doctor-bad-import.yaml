@@ -1,0 +1,27 @@
+id: agentkit-code-doctor-old-patterns
+skill: plugins/agentkit/skills/scalekit-code-doctor/SKILL.md
+prompt: |
+  Review this Python code for correctness:
+
+  ```python
+  import scalekit.client
+  from dotenv import load_dotenv
+  import os
+
+  load_dotenv()
+
+  scalekit = scalekit.client.ScalekitClient(
+      client_id=os.getenv("SCALEKIT_CLIENT_ID"),
+      client_secret=os.getenv("SCALEKIT_CLIENT_SECRET"),
+      env_url=os.getenv("SCALEKIT_ENV_URL"),
+  )
+  actions = scalekit.actions
+  ```
+expected:
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL is correct
+    - looks good
+  rubric:
+    - Identifies that SCALEKIT_ENV_URL is the wrong env var name (should be SCALEKIT_ENVIRONMENT_URL)
+    - Identifies that the import style is outdated (should use from scalekit import ScalekitClient)
+    - Provides corrected code with the right import and env var

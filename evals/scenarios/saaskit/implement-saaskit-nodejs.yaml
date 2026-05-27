@@ -1,0 +1,18 @@
+id: saaskit-implement-nodejs
+skill: plugins/saaskit/skills/implementing-saaskit/SKILL.md
+prompt: |
+  I'm building a Node.js Express app and want to add login with Scalekit.
+  I need the auth callback route and session handling. How do I set this up?
+expected:
+  code_patterns:
+    - SCALEKIT_ENVIRONMENT_URL
+    - SCALEKIT_CLIENT_ID
+    - SCALEKIT_CLIENT_SECRET
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL
+  rubric:
+    - Shows how to redirect the user to the Scalekit authorization URL
+    - Shows how to handle the callback and exchange the code for tokens
+    - Covers storing the access token in the session
+    - Does not hardcode credentials in any code examples
+    - Mentions setting up SCALEKIT_REDIRECT_URI

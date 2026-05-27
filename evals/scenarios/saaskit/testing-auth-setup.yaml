@@ -1,0 +1,18 @@
+# Regression test for: https://github.com/scalekit-inc/claude-code-authstack/pull/20
+# The skill previously listed @scalekit-inc/cli as a prerequisite but the dryrun
+# commands use @scalekit-sdk/dryrun — a different package. The prereq was removed.
+id: saaskit-testing-auth-setup
+skill: plugins/saaskit/skills/testing-auth-setup/SKILL.md
+prompt: |
+  How do I verify that my Scalekit auth setup is working correctly before going to production?
+expected:
+  code_patterns:
+    - "@scalekit-sdk/dryrun"
+    - SCALEKIT_ENVIRONMENT_URL
+    - SCALEKIT_CLIENT_ID
+  forbidden_patterns:
+    - "@scalekit-inc/cli"
+  rubric:
+    - Provides the exact npx command to run the dryrun tool
+    - Explains the fsa and sso modes and when to use each
+    - Does not instruct the user to install @scalekit-inc/cli as a prerequisite for dryrun

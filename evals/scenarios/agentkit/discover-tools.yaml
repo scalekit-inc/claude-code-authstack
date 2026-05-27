@@ -1,0 +1,14 @@
+id: agentkit-discover-tools
+skill: plugins/agentkit/skills/discovering-connector-tools/SKILL.md
+prompt: |
+  I have a Gmail connection set up. How do I find out what tools are available
+  and what parameters they take so I can wire them into my agent?
+expected:
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL
+  rubric:
+    - Directs the user to use live AgentKit metadata rather than static docs
+    - Explains how to filter tools by connector or provider
+    - Mentions inspecting input_schema to understand required fields
+    - Does not present a hardcoded list of Gmail tool names as if it is exhaustive
+    - Recommends verifying the connected account is ACTIVE before executing tools

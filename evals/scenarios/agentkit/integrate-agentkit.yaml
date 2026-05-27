@@ -1,0 +1,18 @@
+id: agentkit-integrate-nodejs
+skill: plugins/agentkit/skills/integrating-agentkit/SKILL.md
+prompt: |
+  I want to integrate AgentKit into my Node.js app so my AI agent can call Gmail
+  and Slack on behalf of users. Walk me through the setup.
+expected:
+  code_patterns:
+    - SCALEKIT_ENVIRONMENT_URL
+    - SCALEKIT_CLIENT_ID
+    - SCALEKIT_CLIENT_SECRET
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL
+  rubric:
+    - Explains how to install the Scalekit SDK
+    - Mentions connection_name as the identifier for a connector
+    - Covers creating or fetching a connected account for the user
+    - Does not hardcode credentials in any code examples
+    - Mentions that the connected account must be ACTIVE before tool execution

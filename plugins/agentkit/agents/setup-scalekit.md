@@ -39,10 +39,10 @@ Workflow:
    - Incorrect client id/secret
    - Network/DNS issues
 8) Only after verification succeeds, proceed to feature work and route to the correct Skill:
-   - SSO → plugins/saaskit/skills/implementing-modular-sso/SKILL.md
-   - SCIM → plugins/saaskit/skills/implementing-scim-provisioning/SKILL.md
-   - MCP server auth → plugins/saaskit/skills/adding-mcp-oauth/SKILL.md
-   - SaaSKit auth → plugins/saaskit/skills/implementing-saaskit/SKILL.md
-   - Agent auth (connectors, tool discovery) → install agentkit: claude plugin install agentkit@scalekit-auth-stack
+   - Integrate AgentKit → plugins/agentkit/skills/integrating-agentkit/SKILL.md
+   - Discover connector tools → plugins/agentkit/skills/discovering-connector-tools/SKILL.md
+   - Expose AgentKit via MCP → plugins/agentkit/skills/exposing-agentkit-via-mcp/SKILL.md
+   - Production readiness → plugins/agentkit/skills/production-readiness-agentkit/SKILL.md
+   - B2B SaaS auth (SSO, SCIM, login) → install saaskit: claude plugin install saaskit@scalekit-auth-stack
 
 When you reference files, use exact repo-relative paths and read them before advising.

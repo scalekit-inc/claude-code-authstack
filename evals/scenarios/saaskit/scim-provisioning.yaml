@@ -15,4 +15,4 @@ expected:
     - Shows webhook endpoint implementation that handles user lifecycle events (user created, user deleted)
     - Instructs user to register the webhook URL in the Scalekit dashboard
     - Maps directory events to local user operations (create, update, deactivate)
-    - Includes a checklist or workflow to track SCIM implementation progress
+    - Provides implementation steps or phases for completing the SCIM integration

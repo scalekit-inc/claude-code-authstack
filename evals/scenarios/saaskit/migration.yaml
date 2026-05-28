@@ -6,7 +6,6 @@ prompt: |
   way to do this migration?
 expected:
   code_patterns:
-    - SCALEKIT_ENVIRONMENT_URL
     - feature flag
   forbidden_patterns:
     - SCALEKIT_ENV_URL

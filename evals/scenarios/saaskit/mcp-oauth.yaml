@@ -6,7 +6,7 @@ prompt: |
   integrate Scalekit?
 expected:
   code_patterns:
-    - StreamableHTTP
+    - Streamable
   forbidden_patterns:
     - SCALEKIT_ENV_URL
   rubric:

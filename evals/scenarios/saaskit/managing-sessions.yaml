@@ -2,8 +2,10 @@ id: saaskit-managing-sessions
 plugin: saaskit
 prompt: |
   /saaskit:managing-saaskit-sessions I need to implement session management for
-  my Express app using Scalekit. How do I store tokens securely and handle
-  refresh logic?
+  my Express (Node.js) app using Scalekit. Traditional server-side rendering.
+  No existing encryption utility — use Node.js built-in crypto (AES-GCM).
+  @scalekit-sdk/node is already installed. Show me how to store tokens securely
+  and handle the refresh logic. Provide the code directly.
 expected:
   code_patterns:
     - httpOnly

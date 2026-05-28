@@ -1,9 +1,10 @@
 id: saaskit-implement-nextjs
 plugin: saaskit
 prompt: |
-  /saaskit:implementing-saaskit-nextjs I'm building a Next.js App Router
-  project and need to add Scalekit auth — login, callback, and protecting
-  server components.
+  /saaskit:implementing-saaskit-nextjs I'm building a new Next.js 14 App
+  Router project and need to add Scalekit auth. Show me the code directly —
+  login redirect, OAuth callback, and how to protect a server component.
+  Use TypeScript. I don't have an existing app to reference.
 expected:
   code_patterns:
     - SCALEKIT_ENVIRONMENT_URL

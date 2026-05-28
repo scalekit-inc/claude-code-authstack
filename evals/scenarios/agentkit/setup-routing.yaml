@@ -6,6 +6,6 @@ prompt: |
 expected:
   rubric:
     - Routes to integrating-agentkit as the correct starting skill
-    - Explains this is what AgentKit is designed for (agents calling third-party tools on behalf of users)
+    - Confirms the use case fits AgentKit (agent needs to call Slack on behalf of users)
     - Does not attempt to implement the full integration itself without routing
     - Mentions that Slack must be configured in the dashboard (non-Gmail connectors require setup)

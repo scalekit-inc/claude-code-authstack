@@ -5,13 +5,12 @@ prompt: |
   tools over MCP so Claude Desktop users can call them on behalf of my users.
 expected:
   code_patterns:
-    - connection_name
-    - SCALEKIT_ENVIRONMENT_URL
-    - streamable_http
+    - streamable
   forbidden_patterns:
     - SCALEKIT_ENV_URL
   rubric:
     - Explains that each user gets their own per-user MCP instance URL
     - Mentions completing OAuth (visiting auth links) before tools can be used
     - Notes that Google Calendar must be configured in the dashboard first unlike Gmail
+    - Uses connection_name to reference the exact dashboard connector name in code or config
     - Does not hardcode credentials in any code example

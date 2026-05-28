@@ -1,0 +1,18 @@
+id: saaskit-scim-provisioning
+plugin: saaskit
+prompt: |
+  /saaskit:implementing-scim-provisioning My enterprise customers use Okta and
+  need automated user provisioning. How do I set up SCIM with Scalekit to
+  sync users and deprovision them when they leave?
+expected:
+  code_patterns:
+    - webhook
+    - directory
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL
+  rubric:
+    - Explains Directory API for polling/on-demand sync alongside webhooks for real-time events
+    - Shows webhook endpoint implementation that handles user lifecycle events (user created, user deleted)
+    - Instructs user to register the webhook URL in the Scalekit dashboard
+    - Maps directory events to local user operations (create, update, deactivate)
+    - Includes a checklist or workflow to track SCIM implementation progress

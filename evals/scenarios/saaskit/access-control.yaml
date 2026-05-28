@@ -1,0 +1,20 @@
+id: saaskit-access-control
+plugin: saaskit
+prompt: |
+  /saaskit:implementing-access-control I want to protect my API routes so that
+  only users with the 'admin' role can access /api/admin and only users with
+  the 'reports:read' permission can access /api/reports.
+expected:
+  code_patterns:
+    - roles
+    - permissions
+    - validateAccessToken
+    - organizationId
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL
+  rubric:
+    - Validates the access token server-side before checking roles or permissions
+    - Attaches normalized auth context (id, organizationId, roles, permissions) to the request
+    - Shows role check middleware and permission check middleware as separate concerns
+    - Never relies on client-side authorization alone
+    - Extracts roles and permissions from the token claims (not a separate API call)

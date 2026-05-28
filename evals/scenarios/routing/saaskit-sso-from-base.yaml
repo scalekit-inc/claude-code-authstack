@@ -1,0 +1,11 @@
+id: routing-saaskit-sso-from-base
+plugin: saaskit
+prompt: |
+  /saaskit:setup I need to add enterprise SSO (SAML/OIDC) for my B2B SaaS
+  customers using Okta and Azure AD. Where do I start?
+expected:
+  rubric:
+    - Routes to implementing-modular-sso or implementing-saaskit as the starting point
+    - Does not implement the full SSO flow itself before the user invokes the target skill
+    - Mentions that SSO requests require an organizationId or domain to route to the right IdP
+    - "Explains Modular SSO: keep existing user/session management and bolt on IdP support"

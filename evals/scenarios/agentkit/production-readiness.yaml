@@ -1,0 +1,15 @@
+id: agentkit-production-readiness
+plugin: agentkit
+prompt: |
+  /agentkit:production-readiness-agentkit I'm about to launch my AgentKit
+  integration to production. What do I need to check?
+expected:
+  code_patterns:
+    - SCALEKIT_ENVIRONMENT_URL
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL
+  rubric:
+    - Checks that production credentials are used (not dev/staging environment URL)
+    - Covers OAuth token flow validation including refresh and revocation
+    - Includes a security check that API credentials are not hardcoded in source code
+    - Includes a final smoke test sequence covering the full connected account lifecycle

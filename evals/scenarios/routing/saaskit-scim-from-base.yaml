@@ -1,0 +1,12 @@
+id: routing-saaskit-scim-from-base
+plugin: saaskit
+prompt: |
+  /saaskit:setup My enterprise customers need automatic user provisioning and
+  deprovisioning. When an employee joins or leaves, their account should be
+  created or disabled automatically. How do I set this up?
+expected:
+  rubric:
+    - Routes to implementing-scim-provisioning as the correct skill
+    - Explains Scalekit bridges the customer's identity provider (Okta, Azure AD) and the app
+    - Does not implement webhook endpoint code before the user invokes the target skill
+    - "Describes the sync mechanism: IdP pushes events and Scalekit delivers them as webhooks"

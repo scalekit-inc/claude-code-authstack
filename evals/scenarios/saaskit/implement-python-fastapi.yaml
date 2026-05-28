@@ -1,0 +1,21 @@
+id: saaskit-implement-python-fastapi
+plugin: saaskit
+prompt: |
+  /saaskit:implementing-saaskit-python I'm building a FastAPI app and want to
+  add Scalekit authentication. Show me the login redirect, callback handler,
+  and how to protect routes.
+expected:
+  code_patterns:
+    - scalekit-sdk-python
+    - SCALEKIT_ENVIRONMENT_URL
+    - get_authorization_url
+    - authenticate_with_code
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL
+    - getAuthorizationUrl
+  rubric:
+    - Uses scalekit-sdk-python (pip install), not the Node.js SDK
+    - Uses snake_case method names matching the Python SDK (get_authorization_url, not getAuthorizationUrl)
+    - Implements login redirect endpoint and OAuth callback handler
+    - Shows how to protect a FastAPI route or dependency
+    - Includes SCALEKIT_ENVIRONMENT_URL, SCALEKIT_CLIENT_ID, SCALEKIT_CLIENT_SECRET env vars

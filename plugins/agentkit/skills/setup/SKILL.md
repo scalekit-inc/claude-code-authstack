@@ -5,13 +5,13 @@ description: Starting point for any Scalekit AgentKit integration. Use when the 
 
 # AgentKit — Where to Start
 
-Answer 2 questions, then follow the link for your exact skill.
+> **IMPORTANT:** This skill routes to the right skill — it does NOT implement the integration itself. Once you identify the right skill below, tell the user to invoke it and stop. Do not generate implementation code here.
 
 ---
 
-## Step 1: Ask the user these questions
+## Step 1: Determine what to build
 
-If answers aren't already clear from context, ask:
+If answers aren't already clear from context, ask one question at a time:
 
 1. **What are you building?**
    - New agent that needs to call third-party tools on behalf of users (Gmail, Slack, Salesforce, etc.)
@@ -25,15 +25,19 @@ If answers aren't already clear from context, ask:
 
 ---
 
-## Step 2: Route to the right skill
+## Step 2: Tell the user exactly which skill to invoke
 
-| What you're building | Skill |
+Pick the best match and tell the user: "Run `/agentkit:<skill>` to get started."
+
+| What you're building | Tell them to run |
 |---|---|
-| Connect users to third-party apps, execute tools on their behalf | `/agentkit:integrating-agentkit` |
-| Discover available tools for a connector, inspect schemas | `/agentkit:discovering-connector-tools` |
+| New agent calling third-party tools (Gmail, Slack, Salesforce…) on behalf of users | `/agentkit:integrating-agentkit` |
+| Discover tools available for a connector, inspect schemas | `/agentkit:discovering-connector-tools` |
 | Expose AgentKit tools over MCP for Claude Desktop, Cursor, VS Code | `/agentkit:exposing-agentkit-via-mcp` |
-| Pre-launch checklist for production | `/agentkit:production-readiness-agentkit` |
+| Pre-launch checklist, going to production | `/agentkit:production-readiness-agentkit` |
 | SDK errors, wrong imports, broken auth calls | `/saaskit:scalekit-code-doctor` |
+
+After telling the user which skill to run, **stop**. The target skill handles implementation.
 
 ---
 
@@ -42,7 +46,7 @@ If answers aren't already clear from context, ask:
 Before starting any skill, verify credentials exist:
 
 ```bash
-SCALEKIT_ENVIRONMENT_URL=https://your-env.scalekit.dev
+SCALEKIT_ENVIRONMENT_URL=https://your-env.scalekit.com
 SCALEKIT_CLIENT_ID=<from dashboard>
 SCALEKIT_CLIENT_SECRET=<from dashboard>
 ```
@@ -63,6 +67,8 @@ The Scalekit MCP server (`https://mcp.scalekit.com`) is pre-configured in `.mcp.
 | **Tool** | An action the agent can take (send email, create issue, etc.) |
 
 Flow: User authorizes → connected account created → agent discovers tools → agent executes tool calls using that account.
+
+**Dashboard setup note:** Gmail works without extra configuration. All other connectors (Slack, Salesforce, GitHub, Google Calendar, etc.) must be enabled and configured in the Scalekit Dashboard before users can connect them.
 
 ---
 

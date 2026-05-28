@@ -1,0 +1,12 @@
+id: routing-agentkit-code-error
+plugin: agentkit
+prompt: |
+  /agentkit:setup I'm getting an error in my AgentKit integration:
+  "TypeError: Cannot read properties of undefined (reading 'accessToken')".
+  My code calls getConnectedAccountToken() but it's failing.
+expected:
+  rubric:
+    - Identifies this as a connected account or auth issue, not a generic JavaScript error
+    - Routes to integrating-agentkit, discovering-connector-tools, or scalekit-code-doctor for resolution
+    - Does not attempt to patch the calling code without first understanding the account state
+    - Points to the connected account lifecycle as the likely root cause

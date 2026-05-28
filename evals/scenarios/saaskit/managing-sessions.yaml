@@ -1,0 +1,21 @@
+id: saaskit-managing-sessions
+plugin: saaskit
+prompt: |
+  /saaskit:managing-saaskit-sessions I need to implement session management for
+  my Express app using Scalekit. How do I store tokens securely and handle
+  refresh logic?
+expected:
+  code_patterns:
+    - httpOnly
+    - sameSite
+    - refreshToken
+    - accessToken
+  forbidden_patterns:
+    - localStorage
+    - sessionStorage
+  rubric:
+    - Uses HttpOnly cookies for token storage, not localStorage or sessionStorage
+    - Sets secure and sameSite attributes on cookies
+    - Shows refresh middleware that checks token expiry and calls refresh before failing
+    - Scopes access token cookie to /api and refresh token cookie to the refresh endpoint
+    - Covers logout that clears cookies and revokes the remote session

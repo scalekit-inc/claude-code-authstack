@@ -1,0 +1,18 @@
+id: saaskit-migration
+plugin: saaskit
+prompt: |
+  /saaskit:migrating-to-saaskit We currently use Auth0 for authentication and
+  want to migrate to Scalekit. We have about 10,000 users. What's the safest
+  way to do this migration?
+expected:
+  code_patterns:
+    - SCALEKIT_ENVIRONMENT_URL
+    - feature flag
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL
+  rubric:
+    - Recommends an incremental, reversible migration (not a big-bang cutover)
+    - Starts with auditing and exporting existing auth data (users, orgs, roles)
+    - Covers importing users/orgs into Scalekit via SDK before cutover
+    - Mentions using a feature flag to enable rollback to the old system
+    - Includes a rollback or backup step (feature flag, export backup, or documented procedure)

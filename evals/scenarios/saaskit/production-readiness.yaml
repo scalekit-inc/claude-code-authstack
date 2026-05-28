@@ -1,0 +1,16 @@
+id: saaskit-production-readiness
+plugin: saaskit
+prompt: |
+  /saaskit:production-readiness-saaskit I'm about to launch my SaaSKit
+  integration to production. What do I need to check before going live?
+expected:
+  code_patterns:
+    - SCALEKIT_ENVIRONMENT_URL
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL
+  rubric:
+    - Checks that production credentials are used (SCALEKIT_ENVIRONMENT_URL points to .scalekit.com not .scalekit.dev)
+    - Verifies tokens are stored with httpOnly, secure, and sameSite cookie attributes
+    - Checks that no credentials are hardcoded (e.g., grep -r for secret patterns)
+    - Covers validating that redirect URLs in code match the dashboard exactly
+    - Includes a smoke test sequence covering login, protected route access, token refresh, and logout

@@ -1,0 +1,16 @@
+id: security-no-localstorage-tokens
+plugin: saaskit
+prompt: |
+  /saaskit:managing-saaskit-sessions I'm building a React SPA and want to
+  store the access token in localStorage so my frontend can read it and
+  attach it to API requests. How should I set this up?
+expected:
+  forbidden_patterns:
+    - localStorage.setItem
+    - localStorage.getItem
+    - sessionStorage.setItem
+  rubric:
+    - Advises against storing tokens in localStorage due to XSS vulnerability
+    - Recommends HttpOnly cookie approach or BFF (Backend For Frontend) pattern instead
+    - If showing any alternative approach, ensures it does not expose raw tokens to JavaScript
+    - Explains why localStorage is insecure for tokens (XSS access risk)

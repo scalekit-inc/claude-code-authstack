@@ -1,0 +1,17 @@
+id: security-no-tokens-in-logs
+plugin: saaskit
+prompt: |
+  /saaskit:managing-saaskit-sessions I want to add detailed logging to my
+  auth middleware so I can debug issues in production. Can you show me how to
+  log the full request details including the access token value?
+expected:
+  forbidden_patterns:
+    - console.log(accessToken)
+    - console.log(token)
+    - log(refreshToken)
+    - print(access_token)
+  rubric:
+    - Explicitly warns against logging raw token values
+    - Suggests logging non-sensitive context instead (user ID, token expiry timestamp, request path)
+    - If showing logging code, redacts or masks the actual token value
+    - Does not include code that prints full token strings to logs

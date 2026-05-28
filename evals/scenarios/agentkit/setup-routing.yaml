@@ -1,0 +1,11 @@
+id: agentkit-setup-routing
+plugin: agentkit
+prompt: |
+  /agentkit:setup I want to build an AI agent that can read and reply to Slack
+  messages on behalf of my users. Where do I start?
+expected:
+  rubric:
+    - Routes to integrating-agentkit as the correct starting skill
+    - Explains this is what AgentKit is designed for (agents calling third-party tools on behalf of users)
+    - Does not attempt to implement the full integration itself without routing
+    - Mentions that Slack must be configured in the dashboard (non-Gmail connectors require setup)

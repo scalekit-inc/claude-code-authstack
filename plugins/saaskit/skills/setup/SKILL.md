@@ -5,13 +5,13 @@ description: Starting point for any Scalekit SaaSKit integration. Use when the u
 
 # SaaSKit — Where to Start
 
-Answer 3 questions, then follow the link for your exact skill.
+> **IMPORTANT:** This skill routes to the right skill — it does NOT implement auth itself. Once you identify the right skill below, tell the user to invoke it and stop. Do not generate implementation code here.
 
 ---
 
-## Step 1: Ask the user these questions
+## Step 1: Determine what to build
 
-If answers aren't already clear from context, ask:
+If answers aren't already clear from context, ask one question at a time:
 
 1. **New or existing codebase?**
    - New project
@@ -33,9 +33,11 @@ If answers aren't already clear from context, ask:
 
 ---
 
-## Step 2: Route to the right skill
+## Step 2: Tell the user exactly which skill to invoke
 
-| Framework | What you're adding | Skill |
+Pick the best match and tell the user: "Run `/saaskit:<skill>` to get started."
+
+| Framework | What you're adding | Tell them to run |
 |---|---|---|
 | Next.js | Login + sessions | `/saaskit:implementing-saaskit-nextjs` |
 | Python | Login + sessions | `/saaskit:implementing-saaskit-python` |
@@ -47,7 +49,17 @@ If answers aren't already clear from context, ask:
 | Any | RBAC / permissions | `/saaskit:implementing-access-control` |
 | Any | Migrating from Auth0 / Firebase / custom auth | `/saaskit:migrating-to-saaskit` |
 
-If the user wants **login + SSO + SCIM** (full B2B auth stack), start with `/saaskit:implementing-saaskit` or the framework-specific variant, then chain to `/saaskit:implementing-modular-sso` once login is working.
+If the user wants **login + SSO + SCIM** (full B2B auth stack), tell them to start with `/saaskit:implementing-saaskit` (or the framework variant), then chain to `/saaskit:implementing-modular-sso` once login is working.
+
+When routing, include one or two relevant orientation sentences from below so the user has context before reading the skill. Then **stop** — the target skill handles implementation.
+
+### Orientation notes by topic
+
+**Enterprise SSO:** SSO in Scalekit is scoped to an organization — every auth request needs `organizationId` or a domain hint to reach the right IdP. Two modes: Modular SSO (you manage users/sessions) vs Full-Stack SaaSKit (Scalekit manages users). Most B2B SaaS apps with existing user management use Modular SSO.
+
+**SCIM provisioning:** Scalekit bridges the customer's identity provider (Okta, Azure AD) and your app via webhooks. Requires two parts: a webhook endpoint in your app, AND SCIM configuration on the customer's IdP side.
+
+**MCP OAuth:** Requires Streamable HTTP transport — stdio does not support OAuth. The MCP server must expose a `/.well-known/oauth-protected-resource` discovery endpoint.
 
 ---
 
@@ -56,7 +68,7 @@ If the user wants **login + SSO + SCIM** (full B2B auth stack), start with `/saa
 Before starting any skill, verify credentials exist:
 
 ```bash
-SCALEKIT_ENVIRONMENT_URL=https://your-env.scalekit.dev
+SCALEKIT_ENVIRONMENT_URL=https://your-env.scalekit.com
 SCALEKIT_CLIENT_ID=<from dashboard>
 SCALEKIT_CLIENT_SECRET=<from dashboard>
 ```

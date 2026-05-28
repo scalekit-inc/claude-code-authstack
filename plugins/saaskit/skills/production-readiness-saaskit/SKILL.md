@@ -122,8 +122,10 @@ Enterprise VPN customers must whitelist: `<your-env>.scalekit.com`, `cdn.scaleki
 ## Final smoke test
 
 Run the full cycle in staging with production credentials before flipping DNS:
-1. Sign up a new user → verify session cookies are set correctly
-2. Log out → verify IdP session ends (re-visiting login should prompt credentials)
-3. Trigger SSO login → verify callback completes
-4. If SCIM: trigger a directory sync event → verify user appears
-5. If MCP: connect a client → verify tool execution succeeds
+1. Sign up / log in → verify session cookies are set with `httpOnly`, `secure`, `sameSite`
+2. Access a protected route → verify the access token is validated and the request succeeds
+3. Wait for access token to expire (or force expiry) → verify token refresh works and the session is maintained
+4. Log out → verify cookies are cleared and re-visiting login prompts credentials again
+5. If SSO enabled: trigger SSO login → verify callback completes and user session is created
+6. If SCIM: trigger a directory sync event → verify user appears
+7. If MCP: connect a client → verify tool execution succeeds

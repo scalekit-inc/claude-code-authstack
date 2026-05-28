@@ -1,0 +1,17 @@
+id: saaskit-mcp-oauth
+plugin: saaskit
+prompt: |
+  /saaskit:adding-mcp-oauth I have an MCP server and I want to add OAuth 2.1
+  authorization so only authenticated users can call my tools. How do I
+  integrate Scalekit?
+expected:
+  code_patterns:
+    - StreamableHTTP
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL
+  rubric:
+    - States that MCP OAuth requires Streamable HTTP transport (not stdio)
+    - Shows discovery endpoint implementation required for OAuth 2.1 metadata
+    - Implements token validation middleware that checks incoming Bearer tokens
+    - Covers registering the MCP server in the Scalekit dashboard
+    - Does not hardcode credentials in any code example

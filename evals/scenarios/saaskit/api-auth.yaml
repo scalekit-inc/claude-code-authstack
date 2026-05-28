@@ -1,0 +1,18 @@
+id: saaskit-api-auth
+plugin: saaskit
+prompt: |
+  /saaskit:adding-api-auth I want to let my enterprise customers authenticate
+  to my API using API keys. How do I create keys scoped to their organization
+  and validate them on each request?
+expected:
+  code_patterns:
+    - Bearer
+    - token_id
+  forbidden_patterns:
+    - SCALEKIT_ENV_URL
+  rubric:
+    - Explains that the plain-text API key is returned only once at creation and never stored by Scalekit
+    - Shows how to create an org-scoped API key via the SDK
+    - Shows how to validate an incoming Bearer token and extract org/user context
+    - Covers key revocation (delete by token_id)
+    - Does not hardcode credentials in any code example

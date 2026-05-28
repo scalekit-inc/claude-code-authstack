@@ -6,7 +6,7 @@ prompt: |
   How do I add SSO to my app with Scalekit?
 expected:
   code_patterns:
-    - organization_id
+    - organizationId
   forbidden_patterns:
     - SCALEKIT_ENV_URL
   rubric:

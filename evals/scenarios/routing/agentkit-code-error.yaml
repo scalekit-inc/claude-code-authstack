@@ -9,4 +9,4 @@ expected:
     - Identifies this as a connected account or auth issue, not a generic JavaScript error
     - Routes to integrating-agentkit, discovering-connector-tools, or scalekit-code-doctor for resolution
     - Does not tell the user to change their calling code as the immediate fix (connection state must be verified first)
-    - Points to the connected account lifecycle as the likely root cause
+    - Treats getConnectedAccountToken failure as an AgentKit auth/connection issue requiring investigation

@@ -1,102 +1,17 @@
 [
   {
-    "id": "agentkit-code-doctor-old-patterns",
+    "id": "saaskit-mcp-oauth",
     "plugin": "saaskit",
-    "prompt": "/saaskit:scalekit-code-doctor\nReview this Python code for correctness:\n\n```python\nimport scalekit.client\nfrom dotenv import load_dotenv\nimport os\n\nload_dotenv()\n\nscalekit = scalekit.client.ScalekitClient(\n    client_id=os.getenv(\"SCALEKIT_CLIENT_ID\"),\n    client_secret=os.getenv(\"SCALEKIT_CLIENT_SECRET\"),\n    env_url=os.getenv(\"SCALEKIT_ENV_URL\"),\n)\nactions = scalekit.actions\n```\n",
-    "response": "Three bugs found. Here's the full review:\n\n---\n\n## Findings\n\n### 1. Wrong import (Critical)\n\n**Wrong:**\n```python\nimport scalekit.client\nscalekit = scalekit.client.ScalekitClient(...)\n```\n\n**Why:** `scalekit.client` is an internal path, not the public API. Will break on version changes. Listed explicitly in COMMON-MISTAKES.md as anti-pattern.\n\n**Correct:**\n```python\nfrom scalekit import ScalekitCl\u2026",
+    "prompt": "/saaskit:adding-mcp-oauth I have an MCP server and I want to add OAuth 2.1\nauthorization so only authenticated users can call my tools. How do I\nintegrate Scalekit?\n",
+    "response": "6-step process. Here's the path:\n\n---\n\n**Prerequisite: HTTP transport required**\nStdio doesn't support OAuth. Need `StreamableHTTPServerTransport` (Node) or `mcp.streamable_http_app()` (Python/uvicorn).\n\n---\n\n**Step 1 \u2014 Install SDK**\n```bash\nnpm install @scalekit-sdk/node        # Node\npip install scalekit-sdk-python       # Python\n```\n\n**Step 2 \u2014 Register in Scalekit dashboard**\nDashboard \u2192 MCP Servers \u2192 Add. Enable **dynamic client registration** + **CIMD**. Restart server after.\n\n**Step 3 \u2014 Discovery endpoint**\nExpose `/.well-known/oauth-protected-resource`. Copy metadata JSON from dashboard. Must be publicly accessible (bypass auth middleware for this path).\n\n**Step 4 \u2014 Token validation middleware**\nInit `ScalekitClient` with env vars. Middleware extracts `Bearer` token, calls `scalekit.validateToken(token, { audience: [RESOURCE_ID] })`. On failure \u2192 `401` with `WWW-Authenticate: Bearer realm=\"OAuth\", resource_metadata=\"...\"` header. That header is critical \u2014 without it, AI hosts (Claude Desktop, Cursor) fail silently.\n\n**Step 5 \u2014 Scope-based auth (optional)**\nPass `requiredScopes: ['todo:write']` to `validateToken`. Return `403` with `error: 'insufficient_scope'` on failure.\n\n**Step 6 \u2014 Verify**\n```bash\ncurl -i <your-mcp-url>                  # must get 401\ncurl https://<domain>/.well-known/...   # must get JSON\n```\nCheck `WWW-Authenticate` header present in 401 response.\n\n---\n\n**Which framework?** Skill has full reference implementations:\n- Python + FastMCP \u2192 `fastmcp-reference.md`\n- Node + Express \u2192 `express-reference.md`  \n- Python + FastAPI \u2192 `fastapi-reference.md`\n\nWhat's your stack? I can pull the exact reference.",
     "checks": {
-      "forbidden: SCALEKIT_ENV_URL is correct": true,
-      "forbidden: looks good": true,
-      "Identifies that SCALEKIT_ENV_URL is the wrong env var name (should be SCALEKIT_ENVIRONMENT_URL)": true,
-      "Identifies that the import style is outdated (should use from scalekit import ScalekitClient)": true,
-      "Provides corrected code with the right import and env var": true
-    },
-    "score": "5/5",
-    "passed": true
-  },
-  {
-    "id": "agentkit-discover-tools",
-    "plugin": "agentkit",
-    "prompt": "/agentkit:discovering-connector-tools\nI have a Gmail connection set up. How do I find out what tools are available\nand what parameters they take so I can wire them into my agent?\n",
-    "response": "Gmail connection exists. Use Scalekit SDK to fetch live tool metadata.\n\n**Python:**\n```python\nfrom scalekit import ScalekitClient\nimport os\nfrom dotenv import load_dotenv\nload_dotenv()\n\nsk_client = ScalekitClient(\n    client_id=os.getenv(\"SCALEKIT_CLIENT_ID\"),\n    client_secret=os.getenv(\"SCALEKIT_CLIENT_SECRET\"),\n    env_url=os.getenv(\"SCALEKIT_ENVIRONMENT_URL\"),\n)\n\ntools = sk_client.actions.get_\u2026",
-    "checks": {
+      "contains: Streamable": true,
       "forbidden: SCALEKIT_ENV_URL": true,
-      "Directs the user to use live AgentKit metadata rather than static docs": true,
-      "Explains how to filter tools by connector or provider": true,
-      "Mentions inspecting input_schema to understand required fields": true,
-      "Does not present a hardcoded list of Gmail tool names as if it is exhaustive": true,
-      "Recommends verifying the connected account is ACTIVE before executing tools": true
-    },
-    "score": "6/6",
-    "passed": true
-  },
-  {
-    "id": "agentkit-integrate-nodejs",
-    "plugin": "agentkit",
-    "prompt": "/agentkit:integrating-agentkit\nI want to integrate AgentKit into my Node.js app so my AI agent can call Gmail\nand Slack on behalf of users. Walk me through the setup.\n",
-    "response": "Node.js + Gmail + Slack. Here's the full path.\n\n---\n\n## 1. Install & initialize\n\n```bash\nnpm install @scalekit-sdk/node dotenv\n```\n\n```typescript\nimport { ScalekitClient } from '@scalekit-sdk/node';\nimport 'dotenv/config';\n\nconst scalekitClient = new ScalekitClient(\n  process.env.SCALEKIT_ENVIRONMENT_URL!,\n  process.env.SCALEKIT_CLIENT_ID!,\n  process.env.SCALEKIT_CLIENT_SECRET!\n);\nconst { connecte\u2026",
-    "checks": {
-      "contains: SCALEKIT_ENVIRONMENT_URL": true,
-      "contains: SCALEKIT_CLIENT_ID": true,
-      "contains: SCALEKIT_CLIENT_SECRET": true,
-      "forbidden: SCALEKIT_ENV_URL": true,
-      "Explains how to install the Scalekit SDK": true,
-      "Mentions connection_name as the identifier for a connector": true,
-      "Covers creating or fetching a connected account for the user": true,
-      "Does not hardcode credentials in any code examples": true,
-      "Mentions that the connected account must be ACTIVE before tool execution": true
-    },
-    "score": "9/9",
-    "passed": true
-  },
-  {
-    "id": "saaskit-implement-nodejs",
-    "plugin": "saaskit",
-    "prompt": "/saaskit:implementing-saaskit\nI'm building a Node.js Express app and want to add login with Scalekit.\nI need the auth callback route and session handling. How do I set this up?\n",
-    "response": "Here's complete Express setup for Scalekit auth:\n\n**1. Install + configure**\n\n```sh\nnpm install @scalekit-sdk/node\n```\n\n`.env`:\n```\nSCALEKIT_ENVIRONMENT_URL=https://your-env.scalekit.com\nSCALEKIT_CLIENT_ID=your-client-id\nSCALEKIT_CLIENT_SECRET=your-client-secret\nSCALEKIT_REDIRECT_URI=http://localhost:3000/auth/callback\n```\n\n**2. Initialize SDK**\n\n```js\n// lib/scalekit.js\nimport { ScalekitClient } \u2026",
-    "checks": {
-      "contains: SCALEKIT_ENVIRONMENT_URL": true,
-      "contains: SCALEKIT_CLIENT_ID": true,
-      "contains: SCALEKIT_CLIENT_SECRET": true,
-      "forbidden: SCALEKIT_ENV_URL": true,
-      "Shows how to redirect the user to the Scalekit authorization URL": true,
-      "Shows how to handle the callback and exchange the code for tokens": true,
-      "Covers storing the access token in the session": true,
-      "Does not hardcode credentials in any code examples": true,
-      "Mentions setting up SCALEKIT_REDIRECT_URI": true
-    },
-    "score": "9/9",
-    "passed": true
-  },
-  {
-    "id": "saaskit-implement-sso",
-    "plugin": "saaskit",
-    "prompt": "/saaskit:implementing-modular-sso\nMy enterprise customers want to log in with their own identity provider (Okta, Azure AD).\nHow do I add SSO to my app with Scalekit?\n",
-    "response": "SSO flow: 4 key pieces. Here's what to build:\n\n## 1. Install SDK + set env vars\n\n```bash\nnpm install @scalekit-sdk/node\n```\n\n```env\nSCALEKIT_ENVIRONMENT_URL=<from dashboard>\nSCALEKIT_CLIENT_ID=<from dashboard>\nSCALEKIT_CLIENT_SECRET=<from dashboard>\n```\n\n## 2. Generate auth URL (redirect user to their IdP)\n\n```javascript\nconst scalekit = new ScalekitClient(\n  process.env.SCALEKIT_ENVIRONMENT_URL,\n\u2026",
-    "checks": {
-      "contains: organization_id": true,
-      "forbidden: SCALEKIT_ENV_URL": true,
-      "Explains that SSO is scoped to an organization": true,
-      "Shows how to pass organization_id or domain in the auth request": true,
-      "Mentions the admin portal for customers to configure their identity provider": true,
-      "Does not require the developer to implement SAML parsing themselves": true
-    },
-    "score": "6/6",
-    "passed": true
-  },
-  {
-    "id": "saaskit-testing-auth-setup",
-    "plugin": "saaskit",
-    "prompt": "/saaskit:testing-auth-setup\nHow do I verify that my Scalekit auth setup is working correctly before going to production?\n",
-    "response": "Use the Scalekit dryrun CLI. Two modes depending on what you're testing:\n\n**Full-stack auth (login, callback, sessions):**\n```bash\nnpx @scalekit-sdk/dryrun --env_url=$SCALEKIT_ENVIRONMENT_URL --client_id=$SCALEKIT_CLIENT_ID --mode=fsa\n```\n\n**Enterprise SSO (SAML/OIDC with an IdP):**\n```bash\nnpx @scalekit-sdk/dryrun --env_url=$SCALEKIT_ENVIRONMENT_URL --client_id=$SCALEKIT_CLIENT_ID --mode=sso --or\u2026",
-    "checks": {
-      "contains: @scalekit-sdk/dryrun": true,
-      "contains: SCALEKIT_ENVIRONMENT_URL": true,
-      "contains: SCALEKIT_CLIENT_ID": true,
-      "forbidden: @scalekit-inc/cli": true,
-      "Provides the exact npx command to run the dryrun tool": true,
-      "Explains the fsa and sso modes and when to use each": true,
-      "Does not instruct the user to install @scalekit-inc/cli as a prerequisite for dryrun": true
+      "States that MCP OAuth requires Streamable HTTP transport (not stdio)": true,
+      "Shows discovery endpoint implementation required for OAuth 2.1 metadata": true,
+      "Implements token validation middleware that checks incoming Bearer tokens": true,
+      "Covers registering the MCP server in the Scalekit dashboard": true,
+      "Does not hardcode credentials in any code example": true
     },
     "score": "7/7",
     "passed": true

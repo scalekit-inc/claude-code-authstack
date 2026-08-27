@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "scalekit-auth-stack",
-  "description": "Scalekit auth plugins for Claude Code covering full-stack auth, Modular SSO, SCIM provisioning, MCP OAuth 2.1, and agent authentication.",
+  "description": "ARCHIVED. Install from scalekit-inc/authstack instead. Old five-plugin marketplace (agent-auth, full-stack-auth, mcp-auth, modular-sso, modular-scim).",
   "owner": {
     "name": "Scalekit Inc",
     "email": "support@scalekit.com"
